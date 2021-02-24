@@ -1,0 +1,26 @@
+
+  .row {
+     margin-top: 1em;
+   }
+ .btn{
+   margin-left: 1em;
+ }
+  .bottom-buttons {
+  margin-top: 2em;
+   margin-left: 2em;
+  }
+  .float-right {
+      float: right;
+  }
+ 
+  .resize-img{
+      width: 150px;
+      margin-right: 1em;
+  }
+P{
+  margin-bottom: 0em;
+  color: #262626;
+}
+h5{
+  margin-bottom: 1.5em;
+}

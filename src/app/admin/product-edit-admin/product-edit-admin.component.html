@@ -1,0 +1,138 @@
+<div class="container-fluid" >
+  <input type="submit" class="btn btn-black float-right" 
+          value="SAVE PRODUCT" (click)="onSubmit()" [disabled]="productForm.invalid" >
+  <h2>NEW PRODUCT</h2>
+
+  <form action="/action_page.php" [formGroup]="productForm">
+    <div class="row" >
+
+      <div class="col-sm-3">
+        <div class="row card">
+          <div class="card-body">
+            <h4>BASIC INFORMATION</h4>
+            <div class="form-group" >
+              <label for="name" >Product Name: </label>                      
+              <span class="errorMessage" 
+                      *ngIf="getinputField('name')?.hasError('required') && getinputField('name').dirty " >
+                      This field is required 
+              </span>
+              <input  required type="text" class="form-control"
+                      id="name" [value]="product.name"
+                      formControlName="name" >
+            </div>
+            <div class="form-group" >
+              <label for="desc" >Description:</label>
+              <span class="errorMessage" 
+                    *ngIf="getinputField('description')?.hasError('required') && getinputField('description').dirty">
+                    This field is required</span>
+              <textarea class="form-control rounded-0" rows="3"
+                        id="description" [value]="product.description" 
+                        formControlName="description">
+              </textarea> 
+            </div>
+            <div class="form-group" >
+              <label>Category:</label><br>
+                <div *ngFor='let category of categoryList'>
+                  <input type="checkbox" name="{{category.id}}" 
+                        [value]="category.id" 
+                        [checked]="isChecked(category.name)"
+                        (change)="getCategoryId($event, category.name)">
+                        {{category.name}}
+                </div>
+            </div>                  
+          </div>
+        </div> 
+      </div>
+
+      <div class="col-sm-6">
+        <div class="row card">
+          <div class="card-body">
+            <h4>SALES INFORMATION</h4>
+            <div class="row">   
+              <div class="col-sm-12">
+                <button class="btn btn-black btn-block" [hidden]="isLoad" (click)=getData()> LOAD VARIATION DETAILS</button>
+              </div>
+              <div class="col-sm-5">
+                <div class="row" >
+                  <div class="col-sm-12">
+                    <button class="btn btn-black btn-block"  (click)="addSize()"
+                            [hidden]="!isLoad"
+                            [disabled]="isAddVariation"
+                            value="value">Add Size</button>
+                  </div>
+                  <div class="col-sm-12">
+                    <button class="btn btn-black btn-block" [hidden]="isSizeAdd" [disabled]="isAddVariation"
+                            (click)="removeSize()" value="value" >Remove Size</button>
+                  </div>
+                  <div class="col-sm-12">
+                    <button class="btn btn-black btn-block" [hidden]="isSizeAdd"
+                          (click)="getSizeValue()" value="value" 
+                          [disabled] = "isAddVariation"
+                          >Save Size</button>
+                  </div>
+                 <div class="col-sm-12">
+                    <button class="btn btn-black btn-block" [hidden]="isSizeSave" (click)="addVariation()" >Add Variation</button>
+                  </div> 
+                  <div class="col-sm-12">
+                    <button class="btn btn-black btn-block" [hidden]="isSizeSave" (click)="removeVariation()">Remove Variation</button>
+                  </div>
+                  <div class="col-sm-12">
+                    <button class="btn btn-danger btn-block" [hidden]="isSizeSave" 
+                            (click)="resetSize()" value="value" >RESET</button>
+                  </div> 
+                </div>
+              </div>
+  
+              <div formArrayName="sizeVariation">
+             <div class="col-sm-7" *ngFor="let sizeForm of size().controls let i=index" [formGroupName]="i">
+               <span> <input type="text" placeholder="Enter Size"
+                       class="form-control" formControlName='size'
+                       [readonly]="isAddVariation"
+                       > 
+              </span> 
+              </div>
+              </div>
+   
+             
+            </div>
+              <app-edit-product-dynamic *ngFor="let variationForm of variation().controls"
+              [variationForm]="variationForm" [sizeValue]="sizeValue" [detailValue]= "detailValue" >
+              </app-edit-product-dynamic>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="row card">
+          <div class="card-body">
+            <h4>MEDIA MANAGEMENT</h4>      
+              <div class="form-group col-sm-12 " >
+                  <label> Images</label>
+              </div>
+              <div class="col-sm-12">
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input multiple   type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"  (change)="selectFile($event)">
+                      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    </div>
+
+                  </div>
+
+
+                  <div formArrayName="productImages">
+
+                    <img [src]="url" *ngFor="let url of product.productImages" [src]="url"  class="img-responsive image-display" style="width:50%" alt="Image"></div>  
+                    <span class="errorMessage" 
+                    >
+                    Image Required</span> 
+              </div>  
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 btn">
+      </div>
+
+    </div>   
+    </form>
+</div>

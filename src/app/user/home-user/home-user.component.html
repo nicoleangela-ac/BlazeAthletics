@@ -1,0 +1,22 @@
+<div class="container">
+  <carousel [noWrap]="noWrapSlides" [showIndicators]="showIndicator" class="btn-black">
+    <slide *ngFor="let slides of slides">
+     <img  [src]="slides.banner" class = "img-responsive img_banner"  alt="image slide" style="display: block; width: 100%;">
+   </slide>
+ </carousel>
+  <br/>
+</div>
+
+<div class="container-fluid text-center"> 
+  <h2 class="home-header">NEW RELEASES</h2><br>
+  <div class="row">
+    <div class="col-sm-3" *ngFor='let product of product'>
+     <div class="card">
+       <div class="card-body">
+         <img class="card-img" [src]="product.productImages[0]" alt="No Image Available">
+         <h5 > {{product.name}} </h5>
+       </div>
+     </div>
+   </div> 
+  </div>
+</div>

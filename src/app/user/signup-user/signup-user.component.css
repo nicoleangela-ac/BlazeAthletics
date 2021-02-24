@@ -1,0 +1,13 @@
+label {
+    margin-bottom: 0;
+}
+
+.alert-msg{
+    margin-bottom: 0cm;
+    margin-left: 1em;
+}
+
+input.ng-invalid.ng-touched
+{
+   border: 1px solid red;
+}

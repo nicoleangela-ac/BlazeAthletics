@@ -1,0 +1,23 @@
+h3 {
+	text-align: center;
+}
+
+ .home-body {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+input.ng-invalid.ng-touched
+{
+  border: 1px solid red;
+}
+
+textarea.ng-invalid.ng-touched
+{
+   border: 1px solid red;
+}
+
+.btn-align{
+	float: right;
+	margin-right: 25px;
+}

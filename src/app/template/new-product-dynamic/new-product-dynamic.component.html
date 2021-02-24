@@ -1,0 +1,33 @@
+<form [formGroup]="variationForm">
+    <table  class="table table-bordered">
+        <tr >
+            <th colspan="5">
+                <span class="errorMessage" 
+                *ngIf="getinputField('variationName')?.hasError('required') && getinputField('variationName').dirty ">
+                *</span>
+                <input type="text" placeholder="Enter Variation" formControlName="variationName" class="form-control">
+            </th>
+        </tr>
+        <tr >
+            <td colspan="5">
+                <tr  formArrayName="variationDetail">
+                    <span class="errorMessage" 
+                    *ngIf="getinputField('variationDetail')?.hasError('required') && getinputField('variationDetail').dirty ">
+                        Required Variation List</span> 
+                    <div *ngFor="let detailList of detailList().controls; let i=index" [formGroupName]="i" >
+                        <td colspan="2"> Size : 
+                            <input type="text" readonly formControlName="size"  class="form-control" >
+                        </td>
+                        <td> Stock: 
+                            <span class="errorMessage"  *ngIf="getinputField('stock')?.hasError('required') && getinputField('stock').dirty "> *</span>                                         
+                            <input type="text" formControlName="stock" class="form-control">
+                        </td>
+                        <td colspan="2"> Price:
+                            <input formControlName="price" type="text"class="form-control">
+                        </td>  
+                    </div>
+                </tr>  
+            </td>
+        </tr>  
+    </table>  
+</form>

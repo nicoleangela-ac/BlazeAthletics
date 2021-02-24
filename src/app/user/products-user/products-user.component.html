@@ -1,0 +1,35 @@
+<h2>PRODUCTS</h2><br> 
+<div class="container-fluid text-center"> 
+    <nav class="navbar navbar-expand-sm navbar-light">
+        <!-- Links -->
+        <ul class="navbar-nav  mx-auto">
+          <li class="nav-item">
+            <a class="nav-link">NEW</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">ANIME</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">SHIRTS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" >JERSEYS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">HOODIES</a>
+          </li>
+        </ul>
+      </nav> 
+      <div class="row">
+        <div class="col-sm-3" *ngFor='let product of product'>
+          <div class="card">
+            <div class="card-body">
+              <img class="card-img" [src]="product.productImages[0]" alt="Card image">
+              <a 
+                routerLink="/selected-item/{{product.key}}"
+                class="btn btn-block btn-light"> ADD TO CART </a>
+          </div>
+        </div>
+      </div>
+    </div>           
+</div>
