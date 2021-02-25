@@ -1,3 +1,16 @@
 .card{
     padding: 1em;
+    height: 26em ;
+
+}
+.card-img-top{
+    max-height:13em;
+    max-width: 13em;
+}
+p{
+    margin-bottom: 0.2em;
+}
+.btn-width{
+    margin-top: 0.5em;
+    width: 5em;
 }

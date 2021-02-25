@@ -8,7 +8,7 @@
   </div>
 
   <div class="col-sm-6">
-    <svg routerLink="/products-user" width="30" height="30" fill="currentColor" class="bi bi-x float-right" viewBox="0 0 16 16">
+    <svg routerLink="/products-user" width="40" height="40" fill="currentColor" class="bi bi-x float-right" viewBox="0 0 16 16">
       <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
     </svg>
 
@@ -21,34 +21,39 @@
               <ul>
                 <li *ngFor='let product of product.productVariation; let i= index'>
                   <input hidden type='radio' (click)="getVariation(product.variationName)" name='variation' id={{product.variationName}}/>
-                  <label class ="btn-light btn-circle btn-xl" for={{product.variationName}}>{{product.variationName}}</label>
+                  <label class ="btn-secondary btn-circle btn-xl" for={{product.variationName}}>{{product.variationName}}</label>
                 </li>
               </ul>
 
             <h5>Sizes</h5>
               <ul>
                 <li *ngFor='let product of product.sizeVariation'>
-                  <input [disabled]="isTrue" hidden type='radio'  name='size' (click)="getSize(product.size)" id={{product.size}}/>
+                  <input  hidden type='radio'  name='size' (click)="getSize(product.size)" id={{product.size}}/>
                   <label  class="btn-secondary btn-circle btn-xl" for={{product.size}} >{{product.size}}</label>   
                 </li>
               </ul>
 
-            <p *ngIf="productItem.price != null">Price: {{productItem.price}} </p>
+            <p class="price" *ngIf="productItem.price != null">Price: {{productItem.price}} </p>
             <p  class="errorMessage" *ngIf="stock >=  1 ">Available Stock: {{stock}}</p>
             <p class="errorMessage" *ngIf="stock == 0"> NO AVAILABLE STOCK </p>
           </div>
 
           <div class="col-sm-12">
             <h5>Quantity</h5>
-            <input type="text" class="form-control"  [readonly]="isValid" required [value]="noItem" name="noItem" id="quantity">
+            <div class=" btn-group">
+              <button class="btn btn-black quantity-btn">+</button>
+                <input type="text" class="form-control text-center"  [readonly]="isValid" required [value]="noItem" name="noItem" id="quantity">
+              <button class="btn btn-black quantity-btn" >-</button>
+            </div>
+
           </div>
 
           <div class="col-sm-12">
-            <p>{{product.description}}</p>
+            <p class="description">{{product.description}}</p>
           </div>
 
           <div>
-            <button type="submit" (click)="addToCart()"  class="btn btn-danger btn-cart">ADD TO CART</button>
+            <button type="submit" (click)="addToCart()"  class="btn btn-black btn-cart">ADD TO CART</button>
           </div>
         </form>
     </div>

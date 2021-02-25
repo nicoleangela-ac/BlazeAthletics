@@ -65,9 +65,13 @@ isChecked(name) : boolean{
 }
   getData() {
     this.sizeValue =  this.product.sizeVariation
+    console.log(this.product.sizeVariation)
+
     //size  control
     for(var i in this.product.sizeVariation) {
       this.addSize(this.product.sizeVariation[i].size )
+      console.log(this.product.sizeVariation[i].size )
+
     }
     //variation control
     for(let i in this.product.productVariation){
@@ -120,6 +124,8 @@ isChecked(name) : boolean{
 
   getSizeValue() {
   this.sizeValue = this.size().value;
+  console.log(this.size().value )
+
   this.isSizeSave = false;
   this.isAddVariation = true
   }
@@ -129,13 +135,12 @@ isChecked(name) : boolean{
   getArrayField (field) : FormArray { return this.productForm?.get(field) as FormArray  }
   size(): FormArray { return this.productForm.get("sizeVariation") as FormArray }
   addSize(size?) {  this.size().push(this.newSize(size)); this.isSizeAdd = false }
-  newSize(size?): FormGroup {  return this.fb.group({ size: [  [size], Validators.required ]  })  }
+  newSize(sizes?): FormGroup {  return this.fb.group({ size: [  [sizes], Validators.required ]  })  }
   removeSize() { this.size().removeAt( this.sizeLength = this.size().length - this.size().length - 1 ); this.myChild.removeVariationDetail() }
   resetSize() {this.size().clear(); this.variation().clear(); this.isSizeSave = true; this.isAddVariation= false; this.isSizeAdd = true }
   variation() : FormArray { return this.productForm.get("productVariation") as FormArray  }
   newVariation(name?): FormGroup {  return EditProductDynamicComponent.addVariationItem(name)  }  
   addVariation(name? ) { this.variation().push(this.newVariation(name));  }
-  setVariation(stock, price){ }
   removeVariation() { this.variation().removeAt(this.variationLength = this.variation.length - this.variation.length-1 ); }
 
   //setting/getting form value
@@ -155,9 +160,9 @@ isChecked(name) : boolean{
 
   onSubmit() {
   (this.productForm.get("productImages") as FormArray).patchValue(this.product.productImages);  
- this.update();
+// this.update();
   console.log(this.productForm.value)
-  this.router.navigate(['/inventory']);
+ // this.router.navigate(['/inventory']);
   }
 
 }

@@ -8,3 +8,22 @@
 .bi-person-fill{
     margin-left: 15px;
 }
+img{
+    height: 2.3em;
+    width: auto;
+}
+.navbar-brand {
+        margin-right: 0;
+
+}
+li{
+    margin-right: .7em;
+    margin-left: .7em;
+}
+.nav-link{
+    font-size: 1.07em;
+    color: #161616;
+}
+.nav-link:hover{
+    color: rgb(80, 80, 80);
+}

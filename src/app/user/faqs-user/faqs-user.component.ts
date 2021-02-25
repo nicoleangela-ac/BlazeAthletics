@@ -10,13 +10,17 @@ import { EmailSendingService } from 'src/app/service/email-sending.service';
   styleUrls: ['./faqs-user.component.css']
 })
 export class FaqsUserComponent implements OnInit {
-
+  noWrapSlides = false;
+  showIndicator = true;
   faqForm: FormGroup;
   message: string = null;
   errorMessage: string = null;
   faqs: any;
+  slides: any;
   constructor(private sendEmail: EmailSendingService, private service : FirebaseProductsService) {
     this.faqs = service.getFaqsData();
+    this.slides = service.getShopImg();
+
   }
 
   ngOnInit(){
@@ -58,6 +62,18 @@ export class FaqsUserComponent implements OnInit {
       )
     ).subscribe(faq => {
       this.faqs = faq;
+    });
+  }
+
+  getShopImg() {
+    this.service.getShopImg().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(images => {
+      this.slides= images;
     });
   }
 

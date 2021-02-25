@@ -6,7 +6,19 @@
     src: url(../src/assets/fonts/LemonMilk.ttf) format('truetype');
 }
 
+@font-face {
+    font-family: NugoSans;
+    src: url(../src/assets/fonts/NugoSans-Light.ttf) format('truetype');
+}
+@font-face {
+    font-family: Evolve-Sans;
+    src: url(../src/assets/fonts/MADE-Evolve-Sans-Light-_PERSONAL-USE_.ttf) format('truetype');
+}
 
+@font-face {
+    font-family: Evolve-Sans-Regular;
+    src: url(../src/assets/fonts/MADE-Evolve-Sans-Regular.ttf) format('truetype');
+}
 h3,h5 {
     font-family: LemonMilk;
 }
@@ -51,4 +63,8 @@ P {
     color: red;
     font-style: italic;
     margin-left: 5px;
+}
+.paragraph-nomargin{
+    margin-bottom: 0em;
+
 }
