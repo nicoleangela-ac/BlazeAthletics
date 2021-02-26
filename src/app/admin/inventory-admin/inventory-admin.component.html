@@ -1,0 +1,41 @@
+<div class="container-fluid">  
+    
+    <h2>INVENTORY</h2>  
+      <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h5 class="">3 PRODUCTS </h5>
+                </div>
+                <div class="col-sm-4">
+                    <button routerLink = "/product-new" class="btn btn-black float-right">Add New Products</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin" >
+            <div class="col-sm-3" *ngFor='let product of product'>
+                <div class="card">
+                <img [src]="product.productImages[0]" class="img-responsive card-img-top" style="width:100%" alt="Image">
+                <div class="row card-body">
+                     <div class="col-sm-12"> 
+                            <p> {{product.name}} </p>
+                            <p> 100</p>
+                        <div class="col-sm-12">
+                            <span>Stocks: 45 </span> 
+                            <span class="float-right">Sold: 35 </span>   
+                        </div>		        		
+                    </div>
+                    <div class="col-sm-6 margin text-center">
+                        <button routerLink = "/product-edit/{{product.key}}"class="btn btn-black btn-width">Edit</button>
+                    </div> 
+                    <div class="col-sm-6 margin text-center">
+                        <button routerLink = "/inventory"class="btn btn-black btn-width" (click)="deleteProduct(product.key, product.name)" >Delete</button>
+                    </div> 
+                </div>            
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

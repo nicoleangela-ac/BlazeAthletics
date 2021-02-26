@@ -1,0 +1,26 @@
+.body-container {
+    margin-left: 15%;
+    margin-right: 15%;
+  }
+
+  .img-thumbnail {
+  	height: 130px;
+    width: auto;
+    border: 0ch solid white;
+  }
+  .col-sm-5{
+    padding-top: 100px
+
+  }
+  .content-aboutUs {
+  	padding-top: 90px
+
+  }
+ p {
+    font-family: Evolve-Sans;
+     font-size: 1.15em;
+ }
+ .title {
+    font-size: 2.7em;
+ 
+ }

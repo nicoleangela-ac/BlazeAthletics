@@ -1,0 +1,55 @@
+
+<button class=" btn btn-black float-right" type="button" (click)="onLogOut()">LOGOUT
+	<svg routerLink="/login-admin" width="15" height="15" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+      </svg>
+</button>
+
+<h2 class="center-text">MY ACCOUNT</h2>
+<div class="container">
+  <h5>MY ORDERS</h5>
+  <div class="row">
+	<div class="col-sm-12">
+		<div class="row">
+			<div class="col-sm-6"> 
+				<h5>PENDING ORDERS</h5>
+			</div>
+			<div class="col-sm-6"> 
+				<button class=" btn btn-white float-right" > <a href="https://jtexpress.ph/index/query/gzquery.html" class="txtblack"> TRACK YOUR ORDER</a> </button>	
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6 vl">
+		<h5> TO PAY</h5>
+		<app-myaccount-topay></app-myaccount-topay>
+ 	</div>
+    <div class="col-sm-6">
+		<h5> TO RECEIVE</h5>	 
+		<app-myaccount-toreceive></app-myaccount-toreceive>
+    </div>
+</div>
+<hr>
+	
+		<button type="button" class="btn btn-block text-left" (click)="isCollapsed = !isCollapsed"
+				[attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+				<h5>> ACCOUNT INFORMATION  </h5>	
+				</button>
+
+	  <div id="collapseExample" [ngbCollapse]="isCollapsed">
+		<div class="card">
+		  <div class="card-body">
+			<app-signup></app-signup>
+		</div>
+		</div>
+	  </div>
+</div>
+
+
+
+
+
+
+
+  
+  

@@ -1,0 +1,13 @@
+<div class="row container-fluid" *ngFor='let item of items_cart'>  
+ 
+            <div class="col-sm-2"> <img  [src]="item.img" class="img-responsive resize-img" alt="Image"> </div>
+    <div class="col-sm-10">
+       <h5> {{item.title}}</h5>
+       <p>{{"SIZE: " + item.size}}</p>
+       <p>{{"COLOR: " + item.color}}</p>
+       <p>{{item.noItem + " x "+ item.price + " PHP"}}</p> 
+       <a class="float-right" href="">REMOVE</a> 
+    </div>
+
+
+</div>

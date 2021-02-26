@@ -1,0 +1,59 @@
+h3 {
+	text-align: center;
+}
+
+ .home-body {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+input.ng-invalid.ng-touched
+{
+  border: 1px solid red;
+}
+
+textarea.ng-invalid.ng-touched
+{
+   border: 1px solid red;
+}
+
+.btn-align{
+	float: right;
+	margin-right: 25px;
+}
+.container-fluid{
+  margin-bottom: 10px;
+}
+.sticky {
+  position: fixed;
+  right: 2;
+  width: 35%;
+  color: black;
+  padding-left: 20px;
+  margin-right: 10px;
+  padding-top: 10px;
+}
+.page-footer{
+  border-top: 1px solid black;
+  text-align: center;
+  padding-top: 25px;
+  padding-bottom: 25px;
+
+}
+p, label {
+  font-family: Evolve-Sans;
+  font-size: 1.1em;
+}
+.bi-facebook{
+  margin-right: 10px;
+}
+.margin-top{
+  margin-top: 10px;
+}
+a{
+  color: black;
+}
+.sizeChart{
+  padding: 3.1em;
+  background-color: black;
+}

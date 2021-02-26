@@ -1,0 +1,25 @@
+<div class="container home-body">  
+  <h2 class="text-center">EDIT ACCOUNT</h2>  
+      <form [formGroup]="adminEditForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+        <div class="form-group col-sm-12">
+          <label for="text">Name</label>
+          <input type="text" class="form-control" id="name" formControlName="name">
+        </div>
+        <div class="form-group col-sm-12">
+          <label for="email">Email:</label>
+          <input type="email" class="form-control" id="email" formControlName="email">
+        </div>
+        <div class="form-group col-sm-12">
+          <label for="contum">Contact Number:</label>
+          <input type="number" class="form-control" id="contum" formControlName="contactNumber">
+        </div>
+        <div class="form-group col-sm-6 text-center">
+          <button type="submit" class="btn btn-black">Save</button>
+        </div>
+        <div class="form-group col-sm-6 text-center">
+          <button type="button" class="btn btn-black" (click)="onFinish()">Finish</button>
+        </div>
+      </div>
+      </form>
+</div>
