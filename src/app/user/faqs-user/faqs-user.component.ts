@@ -16,10 +16,18 @@ export class FaqsUserComponent implements OnInit {
   message: string = null;
   errorMessage: string = null;
   faqs: any;
+<<<<<<< HEAD
   slides: any;
   constructor(private sendEmail: EmailSendingService, private service : FirebaseProductsService) {
     this.faqs = service.getFaqsData();
     this.slides = service.getShopImg();
+=======
+  images: any;
+  slides: any;
+  constructor(private sendEmail: EmailSendingService, private service : FirebaseProductsService) {
+    this.faqs = service.getFaqsData();
+    this.images = service.getShopImg();
+>>>>>>> b42e0962556a4a1e8be2385a0fb971284f4a0cd5
 
   }
 
@@ -32,7 +40,12 @@ export class FaqsUserComponent implements OnInit {
       }
     );
     this.getFaqsList();
+<<<<<<< HEAD
     this.getSizeChart();
+=======
+    this.getShopImg();
+
+>>>>>>> b42e0962556a4a1e8be2385a0fb971284f4a0cd5
   }
 
   onCancel()
@@ -66,11 +79,27 @@ export class FaqsUserComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
   getSizeChart() {
     this.service.getShopPageImg('sizeChart').valueChanges().subscribe(data => {
     this.slides = data;  } ) } 
 
 
 
+=======
+  getShopImg() {
+    this.service.getShopImg().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(images => {
+      this.images= images;
+    });
+    this.slides = Object.values(this.images.sizeChart)
+
+  }
+>>>>>>> b42e0962556a4a1e8be2385a0fb971284f4a0cd5
 
 }

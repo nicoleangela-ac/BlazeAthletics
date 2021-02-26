@@ -1,10 +1,13 @@
 input.ng-invalid.ng-touched
 {
    border: 1px solid red;
+<<<<<<< HEAD
 }
 .container{
    width: 75%;
 }
 .btn {
    width: 130px;
+=======
+>>>>>>> b42e0962556a4a1e8be2385a0fb971284f4a0cd5
 }
