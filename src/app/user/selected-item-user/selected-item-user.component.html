@@ -41,9 +41,13 @@
           <div class="col-sm-12">
             <h5>Quantity</h5>
             <div class=" btn-group">
-              <button class="btn btn-black quantity-btn">+</button>
-                <input type="text" class="form-control text-center"  [readonly]="isValid" required [value]="noItem" name="noItem" id="quantity">
-              <button class="btn btn-black quantity-btn" >-</button>
+              <button (click)=" decreaseQuantity()"
+                      [disabled] = "isTrue"
+              class="btn btn-black quantity-btn" >-</button>
+                <input type="text" class="form-control text-center"  readonly required [value]="noItem" name="noItem" id="quantity">
+              <button (click)="incrementQuantity()"
+              [disabled] = "isValid"
+              class="btn btn-black quantity-btn">+</button>
             </div>
 
           </div>

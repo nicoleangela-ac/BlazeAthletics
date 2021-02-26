@@ -79,7 +79,7 @@ export class ProductNewAdminComponent implements OnInit {
       } } console.log(this.urls); }
   
   getSizeValue() {
-  this.sizeValue = this.size().value;
+  this.sizeValue = Object.values(this.size().value);
   this.isSizeSave = false;
   this.isAddVariation = true
   }

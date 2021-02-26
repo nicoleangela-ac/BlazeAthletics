@@ -9,7 +9,7 @@ import { Component,Input} from '@angular/core';
 export class EditProductDynamicComponent {
 
   @Input() sizeValue: any;
-  @Input() detailValue: any;
+  @Input() detailValue?: any;
   @Input() public variationForm : FormGroup;
   detailLength: number;  
 

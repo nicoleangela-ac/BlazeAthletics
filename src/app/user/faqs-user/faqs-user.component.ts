@@ -16,10 +16,11 @@ export class FaqsUserComponent implements OnInit {
   message: string = null;
   errorMessage: string = null;
   faqs: any;
+  images: any;
   slides: any;
   constructor(private sendEmail: EmailSendingService, private service : FirebaseProductsService) {
     this.faqs = service.getFaqsData();
-    this.slides = service.getShopImg();
+    this.images = service.getShopImg();
 
   }
 
@@ -32,6 +33,8 @@ export class FaqsUserComponent implements OnInit {
       }
     );
     this.getFaqsList();
+    this.getShopImg();
+
   }
 
   onCancel()
@@ -73,8 +76,10 @@ export class FaqsUserComponent implements OnInit {
         )
       )
     ).subscribe(images => {
-      this.slides= images;
+      this.images= images;
     });
+    this.slides = Object.values(this.images.sizeChart)
+
   }
 
 }

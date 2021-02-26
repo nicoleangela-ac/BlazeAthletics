@@ -64,13 +64,11 @@ isChecked(name) : boolean{
   
 }
   getData() {
-    this.sizeValue =  this.product.sizeVariation
-    console.log(this.product.sizeVariation)
+    this.sizeValue= Object.values(this.product.sizeVariation ) 
 
     //size  control
     for(var i in this.product.sizeVariation) {
       this.addSize(this.product.sizeVariation[i].size )
-      console.log(this.product.sizeVariation[i].size )
 
     }
     //variation control
@@ -94,15 +92,12 @@ isChecked(name) : boolean{
   getCategoryId(e: any, name: string) {
     (this.productForm.get("productCategory") as FormArray).reset();
     if(e.target.checked){
-      console.log(name + 'Checked')
       this.product.productCategory.push(name)
     }
     else {
-      console.log(name + 'unChecked')
       this.product.productCategory = this.product.productCategory.filter(m=>m!=name);
     }
     (this.productForm.get("productCategory") as FormArray).patchValue(this.product.productCategory);
-    console.log(this.product.productCategory);
   }
 
 
@@ -119,13 +114,11 @@ isChecked(name) : boolean{
         reader.onload = (e: any) => { this.product.productImages.push(e.target.result);}
         this.count++; }
         reader.readAsDataURL(file);
-      } } console.log(this.urls); }
+      } } }
   
 
   getSizeValue() {
-  this.sizeValue = this.size().value;
-  console.log(this.size().value )
-
+  this.sizeValue = Object.values(this.size().value);
   this.isSizeSave = false;
   this.isAddVariation = true
   }
@@ -135,7 +128,9 @@ isChecked(name) : boolean{
   getArrayField (field) : FormArray { return this.productForm?.get(field) as FormArray  }
   size(): FormArray { return this.productForm.get("sizeVariation") as FormArray }
   addSize(size?) {  this.size().push(this.newSize(size)); this.isSizeAdd = false }
-  newSize(sizes?): FormGroup {  return this.fb.group({ size: [  [sizes], Validators.required ]  })  }
+  newSize(sizes?): FormGroup { 
+     return this.fb.group({
+        size: [  [sizes], Validators.required ]  }  )  }
   removeSize() { this.size().removeAt( this.sizeLength = this.size().length - this.size().length - 1 ); this.myChild.removeVariationDetail() }
   resetSize() {this.size().clear(); this.variation().clear(); this.isSizeSave = true; this.isAddVariation= false; this.isSizeAdd = true }
   variation() : FormArray { return this.productForm.get("productVariation") as FormArray  }
@@ -155,14 +150,29 @@ isChecked(name) : boolean{
     })
   }
 
+   toArray(obj) {
+    const result = [];
+    for (const prop in obj) {
+      const value = obj[prop];
+      if (typeof value === 'object') {
+        result.push(this.toArray(value));
+      } else {
+        result.push(value);
+      }
+    }
+    return result;
+  }
 //save data to firebase
   update() {  this.productService.updateProduct(this.id, this.productForm.value);  }
 
   onSubmit() {
   (this.productForm.get("productImages") as FormArray).patchValue(this.product.productImages);  
-// this.update();
+  this.size().setValue(Object.values(this.product.sizeVariation )) 
+  this.update();
   console.log(this.productForm.value)
- // this.router.navigate(['/inventory']);
+  this.router.navigate(['/inventory']);
+  //console.log(this.product.sizeVariation)
+  //console.log(Object.values(this.product.sizeVariation ) )
   }
 
 }

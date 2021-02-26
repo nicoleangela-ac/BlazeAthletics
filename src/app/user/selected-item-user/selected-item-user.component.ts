@@ -19,7 +19,7 @@ export class SelectedItemUserComponent implements OnInit {
  id: string
  price : number;
  stock : number;
- isTrue = true;
+ isTrue = false;
  isValid = false;
  noItem : number;
  productItem = {
@@ -41,23 +41,28 @@ export class SelectedItemUserComponent implements OnInit {
       this.noItem = 1;
     }
 
+  incrementQuantity(){
+    this.noItem++
+    this.isTrue = false
+    if(this.noItem > this.stock || this.stock == 0){
+      this.isValid = true;
+      }
+    }
+  decreaseQuantity(){
+    this.noItem--
+    this.isValid = false
+    if(this.noItem < 2 || this.stock == 0)  {
+      this.isTrue = true
+    }
+  }
   getSize(size) {
     this.itemSize = size
     this.getPriceStock()  }
 
   getVariation(item){
     this.variation = item
-    this.isTrue = false;
     this.getPriceStock();
     }
-   getValidity() {
-     console.log(this.productItem.noItem )
-     console.log(this.stock)
-      if (this.productItem.noItem > this.stock){
-        console.log('Product out of stock')
-        this.isValid = true}
-      else this.isValid = false
-    } 
   getProductData() {
     this.firebaseService.getSingleProduct(this.id).valueChanges().subscribe(data => {
     this.product = data;  } ) }
@@ -78,14 +83,8 @@ export class SelectedItemUserComponent implements OnInit {
                 } } } } } }
 
   addToCart() { 
- //   this.getValidity();
-        
-        if (this.noItem > this.stock){
-          console.log('Product out of stock')
-         }
-  else { console.log(this.productItem); }
-
+     console.log(this.productItem); }
     } 
   
-  }
+  
 
