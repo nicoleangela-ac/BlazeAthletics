@@ -1,58 +1,67 @@
-<div class="form-horizontal">	
-	<form action="/action_page.php">	
+<div class="form-horizontal">
+		
+	<div class="alert alert-success" *ngIf="message">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+		  <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+		  <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+		  </svg>
+		<span class="alert-msg">{{message}}</span>
+	  </div>
+
+	<form [formGroup]="userDataForm" (ngSubmit)="onSubmit()">	
 		<div class="form-group row">
 			<label for="fname" class="control-label col-sm-6">Fist Name:</label>
 			<label for="mname" class="control-label col-sm-6">Middle Name:</label>
 			<div class="col-sm-6">
-				<input type="password" class="form-control" id="pwd" placeholder="First Name">
+				<input type="text" class="form-control" id="pwd" placeholder="First Name" formControlName="firstname">
 	  		</div>
 	   		<div class="col-sm-6">
-				<input type="text" class="form-control" id="mname" placeholder="Middle Name">
+				<input type="text" class="form-control" id="mname" placeholder="Middle Name" formControlName="middlename">
 	  		 </div> 			 
 		</div>
 		<div class="form-group row">
 			<label for="lname" class="control-label col-sm-6">Last Name:</label>
 			<label for="suffix" class="control-label col-sm-6">Suffix (if applicable)</label>
 			<div class="col-sm-6">
-				<input type="text" class="form-control" id="lname" placeholder="Last Name">
+				<input type="text" class="form-control" id="lname" placeholder="Last Name" formControlName="lastname"> 
 			</div>
 			   <div class="col-sm-6">
-				<input type="text" class="form-control" id="suffix" placeholder="Suffix">
+				<input type="text" class="form-control" id="suffix" placeholder="Suffix" formControlName="suffix">
 			</div> 
 		</div>
 		<div class="form-group row">
 	    	<label for="adrs1" class="control-label col-sm-12">Address Line </label>
 			<div class="col-sm-12">
-				<input type="text" class="form-control" id="adrs1" placeholder="Building Number, Street">
+				<input type="text" class="form-control" id="adrs1" placeholder="Building Number, Street" formControlName="address">
 			</div>
 		</div>
 		<div class="form-group row">
 			<label for="brgy" class="control-label col-sm-6">Barangay:</label>
 			<label for="city" class="control-label col-sm-6">City:</label>
 				<div class="col-sm-6">
-				<input type="text" class="form-control" id="brgy" placeholder="Barangay">
+				<input type="text" class="form-control" id="brgy" placeholder="Barangay" formControlName="barangay">
 			</div>
 			   <div class="col-sm-6">
-				<input type="text" class="form-control" id="city" placeholder="City">
+				<input type="text" class="form-control" id="city" placeholder="City" formControlName="city">
 			</div> 
 		</div>
 		<div class="form-group row">
 			<label for="prov" class="control-label col-sm-6">Region/Province:</label>
 			<label for="pcode" class="control-label col-sm-6">Postal Code</label>	
 			<div class="col-sm-6">
-				<input type="text" class="form-control" id="prov" placeholder="Region/Province">
+				<input type="text" class="form-control" id="prov" placeholder="Region/Province" formControlName="region">
 			</div>
 			   <div class="col-sm-6">
-				<input type="text" class="form-control" id="pcode" placeholder="Postal Code">
+				<input type="number" class="form-control" id="pcode" placeholder="Postal Code" formControlName="postalCode">
 			</div> 
 		</div>
-		<div class="form-group row">
+		<!-- <div class="form-group row">
 		    <label for="email" class="control-label col-sm-12">Email Address:</label>
 			<div class="col-sm-12">
-				<input type="password" class="form-control" id="email" placeholder="Email Address">
+				<input type="text" class="form-control" id="email" placeholder="Email Address" formControlName="email">
 			</div>
-		</div>
-		<div class="form-group row">
+		</div> -->
+		<!-- <div class="form-group row">
 			<label for="crtpasswd" class="control-label col-sm-6">Create a Password:</label>
 			<label for="confpasswd" class="control-label col-sm-6">Confirm Password:</label>
 			<div class="col-sm-6">
@@ -61,13 +70,13 @@
 			   <div class="col-sm-6">
 				<input type="password" class="form-control" id="confpasswd" placeholder="Password">
 			</div> 
-		</div>
+		</div> -->
 		<div class="form-group row text-center">
 			<div class="col-sm-6">
-                <button type="submit" class="btn btn-black btn-block">Save</button>
+                <button type="submit" class="btn btn-black btn-block" [disabled]="!userDataForm.valid">Save</button>
 			</div>
 			   <div class="col-sm-6">	  	
-				   	<button type="submit" class="btn btn-white btn-block ">Cancel</button>
+				   	<button type="button" class="btn btn-white btn-block ">Cancel</button>
 			</div> 
 		</div>
 	</form>

@@ -2,7 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { UserData } from 'src/app/models/user-data-model';
 import { AuthenticationService } from 'src/app/service/authentication.service';
+import { UserDataService } from 'src/app/service/user-data.service';
+import { UserWriteData } from 'src/app/service/user-write-data.service';
 
 @Component({
   selector: 'app-signup-user',
@@ -15,7 +18,7 @@ export class SignupUserComponent implements OnInit, OnDestroy {
   authSub: Subscription;
   errorMessage: String = null;
 
-  constructor(private authService: AuthenticationService, private router: Router) { }
+  constructor(private userDataService: UserDataService, private userWriteService: UserWriteData, private authService: AuthenticationService, private router: Router) { }
 
   ngOnInit(){
     this.signUpForm = new FormGroup({
@@ -39,14 +42,29 @@ export class SignupUserComponent implements OnInit, OnDestroy {
 
   onSubmit()
   {
-   this.authSub = this.authService.signUp(this.signUpForm.value.email, this.signUpForm.value.passwordField.password)
-   .subscribe(resData => {
-    this.router.navigate(['/my-account']);
-   }, 
-    errorMessage => {
-        this.errorMessage = errorMessage;
-      }
-    );
+
+    this.userDataService.adduser(new UserData(
+      this.signUpForm.value.firstName,
+      this.signUpForm.value.middleName,
+      this.signUpForm.value.lastName,
+      this.signUpForm.value.address,
+      this.signUpForm.value.barangay,
+      this.signUpForm.value.city,
+      this.signUpForm.value.region,
+      this.signUpForm.value.postalCode,
+      this.signUpForm.value.email,
+      this.signUpForm.value.suffix
+      ));
+
+    this.authSub = this.authService.signUp(this.signUpForm.value.email, this.signUpForm.value.passwordField.password)
+    .subscribe(resData => {
+     this.router.navigate(['/my-account']);
+     this.userWriteService.putUserData(resData.localId); 
+    }, 
+     errorMessage => {
+         this.errorMessage = errorMessage;
+       }
+     ); 
   }
   
   ngOnDestroy()
