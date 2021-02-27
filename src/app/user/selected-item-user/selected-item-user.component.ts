@@ -38,6 +38,7 @@ export class SelectedItemUserComponent implements OnInit {
       this.getProductData() 
       this.productItem.price = null;
       this.productItem.noItem = null;
+<<<<<<< HEAD
       this.productItem.noItem = 1;
     }
 
@@ -45,13 +46,28 @@ export class SelectedItemUserComponent implements OnInit {
     this.productItem.noItem++
     this.isTrue = false
     if(this.productItem.noItem > this.stock || this.stock == 0){
+=======
+      this.noItem = 1;
+    }
+
+  incrementQuantity(){
+    this.noItem++
+    this.isTrue = false
+    if(this.noItem > this.stock || this.stock == 0){
+>>>>>>> b42e0962556a4a1e8be2385a0fb971284f4a0cd5
       this.isValid = true;
       }
     }
   decreaseQuantity(){
+<<<<<<< HEAD
     this.productItem.noItem--
     this.isValid = false
     if(this.productItem.noItem < 2 || this.stock == 0)  {
+=======
+    this.noItem--
+    this.isValid = false
+    if(this.noItem < 2 || this.stock == 0)  {
+>>>>>>> b42e0962556a4a1e8be2385a0fb971284f4a0cd5
       this.isTrue = true
     }
   }
@@ -78,6 +94,10 @@ export class SelectedItemUserComponent implements OnInit {
                   this.stock = this.product.productVariation[i].variationDetail[j].stock;
                   this.productItem.size = this.product.productVariation[i].variationDetail[j].size;
                   this.productItem.price = this.product.productVariation[i].variationDetail[j].price;
+<<<<<<< HEAD
+=======
+                  this.product.noItem = this.noItem;
+>>>>>>> b42e0962556a4a1e8be2385a0fb971284f4a0cd5
                     if(this.stock == 0 ){ this.isValid = true;}
                 } } } } } }
 

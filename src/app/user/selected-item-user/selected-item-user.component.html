@@ -44,7 +44,11 @@
               <button (click)=" decreaseQuantity()"
                       [disabled] = "isTrue"
               class="btn btn-black quantity-btn" >-</button>
+<<<<<<< HEAD
                 <input type="text" class="form-control text-center"  readonly required [value]="productItem.noItem" name="noItem" id="quantity">
+=======
+                <input type="text" class="form-control text-center"  readonly required [value]="noItem" name="noItem" id="quantity">
+>>>>>>> b42e0962556a4a1e8be2385a0fb971284f4a0cd5
               <button (click)="incrementQuantity()"
               [disabled] = "isValid"
               class="btn btn-black quantity-btn">+</button>
