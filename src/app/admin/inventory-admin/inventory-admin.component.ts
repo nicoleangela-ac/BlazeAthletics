@@ -11,13 +11,16 @@ import { ToastrService } from 'ngx-toastr';
 export class InventoryAdminComponent implements OnInit {
 
   product: any;
-
+  noItems : number;
+  
   constructor(private service : FirebaseProductsService, public toastr: ToastrService)
    { this.product = service.getProductData();}
 
    ngOnInit() {
+    this.noItems = null;
     this.getProductData();
-  }
+    this.getNoProduct();
+    }
  
   getProductData() {
     this.service.getProductData().snapshotChanges().pipe(
@@ -36,5 +39,11 @@ export class InventoryAdminComponent implements OnInit {
     this.toastr.success(product + ' successfully deleted!'); 
     }
   }
+
+  getNoProduct() {
+    this.service.getProductData().query.on('child_added', snap =>
+      this.noItems ++
+    );
+    }
 
 }
