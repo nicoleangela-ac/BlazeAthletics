@@ -37,6 +37,7 @@ export class InventoryAdminComponent implements OnInit {
     if (window.confirm('Are sure you want to delete this product : ' + product + ' ?')) {
     this.service.deleteProduct(key);
     this.toastr.success(product + ' successfully deleted!'); 
+    this.noItems--;
     }
   }
 

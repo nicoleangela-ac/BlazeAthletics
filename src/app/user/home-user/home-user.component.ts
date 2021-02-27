@@ -26,11 +26,7 @@ export class HomeUserComponent implements OnInit {
 
    ngOnInit() {
     this.getProductData();
-<<<<<<< HEAD
   this.getBannerImg();
-=======
-    this.getShopImg();
->>>>>>> b42e0962556a4a1e8be2385a0fb971284f4a0cd5
 
   }
  
@@ -46,22 +42,7 @@ export class HomeUserComponent implements OnInit {
     });
   }
 
-<<<<<<< HEAD
   getBannerImg() {
     this.service.getShopPageImg('banner').valueChanges().subscribe(data => {
     this.slides = data;  } ) } 
-=======
-  getShopImg() {
-    this.service.getShopImg().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ key: c.payload.key, ...c.payload.val() })
-        )
-      )
-    ).subscribe(images => {
-      this.slides= images;
-    });
-  }
-
->>>>>>> b42e0962556a4a1e8be2385a0fb971284f4a0cd5
 }

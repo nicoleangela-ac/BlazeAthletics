@@ -4,7 +4,6 @@
   }
 
   .img-thumbnail {
-<<<<<<< HEAD
   	height: 130px;
     width: auto;
     border: 0ch solid white;
@@ -24,14 +23,4 @@
  .title {
     font-size: 2.7em;
  
-=======
-  	height: 500px;
-  }
-  .content-aboutUs {
-  	padding-top: 150px
-
-  }
- p {
-     font-size: 1em;
->>>>>>> b42e0962556a4a1e8be2385a0fb971284f4a0cd5
  }
