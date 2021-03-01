@@ -33,6 +33,7 @@ export class InventoryAdminComponent implements OnInit {
       this.product = customers;
     });
   }
+
   deleteProduct(key, product) {
     if (window.confirm('Are sure you want to delete this product : ' + product + ' ?')) {
     this.service.deleteProduct(key);
@@ -43,7 +44,7 @@ export class InventoryAdminComponent implements OnInit {
 
   getNoProduct() {
     this.service.getProductData().query.on('child_added', snap =>
-      this.noItems ++
+          this.noItems ++
     );
     }
 

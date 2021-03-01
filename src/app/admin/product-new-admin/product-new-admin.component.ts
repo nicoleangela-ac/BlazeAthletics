@@ -28,7 +28,7 @@ export class ProductNewAdminComponent implements OnInit {
     { id: 1, name: 'Anime' },
     { id: 2, name: 'Shirts' },
     { id: 3, name: 'Jerseys' },
-    { id: 4, name: 'Hoddies'}
+    { id: 4, name: 'Hoodies'}
   ];
 
   constructor(private fb:FormBuilder ,

@@ -32,17 +32,16 @@ export class FirebaseProductsService {
   createProduct(product: any[]): void {  
      this.productRef.push(product)
   }
-  getProductData(): AngularFireList<any> {
+  getProductData(): AngularFireList<any[]> {
     return this.productRef;
   }
   getSingleProduct(id: string) {
     this.productItem = this.db.object(this.dbPathProducts + '/'+ id);
     return this.productItem;
   }
-  getPriceStock(id) {
-    this.productItem = this.db.object(this.dbPathProducts + '/'+ id);
-    this.PriceStock= this.productItem.query.equalTo('small','size').get( )
-    return this.PriceStock;
+  getCategory() {
+  return  this.productRef.query.orderByChild('productCategory').equalTo('Anime').on('value', snap => 
+    console.log(snap.val()))
   }
   updateProduct(key: string, value: any): Promise<any> {
     return this.productRef.update(key, value);

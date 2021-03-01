@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { CarouselConfig } from 'ngx-bootstrap/carousel';
 import { FirebaseProductsService } from './../../service/firebase-products.service';
@@ -15,30 +16,36 @@ export class HomeUserComponent implements OnInit {
 
   noWrapSlides = false;
   showIndicator = true;
-  product: any;
-  slides: any ;
+  products : any;
+  product: any[];
+  slides: any;
 
   constructor( private service : FirebaseProductsService) {
-      this.product = service.getProductData();
+     this.products = service.getProductData();
       this.slides = service.getShopImg();
 
   }
 
    ngOnInit() {
     this.getProductData();
-  this.getBannerImg();
-
+    this.getBannerImg();
   }
- 
+
   getProductData() {
     this.service.getProductData().snapshotChanges().pipe(
       map(changes =>
-        changes.map(c =>
-          ({ key: c.payload.key, ...c.payload.val() })
+        changes.map((c: any) => {
+          return (
+            { 
+              name: c.payload.val().name, 
+              productImages: c.payload.val().productImages,
+            }
+          );
+        }
         )
       )
-    ).subscribe(customers => {
-      this.product = customers;
+    ).subscribe(datas => {
+      this.product = Object.values(datas);
     });
   }
 
