@@ -1,4 +1,4 @@
-<form action="/action_page.php">  
+<form [formGroup]="checkoutForm" action="/action_page.php">  
   <div class="row container">
     <div class="col-sm-6"> 
        <h2> SHIPPING DETAILS</h2>
@@ -59,7 +59,9 @@
       <div class="row">
         <app-item-checkout></app-item-checkout>
         <div class="form-group col-sm-12">
-          <textarea class="form-control rounded-0" rows="2" placeholder="Enter Message For Customized Orders..."></textarea>
+          <textarea class="form-control rounded-0" rows="2" 
+                    placeholder="Enter Message For Customized Orders..."
+                    formControlName="message"></textarea>
         </div>
         <div class="form-check col-sm-12 ">
           <p>TOTAL BILL: PHP 300.00</p>

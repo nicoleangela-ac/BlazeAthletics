@@ -1,3 +1,4 @@
+import { FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,9 +10,15 @@ export class CheckoutUserComponent implements OnInit {
   title = 'appBootstrap';
   
   public isCollapsed = false;
+  checkoutForm: FormGroup; 
+
   constructor() { }
 
   ngOnInit(): void {
+    this.checkoutForm = new FormGroup ({
+      "message" : new FormControl(),
+      "receiptImage" : new FormControl()
+    })
   }
 
 }

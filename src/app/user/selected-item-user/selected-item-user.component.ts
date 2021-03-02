@@ -23,6 +23,9 @@ export class SelectedItemUserComponent implements OnInit {
  isValid = false;
  noItem : number;
  productItem = {
+    productImages: '',
+    productName: '',
+    productId : '',
     variationName : '',
     size: '',
     price :  0,
@@ -82,6 +85,9 @@ export class SelectedItemUserComponent implements OnInit {
                 } } } } } }
 
   addToCart() { 
+    this.productItem.productImages = this.product.productImages[0];
+    this.productItem.productName = this.product.name;
+    this.productItem.productId = this.id;
      console.log(this.productItem); }
     } 
   
