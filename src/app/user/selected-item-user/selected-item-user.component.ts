@@ -27,6 +27,9 @@ export class SelectedItemUserComponent implements OnInit {
  isValid = false;
  noItem : number;
 
+ isLoading = false;
+ message: string = null;
+
  productItem = {
     productImages: '',
     productName: '',
@@ -95,6 +98,8 @@ export class SelectedItemUserComponent implements OnInit {
 
   addToCart() 
   { 
+    this.message = null;
+    this.isLoading = true;
     this.productItem.productImages = this.product.productImages[0];
     this.productItem.productName = this.product.name;
     this.productItem.productId = this.id;
@@ -104,14 +109,17 @@ export class SelectedItemUserComponent implements OnInit {
       this.productItem.productName,
       this.productItem.productId,
       this.productItem.variationName,
-      this.productItem.size,
+      this. productItem.size,
       this.productItem.price,
       this.productItem.noItem
     ));
     
-    
     console.log(this.productService.getProductsData());
-    this.cartService.putCartData(this.authService.userToken).subscribe();
+    this.cartService.putCartData(this.authService.userToken).subscribe(response=>
+      {
+        this.message = "Added Successfully!"
+        this.isLoading = false;
+      });
   }
 } 
   
