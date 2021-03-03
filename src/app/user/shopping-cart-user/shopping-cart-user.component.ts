@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProducDataService } from 'src/app/service/product-data.service';
 
 @Component({
   selector: 'app-shopping-cart-user',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShoppingCartUserComponent implements OnInit {
 
-  constructor() { }
+  cartIsEmpty = true;
 
-  ngOnInit(): void {
+  constructor(private productService: ProducDataService) { }
+
+  ngOnInit()
+  {
+    if(this.productService.getProductsData().length != 0)
+    {
+      this.cartIsEmpty = false;
+    }
   }
 
 }

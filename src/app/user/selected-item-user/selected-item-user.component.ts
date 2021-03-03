@@ -1,6 +1,10 @@
 import { FirebaseProductsService } from './../../service/firebase-products.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router"; 
+import { ProducDataService } from 'src/app/service/product-data.service';
+import { ProductDataModel } from 'src/app/models/product-data-model';
+import { CartWriteData } from 'src/app/service/cart-write-data.service';
+import { AuthenticationService } from 'src/app/service/authentication.service';
 
 @Component({
   selector: 'app-selected-item-user',
@@ -22,6 +26,7 @@ export class SelectedItemUserComponent implements OnInit {
  isTrue = false;
  isValid = false;
  noItem : number;
+
  productItem = {
     productImages: '',
     productName: '',
@@ -33,8 +38,12 @@ export class SelectedItemUserComponent implements OnInit {
  }
 
   constructor(private firebaseService: FirebaseProductsService, 
-              private actRoute: ActivatedRoute)            
-    { this.product = firebaseService.getSingleProduct(this.id); }
+              private actRoute: ActivatedRoute,
+              private productService: ProducDataService,
+              private cartService: CartWriteData,
+              private authService: AuthenticationService)            
+    { console.log(firebaseService.getSingleProduct(this.id));
+      this.product = firebaseService.getSingleProduct(this.id); }
 
     ngOnInit() {
       this.id = this.actRoute.snapshot.paramMap.get('id');  
@@ -84,12 +93,27 @@ export class SelectedItemUserComponent implements OnInit {
                     if(this.stock == 0 ){ this.isValid = true;}
                 } } } } } }
 
-  addToCart() { 
+  addToCart() 
+  { 
     this.productItem.productImages = this.product.productImages[0];
     this.productItem.productName = this.product.name;
     this.productItem.productId = this.id;
-     console.log(this.productItem); }
-    } 
+    
+    this.productService.addProduct(new ProductDataModel(
+      this.productItem.productImages,
+      this.productItem.productName,
+      this.productItem.productId,
+      this.productItem.variationName,
+      this.productItem.size,
+      this.productItem.price,
+      this.productItem.noItem
+    ));
+    
+    
+    console.log(this.productService.getProductsData());
+    this.cartService.putCartData(this.authService.userToken).subscribe();
+  }
+} 
   
   
 
