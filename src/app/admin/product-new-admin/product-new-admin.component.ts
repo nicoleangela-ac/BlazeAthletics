@@ -157,6 +157,9 @@ export class ProductNewAdminComponent implements OnInit {
 
   onSubmit() {
     (this.productForm.get("productImages") as FormArray).patchValue(this.urls);  
+    this.getTotalStock()
+    this.getLowPrice()
+    this.getHighPrice()
     this.save();
     console.log(this.productForm.value)
     this.router.navigate(['/inventory']);

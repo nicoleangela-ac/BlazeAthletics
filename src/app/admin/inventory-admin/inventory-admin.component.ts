@@ -19,7 +19,6 @@ export class InventoryAdminComponent implements OnInit {
    ngOnInit() {
     this.noItems = null;
     this.getProductData();
-    this.getNoProduct();
     }
  
   getProductData() {
@@ -31,6 +30,9 @@ export class InventoryAdminComponent implements OnInit {
       )
     ).subscribe(customers => {
       this.product = customers;
+      for( var i in customers) {
+        this.noItems ++
+      }
     });
   }
 
@@ -42,10 +44,5 @@ export class InventoryAdminComponent implements OnInit {
     }
   }
 
-  getNoProduct() {
-    this.service.getProductData().query.on('child_added', snap =>
-          this.noItems ++
-    );
-    }
 
 }

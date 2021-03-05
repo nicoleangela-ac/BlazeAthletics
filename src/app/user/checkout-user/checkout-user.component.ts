@@ -32,6 +32,8 @@ export class CheckoutUserComponent implements OnInit {
   status: string;
   courierSite: string;
   public isCollapsed = false;
+  todayDate : Date = new Date();
+  dateOrder: any
 
   constructor(private productService: ProducDataService, 
     private router: Router,
@@ -44,6 +46,7 @@ export class CheckoutUserComponent implements OnInit {
     private ordersService: OrdersFirebaseService) {}
 
   ngOnInit() {
+    this.dateOrder = this.todayDate;
     this.courierSite = null;
     this.totalPrice = null;
     this.status = null;
@@ -92,12 +95,14 @@ export class CheckoutUserComponent implements OnInit {
         "customerEmail": new FormControl(),
         "receiptImage" : new FormControl(),
         "orderProduct" : new FormArray([]),
+        "orderDate" : new FormControl(this.todayDate.toTimeString()),
         "orderStatus" : new FormControl(''),
         "courier" : new FormControl(''),
         "trackingNum": new FormControl('')
           })
       }
     courier(): FormControl{ return this.checkoutForm.get("courier") as FormControl}
+    date(): FormControl{ return this.checkoutForm.get("orderDate") as FormControl}
     orderStat(): FormControl{ return this.checkoutForm.get("orderStatus") as FormControl}
     name(): FormControl{ return this.checkoutForm.get("cutomerName") as FormControl}
     email(): FormControl{ return this.checkoutForm.get("customerEmail") as FormControl}
@@ -204,7 +209,6 @@ export class CheckoutUserComponent implements OnInit {
   save() {  
     this.ordersService.createOrder(this.checkoutForm.value) ; 
     this.router.navigate(['/my-account']);
-
   }
 
   onProceed()
@@ -216,7 +220,7 @@ export class CheckoutUserComponent implements OnInit {
     this.setAddress();
     this.save();
     this.remove();
-    console.log(this.checkoutForm.value)
+    console.log(this.checkoutForm.value )
   }
 
 }

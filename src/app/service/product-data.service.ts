@@ -70,4 +70,5 @@ export class ProducDataService
             this.productDataChanged.next(this.productData.slice());
         }
     }
+    
 }
