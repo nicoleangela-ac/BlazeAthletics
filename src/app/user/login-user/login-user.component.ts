@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AdminWriteData } from 'src/app/service/admin-write-data.service';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 
 @Component({
@@ -28,6 +27,11 @@ export class LoginUserComponent implements OnInit {
   {
     this.loginForm.reset();
     this.router.navigate(['/']);
+  }
+
+  onForgot()
+  {
+
   }
 
   onSubmit(){

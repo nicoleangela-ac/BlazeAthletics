@@ -8,7 +8,11 @@
 		<span class="alert-msg">{{message}}</span>
 	  </div>
 
-	<form [formGroup]="userDataForm" (ngSubmit)="onSubmit()">	
+	  <div>
+		  <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+	  </div>
+
+	<form [formGroup]="userDataForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">	
 		<div class="form-group row">
 			<label for="fname" class="control-label col-sm-6">Fist Name:</label>
 			<label for="mname" class="control-label col-sm-6">Middle Name:</label>

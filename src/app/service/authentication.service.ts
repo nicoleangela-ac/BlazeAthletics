@@ -75,6 +75,18 @@ export class AuthenticationService
         }));
     }
 
+
+    resetPassword(email: string)
+    {
+      let OOB = 'PASSWORD_RESET';
+    
+      return this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyDBGdXX-Qx_hzU3Ah8ZXoNcJ51gChdCPoA',
+      {
+        requestType: OOB,
+        email: email
+      });
+    }
+
     /**
      * Checks for an existing local file (via browser)
      * that contains user information

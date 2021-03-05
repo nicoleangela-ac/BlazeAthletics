@@ -15,6 +15,7 @@ export class SignupComponent implements OnInit {
   userData: UserData;
   userDataForm: FormGroup;
   message: string = null;
+  isLoading = false;
 
   constructor(private userDataService: UserDataService, private userWriteService: UserWriteData, private userAuthService: AuthenticationService) 
   {
@@ -23,6 +24,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit()
   {
+    this.isLoading = true;
     this.userWriteService.getUsers(this.userAuthService.userToken).subscribe(responseData => {
       this.userData = this.userDataService.getUser(0);
       this.userDataForm = new FormGroup({
@@ -36,6 +38,8 @@ export class SignupComponent implements OnInit {
         "region": new FormControl(this.userData.region, [Validators.required]),
         "postalCode": new FormControl(this.userData.postalCode, [Validators.required])
       });
+
+      this.isLoading = false;
     });
   }
 
