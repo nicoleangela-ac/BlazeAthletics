@@ -4,6 +4,8 @@ import { Router } from "@angular/router";
 import { BehaviorSubject, throwError } from "rxjs";
 import { UserModel } from "../models/user-model";
 import { catchError, tap } from "rxjs/operators";
+import { UserDataService } from "./user-data.service";
+import { UserData } from "../models/user-data-model";
 
 export interface AuthResponseData
 {
@@ -25,7 +27,7 @@ export class AuthenticationService
     public userToken:string = null;
     private tokenExpirationTimer: any;
 
-    constructor(private http: HttpClient, private router: Router){}
+    constructor(private http: HttpClient, private router: Router, private userDataService: UserDataService){}
 
 /**
  * 
@@ -142,6 +144,9 @@ export class AuthenticationService
         this.user.next(null);
         this.router.navigate(['/login-user']);
         localStorage.removeItem('userData');
+
+        let emptyData: UserData[] = [];
+        this.userDataService.setUserData(emptyData);
 
         if(this.tokenExpirationTimer)
         {
