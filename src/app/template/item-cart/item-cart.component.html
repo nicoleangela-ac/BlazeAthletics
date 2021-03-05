@@ -3,7 +3,8 @@
         <p>Nothing Added Yet.</p>
     </div>
 
-    <div class="row container-fluid" *ngIf="isLoading">  
+    <div class="row container-fluid" *ngIf="isLoading"> 
+        <p class="loadingMessage"> Shopping Cart Loading</p>   
         <app-loading-spinner></app-loading-spinner>
     </div>
 
@@ -12,10 +13,10 @@
         <div class="row container-fluid" *ngFor='let item of items_cart; let i = index'>  
             <div class="col-sm-2"> <img  [src]="item.productImage" class="img-responsive resize-img" alt="Image"> </div>
             <div class="col-sm-10">
-               <h5> {{item.productName}}</h5>
-               <p>{{"SIZE: " + item.size}}</p>
+               <h5>{{item.productName}}</h5>
                <p>{{"Variation: " + item.variationName}}</p>
-               <p>{{item.noItem + " x "+ item.price + " PHP"}}</p> 
+               <p>{{"Size: " + item.size}}</p>
+               <p>{{item.noItem + "pcs." + " x "+ item.price + " PHP"}}</p> 
                <a class="float-right" (click)="onRemove(i)" style="cursor: pointer;">REMOVE</a> 
             </div>
         </div>
@@ -24,5 +25,5 @@
 <hr> 
 <div class= "float-right bottom-buttons">
   <button type="button" class="btn btn-black" (click)="onProceed()" *ngIf="!cartIsEmpty" [disabled]="isLoading">PROCEED TO CHECKOUT</button>     
-  <button type="button" class="btn btn-white" routerLink="/">CANCEL</button>     
+  <button type="button" class="btn btn-white" [hidden]="isLoading" routerLink="/products-user">BACK TO PRODUCTS</button>     
 </div>

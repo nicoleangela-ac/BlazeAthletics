@@ -21,6 +21,9 @@ export class ProductNewAdminComponent implements OnInit {
   productForm : FormGroup;
   variationLength : number 
   sizeLength : number;
+  totalStock: number;
+  lowPrice : number;
+  highPrice : number;
   selectedCategory : any[];
   selectedImage : string[];
   urls : string[];
@@ -38,6 +41,9 @@ export class ProductNewAdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.totalStock = null;
+    this.lowPrice = null;
+    this.highPrice = null;
     this.selectedCategory = new Array<string>();
     this.urls = new Array<string>();
     this.generateProductVariation()
@@ -96,6 +102,9 @@ export class ProductNewAdminComponent implements OnInit {
   newVariation(): FormGroup {  return NewProductDynamicComponent.addVariationItem()  }  
   addVariation() { this.variation().push(this.newVariation()); }
   removeVariation() { this.variation().removeAt(this.variationLength = this.variation.length - this.variation.length-1 ); }
+  stock() : FormControl { return this.productForm.get("totalStock") as FormControl  }  //setting/getting form value
+  hPrice() : FormControl { return this.productForm.get("highPrice") as FormControl  }  //setting/getting form value
+  lPrice() : FormControl { return this.productForm.get("lowPrice") as FormControl  }  //setting/getting form value
 
   //setting/getting form value
   public generateProductVariation(): void {
@@ -103,19 +112,53 @@ export class ProductNewAdminComponent implements OnInit {
       name : new FormControl ('', Validators.required),
       description : new FormControl('', Validators.required),
       sizeVariation: new FormArray ([ ], Validators.required),
+      totalStock : new FormControl(''),
+      highPrice : new FormControl(''),
+      lowPrice : new FormControl(''),
       productVariation : new FormArray ([ NewProductDynamicComponent.addVariationItem() ], Validators.required),
       productImages : new FormArray([ new FormControl(), new FormControl(), new FormControl(), new FormControl(), new FormControl() ]),
       productCategory : new FormArray ([ new FormControl('', Validators.required), new FormControl(), new FormControl(), new FormControl(), ]),
     })
   }
 
+  getTotalStock() {
+    for(var i in this.productForm.value.productVariation) {
+        for(var k in this.productForm.value.productVariation[i].variationDetail) {
+          this.totalStock += this.productForm.value.productVariation[i].variationDetail[k].stock
+        }
+    }
+    this.stock().setValue(this.totalStock);
+  }
+  getLowPrice() {
+    this.lowPrice = this.productForm.value.productVariation[0].variationDetail[0].price
+    for(var i in this.productForm.value.productVariation) {
+      for(var k in this.productForm.value.productVariation[i].variationDetail) {
+        if ( this.lowPrice > this.productForm.value.productVariation[i].variationDetail[k].price) {
+          this.lowPrice = this.productForm.value.productVariation[i].variationDetail[k].price
+        }
+      }
+  }
+    this.lPrice().setValue(this.lowPrice);
+  }
+  
+  getHighPrice() {
+    this.highPrice = this.productForm.value.productVariation[0].variationDetail[0].price
+    for(var i in this.productForm.value.productVariation) {
+      for(var k in this.productForm.value.productVariation[i].variationDetail) {
+        if ( this.lowPrice < this.productForm.value.productVariation[i].variationDetail[k].price) {
+          this.highPrice = this.productForm.value.productVariation[i].variationDetail[k].price
+        }
+      }
+  }
+    this.hPrice().setValue(this.highPrice);
+  }
 //save data to firebase
   save() {  this.productService.createProduct(this.productForm.value);  }
 
   onSubmit() {
     (this.productForm.get("productImages") as FormArray).patchValue(this.urls);  
-  //  this.save();
+    this.save();
     console.log(this.productForm.value)
-   // this.router.navigate(['/inventory']);
+    this.router.navigate(['/inventory']);
   }
 }

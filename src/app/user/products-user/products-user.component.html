@@ -1,3 +1,8 @@
+<div class="row container-fluid" *ngIf="isLoading">
+  <p class="loadingMessage"> Products Loading</p>  
+    <app-loading-spinner></app-loading-spinner>
+</div>
+
 <h2>PRODUCTS</h2><br> 
 <div class="container-fluid text-center"> 
     <nav class="navbar navbar-expand-sm navbar-light">

@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./home-user.component.css']
 })
 export class HomeUserComponent implements OnInit {
-
+  isLoading = false;
   noWrapSlides = false;
   showIndicator = true;
   products : any;
@@ -21,12 +21,12 @@ export class HomeUserComponent implements OnInit {
   slides: any;
 
   constructor( private service : FirebaseProductsService) {
-     this.products = service.getProductData();
-      this.slides = service.getShopImg();
-
+    this.products = service.getProductData();
+    this.slides = service.getShopImg();
+    this.isLoading = true;
   }
 
-   ngOnInit() {
+  ngOnInit() {
     this.getProductData();
     this.getBannerImg();
   }
@@ -35,12 +35,15 @@ export class HomeUserComponent implements OnInit {
     this.service.getProductData().snapshotChanges().pipe(
       map(changes =>
         changes.map((c: any) => {
-          return (
+          if(c != null) {
+              return (
             { 
               name: c.payload.val().name, 
               productImages: c.payload.val().productImages,
             }
           );
+        }
+        return this.isLoading = false;
         }
         )
       )

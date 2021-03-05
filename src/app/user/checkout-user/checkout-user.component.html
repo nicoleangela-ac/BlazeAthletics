@@ -1,4 +1,9 @@
-<form [formGroup]="checkoutForm" action="/action_page.php">  
+  <div class="row container-fluid" *ngIf="isLoading">
+    <p class="loadingMessage"> Checkout Page Loading</p>  
+      <app-loading-spinner></app-loading-spinner>
+  </div>
+
+<form [formGroup]="checkoutForm" action="/action_page.php" *ngIf="!isLoading">  
   <div class="row container">
     <div class="col-sm-6"> 
        <h2> SHIPPING DETAILS</h2>
@@ -7,41 +12,69 @@
           <input
             class="form-check-input"
             type="radio"
+            (change)= "getAddressChecked($event, 'sameAddress')" 
             name="flexRadioDefault"
             id="flexRadioDefault1"
           />
           <label class="form-check-label" for="flexRadioDefault1"> Same as Account Address </label>
         </div>
         <div class="form-check col-sm-12">
-           <input (click)="isCollapsed = !isCollapsed"
-          [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"
+           <input 
+            (change)= "getAddressChecked($event, 'diffAddress')"         
             class="form-check-input"
             type="radio"
             name="flexRadioDefault"
             id="flexRadioDefault2"
-          />
+          >
           <label class="form-check-label" for="flexRadioDefault1"> Enter a Different Address </label>         	
-         
-          <div id="collapseExample" [ngbCollapse]="isCollapsed">
-            <div class="card">
+                     <div class="card" *ngIf = "isDiffAddress">
               <div class="card-body">
-                <app-checkout-diff-address></app-checkout-diff-address>
-            </div>
+                <app-checkout-diff-address                
+                >
+
+                </app-checkout-diff-address>
             </div>
             </div>
         </div>
+        <div class="col-sm-12">
+        <h5>Select Courier:</h5>
+        </div>   
+        <div class="form-check col-sm-3">
+          <input
+            class="form-check-input"
+            type="radio"
+            (change)= "getCourier($event, 'J&T')" 
+            name="courier"
+            id="radioCourier1"
+          />
+          <label class="form-check-label" for="flexRadioDefault1"> J&T </label>
+
+        </div>
+        <div class="form-check col-sm-3">
+          <input
+          class="form-check-input"
+          type="radio"
+          (change)= "getCourier($event, 'LBC')" 
+          name="courier"
+          id="radioCourier2"
+        />
+        <label class="form-check-label" for="flexRadioDefault1"> LBC </label>
+        </div>
+        <div class="col-sm-6" *ngIf="isCourierSelected">
+          <a href={{courierSite}} target="_blank" rel="noopener noreferrer">View Shipping Rates:</a>
+          </div>
         <div class="col-sm-12">
         <h5>Upload Receipt:</h5> 
         </div>
         <div class="form-check col-sm-12">
           <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-            </div>
             <div class="custom-file">
-              <input type="file" class="custom-file-input" id="inputGroupFile01"
+              <input type="file" class="custom-file-input" id="inputGroupFile01" (change)="selectFile($event)"
                 aria-describedby="inputGroupFileAddon01">
               <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+            </div>
+            <div>
+              <img [src]="url" *ngFor="let url of url" [src]="url"  class="img-responsive image-display" style="width:50%" alt="Image"> 
             </div>
           </div>
         </div>
@@ -57,18 +90,34 @@
     <div class="col-sm-6">
       <h2> ORDER SUMMARY</h2>
       <div class="row">
-        <app-item-checkout></app-item-checkout>
+
+        <ng-container *ngIf="!cartIsEmpty && !isLoading">
+          <div class="row container-fluid" *ngFor='let item of items_cart; let i = index'>  
+              <div class="col-sm-4"> 
+                  <img  [src]="item.productImage" class="img-responsive resize-img" alt="Image">    
+              </div>
+              <div class="col-sm-8">
+                 <h5>{{item.productName}}</h5>
+                 <p>{{"Variation: " + item.variationName}}</p>
+                 <p>{{"Size: " + item.size}}</p>
+                 <p>{{item.noItem + "pcs." + " x "+ item.price + " PHP"}}</p> 
+              </div>
+          </div>
+      </ng-container>
+
         <div class="form-group col-sm-12">
           <textarea class="form-control rounded-0" rows="2" 
                     placeholder="Enter Message For Customized Orders..."
-                    formControlName="message"></textarea>
+                    formControlName="productMessage"></textarea>
         </div>
         <div class="form-check col-sm-12 ">
-          <p>TOTAL BILL: PHP 300.00</p>
-          <p>SHIP FEE: PHP 45.00</p>
+          <p>TOTAL BILL: PHP {{totalPrice}}</p>
         </div>
         <div class="form-check col-sm-12 ">
-          <button  type="submit" class=" btn btn-black">Proceed With The Order</button>
+          <button  type="submit" class=" btn btn-black"
+                 (click)=" onProceed()" [disabled]="isFormValid" 
+                 >
+                 Proceed With The Order</button>
           <button  type="submit" class=" btn btn-white float-right">Cancel</button>
         </div>
       </div>

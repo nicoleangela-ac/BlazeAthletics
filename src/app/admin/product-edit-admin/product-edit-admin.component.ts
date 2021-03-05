@@ -2,7 +2,7 @@ import { EditProductDynamicComponent } from './../../template/edit-product-dynam
 import { Router, ActivatedRoute } from '@angular/router';
 import { FirebaseProductsService } from './../../service/firebase-products.service';
 import { Component, OnInit, Input, ViewChild} from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms'
+import { FormGroup, FormControl, FormArray, FormBuilder, Validators, NumberValueAccessor } from '@angular/forms'
 
 @Component({
   selector: 'app-product-edit-admin',
@@ -15,7 +15,7 @@ export class ProductEditAdminComponent implements OnInit {
 
   id: any
   sizeValue : any;
-  detailValue : any
+  detailValue : any;
   price : any;
   isSizeSave: boolean = true;
   isSizeAdd: boolean = true;
@@ -25,6 +25,9 @@ export class ProductEditAdminComponent implements OnInit {
   product : any ;
   variationLength : number 
   sizeLength: number;
+  totalStock: number;
+  lowPrice : number;
+  highPrice : number;
   selectedCategory : any[];
   selectedImage : string[];
   urls : string[];
@@ -35,6 +38,7 @@ export class ProductEditAdminComponent implements OnInit {
     { id: 4, name: 'Hoodies'}
   ];
 
+
   constructor(private fb:FormBuilder ,
     private productService: FirebaseProductsService,
     private router: Router,       
@@ -44,6 +48,9 @@ export class ProductEditAdminComponent implements OnInit {
           }
 
   ngOnInit(): void {
+    this.totalStock = null;
+    this.lowPrice = null;
+    this.highPrice = null;
     this.selectedCategory = new Array<string>();
     this.urls = new Array<string>();
     this.generateProductVariation()
@@ -51,18 +58,19 @@ export class ProductEditAdminComponent implements OnInit {
     this.id = this.actRoute.snapshot.paramMap.get('id');  
     this.isSizeSave
     this.getProductData(); 
-   this.removeVariation();
+    this.removeVariation();
       }
-isChecked(name) : boolean{
-  for(var i in this.product.productCategory){
-      if(this.product.productCategory[i] == name ) {
-       return true       
+
+  isChecked(name) : boolean{
+    for(var i in this.product.productCategory){
+        if(this.product.productCategory[i] == name ) {
+        return true       
+      }
+        else {false}
     }
-       else {false}
+    return false
   }
-  return false
-  
-}
+
   getData() {
     this.sizeValue= Object.values(this.product.sizeVariation ) 
 
@@ -82,13 +90,13 @@ isChecked(name) : boolean{
     this.isAddVariation = true;
     this.isSizeAdd = false;
     this.isSizeSave = false
-}
+  }
  
   getProductData() {
     this.productService.getSingleProduct(this.id).valueChanges().subscribe(data => {
     this.product = data;  } ) }
 
-//checkbox i
+  //checkbox i
   getCategoryId(e: any, name: string) {
     (this.productForm.get("productCategory") as FormArray).reset();
     if(e.target.checked){
@@ -115,10 +123,10 @@ isChecked(name) : boolean{
         this.count++; }
         reader.readAsDataURL(file);
       } } }
-  
 
   getSizeValue() {
   this.sizeValue = Object.values(this.size().value);
+  this.detailValue = null;
   this.isSizeSave = false;
   this.isAddVariation = true
   }
@@ -130,49 +138,85 @@ isChecked(name) : boolean{
   addSize(size?) {  this.size().push(this.newSize(size)); this.isSizeAdd = false }
   newSize(sizes?): FormGroup { 
      return this.fb.group({
-        size: [  [sizes], Validators.required ]  }  )  }
-  removeSize() { this.size().removeAt( this.sizeLength = this.size().length - this.size().length - 1 ); this.myChild.removeVariationDetail() }
-  resetSize() {this.size().clear(); this.variation().clear(); this.isSizeSave = true; this.isAddVariation= false; this.isSizeAdd = true }
+        size: [  [sizes], Validators.required ] 
+       }  )  }
+  removeSize() { 
+    this.size().removeAt( this.sizeLength = this.size().length - this.size().length - 1 ); 
+    this.myChild.removeVariationDetail() 
+  }
+  resetSize() { 
+    this.size().clear();
+     this.variation().clear(); 
+     this.size().reset();
+     this.variation().reset(); 
+     this.isSizeSave = true; 
+     this.isAddVariation= false; 
+     this.isSizeAdd = true }
   variation() : FormArray { return this.productForm.get("productVariation") as FormArray  }
   newVariation(name?): FormGroup {  return EditProductDynamicComponent.addVariationItem(name)  }  
   addVariation(name? ) { this.variation().push(this.newVariation(name));  }
   removeVariation() { this.variation().removeAt(this.variationLength = this.variation.length - this.variation.length-1 ); }
+  stock() : FormControl { return this.productForm.get("totalStock") as FormControl  }  //setting/getting form value
+  hPrice() : FormControl { return this.productForm.get("highPrice") as FormControl  }  //setting/getting form value
+  lPrice() : FormControl { return this.productForm.get("lowPrice") as FormControl  }  //setting/getting form value
 
-  //setting/getting form value
   public generateProductVariation(): void {
     this. productForm = new FormGroup({
       name : new FormControl ('', Validators.required),
       description : new FormControl('', Validators.required),
       sizeVariation: new FormArray ([]),
+      totalStock : new FormControl(''),
+      highPrice : new FormControl(''),
+      lowPrice : new FormControl(''),
       productVariation : new FormArray ([  EditProductDynamicComponent.addVariationItem()  ], Validators.required),
       productImages : new FormArray([ new FormControl(), new FormControl(), new FormControl(), new FormControl(), new FormControl() ]),
       productCategory : new FormArray ([ new FormControl('', Validators.required), new FormControl(), new FormControl(), new FormControl(), ]),
     })
   }
 
-   toArray(obj) {
-    const result = [];
-    for (const prop in obj) {
-      const value = obj[prop];
-      if (typeof value === 'object') {
-        result.push(this.toArray(value));
-      } else {
-        result.push(value);
+getTotalStock() {
+  for(var i in this.productForm.value.productVariation) {
+      for(var k in this.productForm.value.productVariation[i].variationDetail) {
+        this.totalStock += this.productForm.value.productVariation[i].variationDetail[k].stock
+      }
+  }
+  this.stock().setValue(this.totalStock);
+}
+getLowPrice() {
+  this.lowPrice = this.productForm.value.productVariation[0].variationDetail[0].price
+  for(var i in this.productForm.value.productVariation) {
+    for(var k in this.productForm.value.productVariation[i].variationDetail) {
+      if ( this.lowPrice > this.productForm.value.productVariation[i].variationDetail[k].price) {
+        this.lowPrice = this.productForm.value.productVariation[i].variationDetail[k].price
       }
     }
-    return result;
-  }
+}
+  this.lPrice().setValue(this.lowPrice);
+}
+
+getHighPrice() {
+  this.highPrice = this.productForm.value.productVariation[0].variationDetail[0].price
+  for(var i in this.productForm.value.productVariation) {
+    for(var k in this.productForm.value.productVariation[i].variationDetail) {
+      if ( this.lowPrice < this.productForm.value.productVariation[i].variationDetail[k].price) {
+        this.highPrice = this.productForm.value.productVariation[i].variationDetail[k].price
+      }
+    }
+}
+  this.hPrice().setValue(this.highPrice);
+}
 //save data to firebase
   update() {  this.productService.updateProduct(this.id, this.productForm.value);  }
 
   onSubmit() {
   (this.productForm.get("productImages") as FormArray).patchValue(this.product.productImages);  
-  this.size().setValue(Object.values(this.product.sizeVariation )) 
+  this.size().setValue(Object.values(this.sizeValue )) 
+  this.getTotalStock()
+  this.getLowPrice()
+  this.getHighPrice()
   this.update();
-  console.log(this.productForm.value)
+  //console.log(this.productForm.value)
   this.router.navigate(['/inventory']);
-  //console.log(this.product.sizeVariation)
-  //console.log(Object.values(this.product.sizeVariation ) )
   }
 
 }

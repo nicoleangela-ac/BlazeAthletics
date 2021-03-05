@@ -1,29 +1,39 @@
 <div class="form-horizontal">	
-	<form action="/action_page.php">	
+	<form action="/action_page.php" [formGroup]="diffAddressForm">	
 		<div class="form-group row">
 	    	<label for="adrs1" class="control-label col-sm-12">Address Line </label>
 			<div class="col-sm-12">
-				<input type="text" class="form-control" id="adrs1" placeholder="Building Number, Street">
+				<input type="text" class="form-control" id="address1" 
+				placeholder="Building Number, Street"
+				name="address1"  formControlName="address1" required >
 			</div>
 		</div>
 		<div class="form-group row">
 			<label for="brgy" class="control-label col-sm-6">Barangay:</label>
 			<label for="city" class="control-label col-sm-6">City:</label>
 				<div class="col-sm-6">
-				<input type="text" class="form-control" id="brgy" placeholder="Barangay">
+				<input type="text" class="form-control" 
+				 id="barangay" placeholder="Barangay"
+				 name="barangay" formControlName="barangay" required>
 			</div>
 			   <div class="col-sm-6">
-				<input type="text" class="form-control" id="city" placeholder="City">
+				<input type="text" class="form-control"
+				  id="city" placeholder="City"
+				  name="city"  formControlName="city" required>
 			</div> 
 		</div>
 		<div class="form-group row">
 			<label for="prov" class="control-label col-sm-6">Region/Province:</label>
 			<label for="pcode" class="control-label col-sm-6">Postal Code</label>	
 			<div class="col-sm-6">
-				<input type="text" class="form-control" id="prov" placeholder="Region/Province">
+				<input type="text" class="form-control" 
+				id="province" placeholder="Region/Province"
+				name="province"  formControlName="province" required>
 			</div>
 			   <div class="col-sm-6">
-				<input type="text" class="form-control" id="pcode" placeholder="Postal Code">
+				<input type="number" class="form-control"
+				 id="postalCode" placeholder="Postal Code"
+				 name="postalCode"  formControlName="postalCode" required>
 			</div> 
 		</div>
 	</form>

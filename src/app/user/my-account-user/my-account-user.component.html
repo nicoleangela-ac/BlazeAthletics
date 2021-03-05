@@ -8,41 +8,95 @@
 
 <h2 class="center-text">MY ACCOUNT</h2>
 <div class="container">
-  <h5>MY ORDERS</h5>
-  <div class="row">
-	<div class="col-sm-12">
-		<div class="row">
-			<div class="col-sm-6"> 
-				<h5>PENDING ORDERS</h5>
+
+	<h5>MY ORDERS</h5>
+	<div class="row">
+
+		<div class="col-sm-12">
+			<div class="row">
+				<div class="col-sm-12"> 
+					<button class=" btn btn-white float-right" > 
+						<a href="https://jtexpress.ph/index/query/gzquery.html" class="txtblack" 
+						target="_blank" rel="noopener noreferrer"> 
+							TRACK YOUR ORDER 
+						</a>
+					</button>	
+				</div>
 			</div>
-			<div class="col-sm-6"> 
-				<button class=" btn btn-white float-right" > <a href="https://jtexpress.ph/index/query/gzquery.html" class="txtblack"> TRACK YOUR ORDER</a> </button>	
+		</div>
+
+		<div class="col-sm-12 vl" *ngIf="toPayOrders.length != 0">
+			<h5> TO PAY</h5>
+			<div class="row">
+				<div class="col-sm-3" *ngFor='let toPays of toPayOrders'>
+				<div class="card">
+				<div class="card-body" *ngFor='let toPay of toPays.orderProduct'>
+					<h5> {{toPay.productName}}</h5>
+					<p>{{"SIZE: " + toPay.productSize}}</p>
+					<p>{{"VARIATION: " + toPay.productVariation}}</p>
+					<p>{{toPay.noItems + " x "+ toPay.price + " PHP"}}</p>
+					<div class="custom-file">
+						<input type="file" class="custom-file-input" id="customInput" required>
+						<label class="custom-file-label" for="customInput">Upload Receipt...</label>
+					</div>
+				</div>
+				</div>
+			</div> 
+			</div> 
+		</div>
+
+		<div class="col-sm-12" *ngIf="toReceiveOrders.length != 0">
+			<h5> TO RECEIVE</h5>	 
+				<div class="row">
+					<div class="col-sm-3"  *ngFor='let toReceives of toReceiveOrders'>
+					 <div class="card">
+						<div class="card-body" *ngFor='let toReceive of toReceives.orderProduct'>
+							<h5> {{toReceive.productName}}</h5>
+							<p>{{"SIZE: " + toReceive.productSize}}</p>
+							<p>{{"VARIATION: " + toReceive.productVariation}}</p>
+							<p>{{toReceive.noItems + " x "+ toReceive.price + " PHP"}}</p>
+							<button type="submit" class="btn  btn-black ">ORDER RECEIVED</button>
+					   </div>
+					   	<p>{{"Tracking No: " + toReceives.trackingNum}}</p>
+					 </div>
+				   </div> 
+				 </div>   
+		</div>
+
+
+		<div class="col-sm-12 vl" *ngIf="otherOrders.length != 0">
+			<h5>OTHER ORDERS</h5>
+			<div class="row">
+				<div class="col-sm-3" *ngFor='let others of otherOrders'>
+				<div class="card">
+				<div class="card-body" *ngFor='let other of others.orderProduct' >
+					<h5> {{other.productName}}</h5>
+					<p>{{"SIZE: " + other.productSize}}</p>
+					<p>{{"VARIATION: " + other.productVariation}}</p>
+					<p>{{other.noItems + " x "+ other.price + " PHP"}}</p> 
+				</div>
+					<p class="order-status">{{"STATUS: " + others.orderStatus}} </p>
+				</div>
+				</div> 
+			</div> 
+		</div>
+
+ 	</div>
+<hr>
+	
+	<button type="button" class="btn btn-block text-left" (click)="isCollapsed = !isCollapsed"
+			[attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+		<h5>> ACCOUNT INFORMATION  </h5>	
+	</button>
+
+	<div id="collapseExample" [ngbCollapse]="isCollapsed">
+		<div class="card">
+			<div class="card-body">
+				<app-signup></app-signup>
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-6 vl">
-		<h5> TO PAY</h5>
-		<app-myaccount-topay></app-myaccount-topay>
- 	</div>
-    <div class="col-sm-6">
-		<h5> TO RECEIVE</h5>	 
-		<app-myaccount-toreceive></app-myaccount-toreceive>
-    </div>
-</div>
-<hr>
-	
-		<button type="button" class="btn btn-block text-left" (click)="isCollapsed = !isCollapsed"
-				[attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
-				<h5>> ACCOUNT INFORMATION  </h5>	
-				</button>
 
-	  <div id="collapseExample" [ngbCollapse]="isCollapsed">
-		<div class="card">
-		  <div class="card-body">
-			<app-signup></app-signup>
-		</div>
-		</div>
-	  </div>
 </div>
 
 

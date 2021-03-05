@@ -33,9 +33,7 @@ export class ItemCartComponent implements OnInit {
           this.productService.setProductData(response);
           console.log(this.productService.getProductsData());
         }
-
         this.isLoading = false;
-
       }
     );
   }
@@ -65,6 +63,6 @@ export class ItemCartComponent implements OnInit {
   onProceed()
   {
     console.log(this.items_cart);
-    //this.router.navigate(['/check-out']);
+    this.router.navigate(['/check-out']);
   }
 }

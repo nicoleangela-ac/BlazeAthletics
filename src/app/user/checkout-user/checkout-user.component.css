@@ -10,3 +10,7 @@ P{
    .form-check{
        margin-bottom: 1em;
    }
+   .resize-img{
+    width: 150px;
+    margin-right: 1em;
+}

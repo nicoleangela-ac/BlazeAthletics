@@ -1,6 +1,6 @@
 import { FirebaseProductsService } from './../../service/firebase-products.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router"; 
+import { ActivatedRoute,Router  } from "@angular/router"; 
 import { ProducDataService } from 'src/app/service/product-data.service';
 import { ProductDataModel } from 'src/app/models/product-data-model';
 import { CartWriteData } from 'src/app/service/cart-write-data.service';
@@ -25,8 +25,8 @@ export class SelectedItemUserComponent implements OnInit {
  stock : number;
  isTrue = false;
  isValid = false;
+ isLoad= false;
  noItem : number;
-
  isLoading = false;
  message: string = null;
 
@@ -44,9 +44,13 @@ export class SelectedItemUserComponent implements OnInit {
               private actRoute: ActivatedRoute,
               private productService: ProducDataService,
               private cartService: CartWriteData,
-              private authService: AuthenticationService)            
-    { console.log(firebaseService.getSingleProduct(this.id));
-      this.product = firebaseService.getSingleProduct(this.id); }
+              private authService: AuthenticationService,
+              private router: Router)            
+    {
+      console.log(firebaseService.getSingleProduct(this.id));
+      this.product = firebaseService.getSingleProduct(this.id); 
+      this.isLoad = true;
+    }
 
     ngOnInit() {
       this.id = this.actRoute.snapshot.paramMap.get('id');  
@@ -80,7 +84,9 @@ export class SelectedItemUserComponent implements OnInit {
     }
   getProductData() {
     this.firebaseService.getSingleProduct(this.id).valueChanges().subscribe(data => {
-    this.product = data;  } ) }
+    this.product = data;  
+    this.isLoad = false;
+    } ) }
 
   getPriceStock () {
     this.isValid = false;
@@ -119,6 +125,7 @@ export class SelectedItemUserComponent implements OnInit {
       {
         this.message = "Added Successfully!"
         this.isLoading = false;
+        this.router.navigate(['/shopping-cart']);
       });
   }
 } 

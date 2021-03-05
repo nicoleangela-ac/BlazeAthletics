@@ -79,8 +79,7 @@
            <div class="col-sm-7" *ngFor="let sizeForm of size().controls let i=index" [formGroupName]="i">
              <span> <input type="text" placeholder="Enter Size"
                      class="form-control" formControlName='size'
-                     [readonly]="isAddVariation"
-                     > 
+                     [readonly]="isAddVariation" > 
             </span> 
             </div>
             </div>
@@ -114,8 +113,7 @@
                 <div formArrayName="productImages">
 
                    <img [src]="url" *ngFor="let url of urls" [src]="url"  class="img-responsive image-display" style="width:50%" alt="Image"></div>  
-                  <span class="errorMessage" 
-                  >
+                  <span class="errorMessage">
                   Image Required</span> 
             </div>  
         </div>

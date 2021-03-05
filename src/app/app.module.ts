@@ -48,9 +48,6 @@ import { OrderCancelComponent } from './admin/order-cancel/order-cancel.componen
 import { OrderHistoryComponent } from './admin/order-history/order-history.component';
 import { OrderSidenavComponent } from './admin/order-sidenav/order-sidenav.component';
 import { ItemCartComponent } from './template/item-cart/item-cart.component';
-import { ItemCheckoutComponent } from './template/item-checkout/item-checkout.component';
-import { MyaccountTopayComponent } from './template/myaccount-topay/myaccount-topay.component';
-import { MyaccountToreceiveComponent } from './template/myaccount-toreceive/myaccount-toreceive.component';
 import { SignupComponent } from './template/signup/signup.component';
 import { OrderPendingDetailsComponent } from './template/order-pending-details/order-pending-details.component';
 import { OrderHistoryDetailsComponent } from './template/order-history-details/order-history-details.component';
@@ -97,9 +94,6 @@ import { LoadingSpinner } from './template/spinners/loading-spinner.component';
     OrderSidenavComponent,
     OrderOngoingComponent,
     ItemCartComponent,
-    ItemCheckoutComponent,
-    MyaccountTopayComponent,
-    MyaccountToreceiveComponent,
     SignupComponent,
     OrderPendingDetailsComponent,
     OrderHistoryDetailsComponent,

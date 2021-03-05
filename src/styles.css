@@ -68,3 +68,11 @@ P {
     margin-bottom: 0em;
 
 }
+
+.loadingMessage {
+    font-family: LemonMilk;
+    display: inline-block;
+    position: absolute;
+    top: 48%;
+    left: 46%; 
+}

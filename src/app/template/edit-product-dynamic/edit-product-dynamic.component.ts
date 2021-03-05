@@ -28,14 +28,22 @@ export class EditProductDynamicComponent {
  }
 
   getSizeControl() { 
-    for (var i in this.sizeValue) { 
+    if(this.detailValue != null) {
+      for (var i in this.sizeValue) { 
       this.detailList().push(this.newDetail(
         this.sizeValue[i].size,
         this.detailValue[i].stock,
         this.detailValue[i].price ) );
-        } 
-      } 
-    
+        }  
+    }
+    else {
+      for (var i in this.sizeValue) { 
+        this.detailList().push(this.newDetail(
+          this.sizeValue[i].size) );
+          } 
+    }
+    } 
+  
 
   getinputField (field) : FormControl { return this.variationForm?.get(field) as FormControl  }
   detailList() : FormArray {  return this.variationForm.get("variationDetail") as FormArray }

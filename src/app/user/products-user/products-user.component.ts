@@ -8,14 +8,14 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./products-user.component.css']
 })
 export class ProductsUserComponent implements OnInit {
-
+  isLoading = false;
   product: any [];
   products: any;
   tempProduct : any;
   constructor(private service : FirebaseProductsService) {
-
-  this.products=service.getProductData();
-   }
+       this.isLoading = true;
+    this.products=service.getProductData();
+  }
 
    ngOnInit() {
     this.getProductData();
@@ -25,21 +25,24 @@ export class ProductsUserComponent implements OnInit {
     this.service.getProductData().snapshotChanges().pipe(
       map(changes =>
         changes.map((c: any) => {
-          return (
+          if(c != null) {
+              return (
             { 
               key: c.payload.key,
               name: c.payload.val().name, 
               productImages: c.payload.val().productImages,
-              productCategory: c.payload.val().productCategory
+              productCategory: c.payload.val().productCategory,
             }
-          );
+          );  
+        }
+        return this.isLoading = false;
         }
         )
       )
     ).subscribe(datas => {
-      this.product = (Object.values(datas));
-      this.tempProduct = datas;
-      console.log(datas)
+      this.product = Object.values(datas);
+      this.isLoading = false;
+
     });
   }
 

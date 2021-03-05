@@ -6,7 +6,12 @@
   <span class="alert-msg">{{message}}</span>
 </div>
 
-<div class="row container-fluid">
+<div class="row container-fluid" *ngIf="isLoad">
+  <p class="loadingMessage">Loading</p>  
+    <app-loading-spinner></app-loading-spinner>
+</div>
+
+<div class="row container-fluid" *ngIf="!isLoad">
   <div class="col-sm-6">
     <carousel [noWrap]="noWrapSlides" [showIndicators]="showIndicator">
       <slide *ngFor="let product of product.productImages">
@@ -65,7 +70,9 @@
           </div>
 
           <div>
-            <button type="submit" (click)="addToCart()"  class="btn btn-black btn-cart" [disabled]="isLoading">ADD TO CART</button>
+            <button type="submit" (click)="addToCart()"  
+            class="btn btn-black btn-cart" [disabled]="isLoading"
+              > ADD TO CART</button>
           </div>
         </form>
     </div>
