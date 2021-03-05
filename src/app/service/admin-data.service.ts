@@ -36,7 +36,7 @@ export class AdminDataServices
 
   addAdmin(admin: AdminData)
   {
-    if(this.adminData != null)
+    if(this.adminData != null || this.adminData.length != 0)
     {
       this.adminData.push(admin);
     } 

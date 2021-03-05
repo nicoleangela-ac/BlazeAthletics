@@ -17,29 +17,29 @@ export class AdminWriteData
   logAdminEntry(adminUID: string, date: string)
   {   
    this.date[adminUID] = date;     
-   return this.http.patch('https://blaze-athletics-firebase-default-rtdb.firebaseio.com/adminLog.json', this.date);
+   return this.http.patch('https://blazestorage-92eaf-default-rtdb.firebaseio.com/adminLog.json', this.date);
   }
 
   deleteAdmin(UID: string)
   {
-   return this.http.delete('https://blaze-athletics-firebase-default-rtdb.firebaseio.com/admins/'+UID+'.json');
+   return this.http.delete('https://blazestorage-92eaf-default-rtdb.firebaseio.com/admins/'+UID+'.json');
   }
 
   addAdmin(adminUID: string)
   { 
    this.admins[adminUID] = true;   
-   return this.http.patch('https://blaze-athletics-firebase-default-rtdb.firebaseio.com/admins.json', this.admins);
+   return this.http.patch('https://blazestorage-92eaf-default-rtdb.firebaseio.com/admins.json', this.admins);
   }
 
   putAdminData()
   {
     const adminData = this.adminService.getAdminData();  
-    this.http.put('https://blaze-athletics-firebase-default-rtdb.firebaseio.com/adminData.json', adminData).subscribe();  
+    this.http.put('https://blazestorage-92eaf-default-rtdb.firebaseio.com/adminData.json', adminData).subscribe();  
   }
 
   getAdmins()
   {
-    this.http.get<AdminData[]>('https://blaze-athletics-firebase-default-rtdb.firebaseio.com/adminData.json').subscribe(adminData => {
+    this.http.get<AdminData[]>('https://blazestorage-92eaf-default-rtdb.firebaseio.com/adminData.json').subscribe(adminData => {
         this.adminService.setAdminData(adminData);
     });
   } 

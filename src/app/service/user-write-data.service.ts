@@ -14,18 +14,18 @@ export class UserWriteData
 
     deleteUser(UID: string)
     {
-     return this.http.delete('https://blaze-athletics-firebase-default-rtdb.firebaseio.com/userData/'+UID+'.json');
+     return this.http.delete('https://blazestorage-92eaf-default-rtdb.firebaseio.com/userData/'+UID+'.json');
     }
 
     putUserData(UID: string)
     {
       const userData = this.userService.getUsersData();  
-      return this.http.put('https://blaze-athletics-firebase-default-rtdb.firebaseio.com/userData/' + UID +'.json', userData);  
+      return this.http.put('https://blazestorage-92eaf-default-rtdb.firebaseio.com/userData/' + UID +'.json', userData);  
     }
 
     getUsers(UID: string)
     {
-     return this.http.get<UserData[]>('https://blaze-athletics-firebase-default-rtdb.firebaseio.com/userData/' + UID +'.json').pipe(
+     return this.http.get<UserData[]>('https://blazestorage-92eaf-default-rtdb.firebaseio.com/userData/' + UID +'.json').pipe(
         map(userData => {
             return userData;
         }), tap(userData =>
