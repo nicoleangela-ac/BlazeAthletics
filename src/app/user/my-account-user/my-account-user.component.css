@@ -14,3 +14,9 @@
     padding-left: 1em;
     padding-bottom: 1em;
   }
+  .upload {
+    margin: .6em;
+  }
+  .custom-file-label{
+    max-width: 13em;
+  }

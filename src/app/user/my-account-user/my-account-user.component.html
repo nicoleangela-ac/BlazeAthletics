@@ -35,12 +35,13 @@
 					<p>{{"SIZE: " + toPay.productSize}}</p>
 					<p>{{"VARIATION: " + toPay.productVariation}}</p>
 					<p>{{toPay.noItems + " x "+ toPay.price + " PHP"}}</p>
-					<div class="custom-file">
-						<input type="file" class="custom-file-input" id="customInput" required>
-						<label class="custom-file-label" for="customInput">Upload Receipt...</label>
-					</div>
 				</div>
+				<div class="custom-file upload">
+					<input type="file" class="custom-file-input" id="customInput" required>
+					<label class="custom-file-label" for="customInput">Upload Receipt</label>
 				</div>
+				<button type="submit" class="btn  btn-black  upload">UPLOAD RECEIPT</button>
+			</div>
 			</div> 
 			</div> 
 		</div>
@@ -54,10 +55,10 @@
 							<h5> {{toReceive.productName}}</h5>
 							<p>{{"SIZE: " + toReceive.productSize}}</p>
 							<p>{{"VARIATION: " + toReceive.productVariation}}</p>
-							<p>{{toReceive.noItems + " x "+ toReceive.price + " PHP"}}</p>
-							<button type="submit" class="btn  btn-black ">ORDER RECEIVED</button>
+							<p>{{toReceive.noItems + " x "+ toReceive.price + " PHP"}}</p>							
 					   </div>
 					   	<p>{{"Tracking No: " + toReceives.trackingNum}}</p>
+						<button type="submit" class="btn  btn-black ">ORDER RECEIVED</button>
 					 </div>
 				   </div> 
 				 </div>   
