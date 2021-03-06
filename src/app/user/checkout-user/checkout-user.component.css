@@ -14,3 +14,9 @@ P{
     width: 150px;
     margin-right: 1em;
 }
+a {
+    font-family: 'Quicksand', sans-serif;
+}
+label {
+    font-family: 'Montserrat', sans-serif;
+}

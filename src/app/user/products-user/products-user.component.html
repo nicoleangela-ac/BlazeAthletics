@@ -3,11 +3,18 @@
     <app-loading-spinner></app-loading-spinner>
 </div>
 
+<div class="row container-fluid" *ngIf=" isProductEmpty">
+  <p class="loadingMessage"> No Products</p>  
+</div>
+
 <h2>PRODUCTS</h2><br> 
 <div class="container-fluid text-center"> 
     <nav class="navbar navbar-expand-sm navbar-light">
         <!-- Links -->
         <ul class="navbar-nav  mx-auto">
+          <li class="nav-item">
+            <a (click)= "getAllProduct()" class="nav-link">ALL</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link">NEW</a>
           </li>
@@ -29,10 +36,11 @@
         <div class="col-sm-3" *ngFor='let product of product'>
           <div class="card">
             <div class="card-body">
-              <img class="card-img" [src]="product.productImages[0]" alt="Card image">
-              <a 
+              <img routerLink="/selected-item/{{product.key}}" class="card-img" [src]="product.productImages[0]" alt="Card image">
+              <p> {{product.name}}</p>
+              <button 
                 routerLink="/selected-item/{{product.key}}"
-                class="btn btn-block btn-light"> ADD TO CART </a>
+                class="btn btn-block btn-light"> ADD TO CART </button>
           </div>
         </div>
       </div>

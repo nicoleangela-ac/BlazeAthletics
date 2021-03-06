@@ -12,11 +12,13 @@ export class InventoryAdminComponent implements OnInit {
 
   product: any;
   noItems : number;
-  
+  isLoading = false;
+
   constructor(private service : FirebaseProductsService, public toastr: ToastrService)
    { this.product = service.getProductData();}
 
    ngOnInit() {
+    this.isLoading = true;
     this.noItems = null;
     this.getProductData();
     }
@@ -33,6 +35,7 @@ export class InventoryAdminComponent implements OnInit {
       for( var i in customers) {
         this.noItems ++
       }
+      this.isLoading = false;
     });
   }
 

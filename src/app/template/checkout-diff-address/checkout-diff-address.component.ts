@@ -26,6 +26,7 @@ export class CheckoutDiffAddressComponent implements OnInit {
       'postalCode' : new FormControl('', Validators.required),
     })
   }
+  getinputField (field) : FormControl { return this.diffAddressForm?.get(field) as FormControl  }
   }
 
 

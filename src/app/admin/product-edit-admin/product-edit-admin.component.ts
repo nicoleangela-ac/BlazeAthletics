@@ -13,6 +13,7 @@ export class ProductEditAdminComponent implements OnInit {
   @Input() variationDetail : FormGroup;
   @ViewChild(EditProductDynamicComponent) private myChild: EditProductDynamicComponent; 
 
+  isLoading = false;
   id: any
   sizeValue : any;
   detailValue : any;
@@ -48,6 +49,8 @@ export class ProductEditAdminComponent implements OnInit {
           }
 
   ngOnInit(): void {
+    this.isLoading = true;
+
     this.totalStock = null;
     this.lowPrice = null;
     this.highPrice = null;
@@ -73,6 +76,9 @@ export class ProductEditAdminComponent implements OnInit {
 
   getData() {
     this.sizeValue= Object.values(this.product.sizeVariation ) 
+    this.getinputField("name").setValue(this.product.name )
+    this.getinputField("description").setValue(this.product.description);
+    this.getArrayField("productCategory" ).patchValue(this.product.productCategory);
 
     //size  control
     for(var i in this.product.sizeVariation) {
@@ -94,7 +100,8 @@ export class ProductEditAdminComponent implements OnInit {
  
   getProductData() {
     this.productService.getSingleProduct(this.id).valueChanges().subscribe(data => {
-    this.product = data;  } ) }
+    this.product = data;  
+    this.isLoading = false; } ) }
 
   //checkbox i
   getCategoryId(e: any, name: string) {

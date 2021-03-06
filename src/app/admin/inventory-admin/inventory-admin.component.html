@@ -1,9 +1,14 @@
+<div class="row container-fluid" *ngIf="isLoading"> 
+    <p class="loadingMessage"> Inventory Loading</p>   
+    <app-loading-spinner></app-loading-spinner>
+</div>
+
 <div class="container-fluid">  
     
     <h2>INVENTORY</h2>  
       <div class="row">
         <div class="col-sm-12">
-            <div class="row">
+            <div class="row head">
                 <div class="col-sm-8">
                     <h5 class="">{{noItems}} PRODUCTS </h5>
                 </div>
@@ -19,7 +24,7 @@
                 <img [src]="product.productImages[0]" class="img-responsive card-img-top" style="width:100%" alt="Image">
                 <div class="row card-body">
                      <div class="col-sm-12"> 
-                            <p> {{product.name}} </p>
+                            <p class="text-center"> {{product.name}} </p>
                         <div class="col-sm-12">
                             <span>P {{product.lowPrice}} </span>
                             <span *ngIf="product.lowPrice != product.highPrice ">- P {{product.highPrice}} </span>

@@ -16,7 +16,8 @@ export class MyAccountUserComponent implements OnInit{
   title = 'appBootstrap';
   orders: any;
   toPayOrders = []
-
+  isLoading = false;
+  isEmpty : boolean;
   toReceiveOrders = [];
   otherOrders = []; 
   public isCollapsed = false;
@@ -26,11 +27,13 @@ export class MyAccountUserComponent implements OnInit{
                {  }
 
   ngOnInit() {
+    this.isLoading = true
     this.toReceiveOrders = [];
     this.otherOrders = [];
     this.toPayOrders = [];
     this.service.getUserOrder(this.authService.userToken).valueChanges().subscribe(data => {
       this.orders = data; 
+      this.isLoading = false
       for (var i in this.orders) {
         if(this.orders[i].orderStatus == 'To Pay' )  {
           this.toPayOrders.push(this.orders[i]);
@@ -43,7 +46,13 @@ export class MyAccountUserComponent implements OnInit{
           this.otherOrders.push(this.orders[i]);
           console.log(this.otherOrders);
         }
-      }    } )
+      }
+      if (data == null) {
+        this.isEmpty = true;
+      }    
+    } 
+      
+      )
   }
 
 

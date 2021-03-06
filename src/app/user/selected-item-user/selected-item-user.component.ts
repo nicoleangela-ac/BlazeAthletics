@@ -23,8 +23,8 @@ export class SelectedItemUserComponent implements OnInit {
  id: string
  price : number;
  stock : number;
- isTrue = false;
- isValid = false;
+ isTrue : boolean;
+ isValid : boolean;
  isLoad= false;
  noItem : number;
  isLoading = false;
@@ -53,6 +53,8 @@ export class SelectedItemUserComponent implements OnInit {
     }
 
     ngOnInit() {
+      this.isTrue = true;
+      this.isValid = true;
       this.id = this.actRoute.snapshot.paramMap.get('id');  
       this.getProductData() 
       this.productItem.price = null;
@@ -61,16 +63,17 @@ export class SelectedItemUserComponent implements OnInit {
     }
 
   incrementQuantity(){
-    this.productItem.noItem++
     this.isTrue = false
-    if(this.productItem.noItem > this.stock || this.stock == 0){
+    this.productItem.noItem++ 
+    if(this.productItem.noItem >= this.stock || this.stock == 0){
       this.isValid = true;
       }
     }
   decreaseQuantity(){
-    this.productItem.noItem--
     this.isValid = false
-    if(this.productItem.noItem < 2 || this.stock == 0)  {
+    this.productItem.noItem--
+
+    if(this.productItem.noItem <= 1 || this.stock == 0)  {
       this.isTrue = true
     }
   }
@@ -90,6 +93,7 @@ export class SelectedItemUserComponent implements OnInit {
 
   getPriceStock () {
     this.isValid = false;
+    this.isTrue = false;
     if(this.itemSize != null && this.variation != null) {
       for(var i in this.product.productVariation) {
         if(this.product.productVariation[i].variationName == this.variation) {
