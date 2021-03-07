@@ -1,6 +1,6 @@
 .card{
     padding: 1em;
-    height: 29em ;
+    height: 27em ;
     margin-bottom: 2em;
 
 }
@@ -20,29 +20,29 @@ p{
 }
 .div-button {
     position: absolute;
-    top: 60%;
+    top: 50%;
     left: 10%;
     margin-bottom: 2em; 
     display: inline-block;
 }
 .stock-sold {
-text-align: left;
+    text-align: left;
     position: absolute;
-    top: 130%;
+    top: 115%;
     left: 5%;
     margin-bottom: 2em; 
     display: inline-block;
 }
 .price {
     position: absolute;
-    top: 100%;
+    top: 85%;
     left: 5%;
     margin-bottom: 2em; 
     display: inline-block;
 }
 .name {
     position: absolute;
-    top: 30%;
+    top: 10%;
     left: 5%;
     margin-bottom: 2em; 
     display: inline-block;
