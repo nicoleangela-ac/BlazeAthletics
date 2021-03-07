@@ -1,15 +1,3 @@
 table{
     margin-top: 1em;
 }
-/*Show red border if kept the input empty after touching*/
-.ng-touched.ng-invalid-required {
-    border-color: red;
-}
-/* Show red border when stuff has been typed in, but its invalid */
-.ng-dirty.ng-invalid {
-  border-color: red;
-}
-/*Show normal border color when typed in for the first time*/
-.ng-untouched.ng-invalid {
-    border-color: #ccc; 
-}

@@ -60,7 +60,7 @@ li {
 
 label {
   cursor: pointer;
-  font-family: 'Bebas Neue', cursive;
+  font-family:  Evolve-Sans ;
 }
 input:checked + label {
   background: rgb(255, 251, 251);
@@ -68,16 +68,13 @@ input:checked + label {
 }
 .description{
   font-style: italic;
-  font-family: 'Bebas Neue', cursive;
+  font-family:  Evolve-Sans-Regular;
 }
 .price{
-  font-family: 'Bebas Neue', cursive;
+  font-family:  Evolve-Sans-Regular;
   color: black;
-  margin-bottom: 0%;
-  margin-top: 1%;
   font-size: 1.3em;
 }
 .quantity-btn{
   max-width: 2.5em;
-  border: black;
 }

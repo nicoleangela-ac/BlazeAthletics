@@ -161,7 +161,7 @@ export class ProductNewAdminComponent implements OnInit {
     this.getLowPrice()
     this.getHighPrice()
     this.save();
-   // console.log(this.productForm.value)
+    console.log(this.productForm.value)
     this.router.navigate(['/inventory']);
   }
 }

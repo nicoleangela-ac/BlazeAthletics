@@ -6,11 +6,3 @@ margin: auto;
 .row{
     margin-top: 2em;
 }
-label {
-
-  font-family: 'Montserrat', sans-serif;
-}
-
-input, a {
-  font-family: 'Quicksand', sans-serif;
-}

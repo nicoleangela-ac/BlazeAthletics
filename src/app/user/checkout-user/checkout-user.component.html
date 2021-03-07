@@ -60,7 +60,7 @@
         />
         <label class="form-check-label" for="flexRadioDefault1"> LBC </label>
         </div>
-        <div class="col-sm-6" *ngIf="!isCourierSelected">
+        <div class="col-sm-6" *ngIf="isCourierSelected">
           <a href={{courierSite}} target="_blank" rel="noopener noreferrer">View Shipping Rates:</a>
           </div>
         <div class="col-sm-12">
@@ -115,7 +115,7 @@
         </div>
         <div class="form-check col-sm-12 ">
           <button  type="submit" class=" btn btn-black"
-                 (click)=" onProceed()" [disabled]="isFormValid || isCourierSelected" 
+                 (click)=" onProceed()" [disabled]="isFormValid" 
                  >
                  Proceed With The Order</button>
           <button  type="submit" class=" btn btn-white float-right">Cancel</button>

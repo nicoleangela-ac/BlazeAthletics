@@ -23,7 +23,7 @@ export class ItemCartComponent implements OnInit {
 
   ngOnInit()
   {
-    this.isLoading = true;
+    this.isLoading = false;
     this.cartService.getCartData(this.authService.userToken).subscribe(response => {
 
         if(response != null)

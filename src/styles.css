@@ -1,14 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+@font-face {
+    font-family: LemonMilk;
+    src: url(../src/assets/fonts/LemonMilk.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: NugoSans;
+    src: url(../src/assets/fonts/NugoSans-Light.ttf) format('truetype');
+}
+@font-face {
+    font-family: Evolve-Sans;
+    src: url(../src/assets/fonts/MADE-Evolve-Sans-Light-_PERSONAL-USE_.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: Evolve-Sans-Regular;
+    src: url(../src/assets/fonts/MADE-Evolve-Sans-Regular.ttf) format('truetype');
+}
 h3,h5 {
-    font-family: 'Archivo Black', sans-serif;
+    font-family: LemonMilk;
 }
 
 
@@ -17,28 +29,28 @@ h2 {
     padding-top: 8px;
     padding-bottom: 10px;
     margin-top: 1em;
-    font-family: 'Archivo Black', sans-serif;
+    font-family: LemonMilk;
 }
 .btn-white{
     color: #000;
     background-color: #fff;
     border-color: #000;
-    font-family: 'Bebas Neue', cursive;
+    font-style: LemonMilk;
 
 }
 .btn-light {
-    font-family: 'Bebas Neue', cursive;
+    font-family: LemonMilk;
     background-color: #d9d9d9;
 }
 .btn-black{
     color: #fff;
     background-color: #000;
     border-color: #fff;
-    font-family: 'Bebas Neue', cursive;
+    font-style: LemonMilk;
 }
 P {
     font-size: 1em;
-    font-family: 'Montserrat', sans-serif;
+    
 }
 
 .card-img {
@@ -50,10 +62,7 @@ P {
 .errorMessage {
     color: red;
     font-style: italic;
-    margin-left: 1em;
-    margin-top: 0.2em;
-    margin-bottom: 0.2em;
-    size: 4px;
+    margin-left: 5px;
 }
 .paragraph-nomargin{
     margin-bottom: 0em;
@@ -61,10 +70,9 @@ P {
 }
 
 .loadingMessage {
-    font-family: 'Bebas Neue', cursive;
+    font-family: LemonMilk;
     display: inline-block;
     position: absolute;
-    top: 50%;
-    left: 50%; 
-    height: 80px;
+    top: 48%;
+    left: 46%; 
 }

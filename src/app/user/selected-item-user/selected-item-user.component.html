@@ -47,7 +47,7 @@
               </ul>
 
             <p class="price" *ngIf="productItem.price != null">Price: {{productItem.price}} </p>
-            <p  class="price" *ngIf="stock >=  1 ">Available Stock: {{stock}}</p>
+            <p  class="errorMessage" *ngIf="stock >=  1 ">Available Stock: {{stock}}</p>
             <p class="errorMessage" *ngIf="stock == 0"> NO AVAILABLE STOCK </p>
           </div>
 
@@ -59,7 +59,7 @@
               class="btn btn-black quantity-btn" >-</button>
                 <input type="text" class="form-control text-center"  readonly required [value]="productItem.noItem" name="noItem" id="quantity">
               <button (click)="incrementQuantity()"
-                [disabled] = "isValid"
+              [disabled] = "isValid"
               class="btn btn-black quantity-btn">+</button>
             </div>
 

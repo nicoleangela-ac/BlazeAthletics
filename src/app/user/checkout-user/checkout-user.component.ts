@@ -25,7 +25,7 @@ export class CheckoutUserComponent implements OnInit {
   cartIsEmpty = true;
   isLoading = false;
   isDiffAddress = false;
-  isCourierSelected = true;
+  isCourierSelected = false;
   isFormValid = true;
   url : string[];
   totalPrice: number;
@@ -161,14 +161,13 @@ export class CheckoutUserComponent implements OnInit {
         this.isDiffAddress =false;
       }
       else{
-        this.isFormValid = true;
         this.isDiffAddress =true;     
       }
     }
   }
     //checkbox i
     getCourier(e: any, name) {
-      this.isCourierSelected = false;
+      this.isCourierSelected = true;
       if(e.target.checked){
         if(name == 'LBC') {
           this.courier().setValue('LBC');
@@ -184,11 +183,15 @@ export class CheckoutUserComponent implements OnInit {
     this.address().clear();
     this.address().reset();
     if( this.isDiffAddress == true) {
+      if(this.myChild.diffAddressForm.valid) {
+        this.isFormValid = false;
+        this.isDiffAddress =false;
         this.addAddress(this.myChild.diffAddressForm.value.address1,
           this.myChild.diffAddressForm.value.barangay,
           this.myChild.diffAddressForm.value.city,
           this.myChild.diffAddressForm.value.province,
           this.myChild.diffAddressForm.value.postalCode )   
+      }
     }
     else {
       this.addAddress(this.userData.address,
@@ -207,18 +210,6 @@ export class CheckoutUserComponent implements OnInit {
     this.ordersService.createOrder(this.checkoutForm.value) ; 
     this.router.navigate(['/my-account']);
   }
-  
-  ngAfterViewChecked() {
-    if(this.isDiffAddress == true) {
-      if(this.myChild.diffAddressForm?.valid == true) {
-        this.isFormValid = false;
-      }
-      else {
-        this.isFormValid = true;
-      }
-      
-    }
-  } 
 
   onProceed()
   { 
