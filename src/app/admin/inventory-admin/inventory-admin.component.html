@@ -24,22 +24,22 @@
                 <img [src]="product.productImages[0]" class="img-responsive card-img-top" style="width:100%" alt="Image">
                 <div class="row card-body">
                      <div class="col-sm-12"> 
-                            <p class="text-center"> {{product.name}} </p>
-                        <div class="col-sm-12">
+                            <p class="text-center name"> {{product.name}} </p>
+                        <div class="col-sm-12 price">
                             <span>P {{product.lowPrice}} </span>
                             <span *ngIf="product.lowPrice != product.highPrice ">- P {{product.highPrice}} </span>
                         </div>
-                        <div class="col-sm-12">
+                        <div class="col-sm-12 stock-sold">
                             <span>Stocks: {{product.totalStock}} </span> 
-                            <span class="float-right">Sold: 35 </span>   
+                            <span class="sold">Sold: 35 </span>   
                         </div>		        		
                     </div>
-                    <div class="col-sm-6 margin text-center">
-                        <button routerLink = "/product-edit/{{product.key}}"class="btn btn-black btn-width">Edit</button>
-                    </div> 
-                    <div class="col-sm-6 margin text-center">
-                        <button routerLink = "/inventory"class="btn btn-black btn-width" (click)="deleteProduct(product.key, product.name)" >Delete</button>
-                    </div> 
+                        <div class="col-sm-6 margin text-center">
+                            <button routerLink = "/product-edit/{{product.key}}"class="div-button btn btn-black btn-width">Edit</button>
+                        </div> 
+                        <div class="col-sm-6 margin text-center">
+                            <button routerLink = "/inventory"class="div-button btn btn-black btn-width" (click)="deleteProduct(product.key, product.name)" >Delete</button>
+                        </div>                         
                 </div>            
                 </div>
             </div>

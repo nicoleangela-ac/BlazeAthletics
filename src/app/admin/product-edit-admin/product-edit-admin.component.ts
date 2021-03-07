@@ -74,11 +74,17 @@ export class ProductEditAdminComponent implements OnInit {
     return false
   }
 
+  //get Data by Load Variation event
   getData() {
     this.sizeValue= Object.values(this.product.sizeVariation ) 
-    this.getinputField("name").setValue(this.product.name )
-    this.getinputField("description").setValue(this.product.description);
     this.getArrayField("productCategory" ).patchValue(this.product.productCategory);
+
+    if ( !this.getinputField("name").valid) {
+      this.getinputField("name").setValue(this.product.name)
+    } 
+    if ( !this.getinputField("description").valid ) {
+      this.getinputField("description").setValue(this.product.description);
+    }
 
     //size  control
     for(var i in this.product.sizeVariation) {
