@@ -20,3 +20,6 @@ a {
 label {
     font-family: 'Montserrat', sans-serif;
 }
+.redError {
+    color: red;
+}

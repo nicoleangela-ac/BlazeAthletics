@@ -77,6 +77,9 @@
               <img [src]="url" *ngFor="let url of url" [src]="url"  class="img-responsive image-display" style="width:50%" alt="Image"> 
             </div>
           </div>
+          <div *ngIf="isSizeLarge">
+            <p class="errorMessage redError"> File Too Large: should be less than 1MB</p>  
+          </div>
         </div>
         <div class="form-check col-sm-12"> 
           <p>Note:</p>

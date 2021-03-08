@@ -24,6 +24,7 @@ export class CheckoutUserComponent implements OnInit {
   items_cart: ProductDataModel[] = [];
   cartIsEmpty = true;
   isLoading = false;
+  isSizeLarge = false;
   isDiffAddress = false;
   isCourierSelected = true;
   isFormValid = true;
@@ -80,11 +81,20 @@ export class CheckoutUserComponent implements OnInit {
       this.url = [];
       var files = event.target.files;
       if (files) {
-        for (let file of files) {
+        var file =  files[0].size/1024
+        if ( file < 1024 ) {
+         for (let file of files) {
           let reader = new FileReader();
           reader.onload = (e: any) => { this.url.push(e.target.result) ;}
           reader.readAsDataURL(file);
-        } } }
+        }
+          this.isSizeLarge = false;             
+        }
+        else {
+          this.isSizeLarge = true;
+        }        
+       }
+      }
 
     checkoutProduct() {
       this.checkoutForm = new FormGroup ({
