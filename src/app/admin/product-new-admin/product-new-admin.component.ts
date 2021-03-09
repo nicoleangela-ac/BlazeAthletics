@@ -31,7 +31,9 @@ export class ProductNewAdminComponent implements OnInit {
     { id: 1, name: 'Anime' },
     { id: 2, name: 'Shirts' },
     { id: 3, name: 'Jerseys' },
-    { id: 4, name: 'Hoodies'}
+    { id: 4, name: 'Hoodies'},
+    { id: 5, name: 'Featured'}
+
   ];
 
   constructor(private fb:FormBuilder ,
@@ -118,7 +120,7 @@ export class ProductNewAdminComponent implements OnInit {
       lowPrice : new FormControl(''),
       productVariation : new FormArray ([ NewProductDynamicComponent.addVariationItem() ], Validators.required),
       productImages : new FormArray([ new FormControl(), new FormControl(), new FormControl(), new FormControl(), new FormControl() ]),
-      productCategory : new FormArray ([ new FormControl('', Validators.required), new FormControl(), new FormControl(), new FormControl(), ]),
+      productCategory : new FormArray ([ new FormControl('', Validators.required), new FormControl(), new FormControl(), new FormControl(), new FormControl(), ]),
     })
   }
 

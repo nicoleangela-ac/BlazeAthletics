@@ -12,14 +12,18 @@
   <br/>
 </div>
 
+<div class="row container-fluid" *ngIf="isProductEmpty">
+  <p class="loadingMessage"> No Featured Products</p>  
+</div>
+
 <div class="container-fluid text-center"> 
-  <h2 class="home-header"  *ngIf="!isLoading">NEW RELEASES</h2><br>
+  <h2 class="home-header" >FEATURED PRODUCTS</h2><br>
   <div class="row">
-    <div class="col-sm-3" *ngFor='let product of product'>
+    <div class="col-sm-3" *ngFor='let featuredProducts of featuredProducts'>
      <div class="card">
        <div class="card-body">
-         <img class="card-img" [src]="product.productImages[0]" alt="No Image Available">
-         <p > {{product.name }} </p>
+         <img routerLink="/selected-item/{{featuredProducts.key}}" class="card-img" [src]="featuredProducts.productImages[0]" alt="No Image Available">
+         <p > {{featuredProducts.name }} </p>
        </div>
      </div>
    </div> 

@@ -13,7 +13,6 @@ export class AdminDataServices
   private adminData: AdminData[] = [];
   indexNumber: number = null;
 
-
   getAdminData()
   {
       if(this.adminData != null){
@@ -42,7 +41,10 @@ export class AdminDataServices
     } 
     else
     {
-      this.adminData = [new AdminData(admin.name, admin.UID, admin.email, admin.contactNumber)];
+      this.adminData = [new AdminData(admin.name, admin.UID, 
+        admin.email, 
+        admin.contactNumber, 
+        admin.role)];
     }   
     this.adminDataChanged.next(this.adminData.slice());
   }

@@ -12,26 +12,24 @@
                   <tr>
                     <th>Name</th>
                     <th>Order Time</th>
-                    <th>Order Id</th>
+                    <th>Courier</th>
                     <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Cha Ising</td>
-                    <td>8/26/20 10:30 pm</td>
-                    <td>201113652498 </td>
-                    <td>Waiting For Buyer to Upload Payment</td>       
-                  </tr>
-                  <tr>
-                  <tr>
-                    <td>Cha Belen</td>
-                    <td>8/29/20 10:30  pm</td>
-                    <td>201155652498 </td>
-                    <td>Waiting For Buyer to Upload Payment</td>       
+                  <tr *ngFor="let p of product$ | async">
+                    <td>{{ p.cutomerName }}</td>
+                    <td>{{ p.orderDate }}</td>
+                    <td>{{ p.courier }}</td>
+                    <td>{{ p.orderStatus }}</td>
+                    <td><button class="btn btn-black" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
+                      aria-controls="collapseExample">Update</button></td>   
                   </tr>
                 </tbody>
               </table>
+              </div>
+              <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="col col-sm-2">
+                <app-order-pending-details></app-order-pending-details>
+              </div>
             </div>
           </div>
-    </div>

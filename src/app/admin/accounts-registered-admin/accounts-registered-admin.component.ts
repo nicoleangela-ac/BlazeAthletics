@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AdminData } from 'src/app/models/admin-data-model';
 import { AdminAuthService } from 'src/app/service/admin-auth.service';
@@ -18,10 +19,14 @@ export class AccountsRegisteredAdminComponent implements OnInit, OnDestroy {
   password: string = null;
   searchIdChecker: string = null;
   searchId: string = null;
+  errorMessage: string = null;
 
   newSearchAdminData: AdminData[] = [];
 
-  constructor(private adminWrite: AdminWriteData, private adminService: AdminDataServices, private adminAuthService: AdminAuthService) { }
+  constructor(private adminWrite: AdminWriteData, 
+    private adminService: AdminDataServices, 
+    private adminAuthService: AdminAuthService,
+    private router: Router) { }
 
   ngOnInit(){
     this.adminWrite.getAdmins();
@@ -61,6 +66,17 @@ export class AccountsRegisteredAdminComponent implements OnInit, OnDestroy {
       this.searchNow(); 
   }
 
+  onAddNewUser()
+  {
+    this.errorMessage = null;
+    this.adminWrite.verifyOwnerAccess().subscribe(response => {
+      this.router.navigate(['/account-new']);
+    }, error =>
+    {
+      this.errorMessage = "Unauthorized Access!";
+    });
+  }
+
   searchNow()
   {
     let search: AdminData[] = [];
@@ -88,7 +104,14 @@ export class AccountsRegisteredAdminComponent implements OnInit, OnDestroy {
 
   addIndex(index: number)
   { 
+    this.errorMessage = null;
     this.adminService.indexNumber = index;
+    this.adminWrite.verifyOwnerAccess().subscribe(response => 
+      {
+        this.router.navigate(['/account-edit']);
+      }, error => {
+        this.errorMessage = "Unauthorized Access!";
+      });
   }
 
   ngOnDestroy()

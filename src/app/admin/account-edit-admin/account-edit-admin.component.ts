@@ -29,6 +29,7 @@ export class AccountEditAdminComponent implements OnInit {
       "name": new FormControl(this.adminData.name, [Validators.required]),
       "email": new FormControl(this.adminData.email, [Validators.required, Validators.email]),
       "contactNumber": new FormControl(this.adminData.contactNumber, [Validators.required]),
+      "role": new FormControl(this.adminData.role, [Validators.required])
     });
   }
 
@@ -42,8 +43,11 @@ export class AccountEditAdminComponent implements OnInit {
     this.adminData.name = this.adminEditForm.value.name;
     this.adminData.email = this.adminEditForm.value.email;
     this.adminData.contactNumber = this.adminEditForm.value.contactNumber;
+    this.adminData.role = this.adminEditForm.value.role;
 
     this.adminService.updateAdmin(this.index,this.adminData);
+
+    this.adminWrite.addAdmin(this.adminData.UID, this.adminData.role).subscribe();
     this.adminWrite.putAdminData();
 
 

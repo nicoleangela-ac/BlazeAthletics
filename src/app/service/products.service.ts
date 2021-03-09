@@ -1,26 +1,36 @@
+import { query } from '@angular/animations';
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase, AngularFireList,  AngularFireObject, AngularFireAction } from '@angular/fire/database';
+import { Observable, Subscription, BehaviorSubject } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
+  items$;
 
-  constructor() { }
+  constructor(private db: AngularFireDatabase) { 
+  }
 
-  product: any[] = [
-    {'img': '../../assets/images/Product1.jpg',"name": "Item 1"},
-    {'img': '../../assets/images/Product3.jpg',"name": "Item 2"},
-    {'img': '../../assets/images/Product5.png',"name": "Item 3"},]
-  items_cart: any[] = [
-    {'img': '../../assets/images/Product1.jpg','title':'JACKET', 'size':'LARGE', 'color':'BLACK', 'noItem':'1', 'price':'300.00'},
-    {'img': '../../assets/images/Product3.jpg','title':'JERSEY', 'size':'LARGE', 'color':'BLACK', 'noItem':'1', 'price':'300.00'},
-  ]
-getProduct() {
-   return this.product;
-}
-getItems() {
-  return this.items_cart;
-}
+  getToPay() {
+    return this.db.list('/ordersData', query => query.orderByChild('orderStatus').equalTo('To Pay'))
+   .snapshotChanges()
+   .pipe(map( action => action
+    .map(a=>{
+      const data =a.payload.val();
+      return data;})))
+  }
 
    
-}
+
+  getPending() {
+    return this.db.list('/ordersData', query => query.orderByChild('orderStatus').equalTo('Pending'))
+   .snapshotChanges()
+   .pipe(map( action => action
+    .map(a=>{
+      const data =a.payload.val();
+      return data;})))
+    }
+  }
+  

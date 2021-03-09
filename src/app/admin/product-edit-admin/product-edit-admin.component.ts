@@ -36,7 +36,8 @@ export class ProductEditAdminComponent implements OnInit {
     { id: 1, name: 'Anime' },
     { id: 2, name: 'Shirts' },
     { id: 3, name: 'Jerseys' },
-    { id: 4, name: 'Hoodies'}
+    { id: 4, name: 'Hoodies'},
+    { id: 5, name: 'Featured'}
   ];
 
 
@@ -94,9 +95,11 @@ export class ProductEditAdminComponent implements OnInit {
     }
     //variation control
     for(let i in this.product.productVariation){
+      console.log( this.product.productVariation[i].variationName)
       this.addVariation(this.product.productVariation[i].variationName);
       for(let j in this.product.productVariation[i]) {
         this.detailValue= this.product.productVariation[i].variationDetail;
+        console.log(this.detailValue= this.product.productVariation[i].variationDetail )
       }
     }
     this.isLoad = true;
@@ -185,7 +188,7 @@ export class ProductEditAdminComponent implements OnInit {
       lowPrice : new FormControl(''),
       productVariation : new FormArray ([  EditProductDynamicComponent.addVariationItem()  ], Validators.required),
       productImages : new FormArray([ new FormControl(), new FormControl(), new FormControl(), new FormControl(), new FormControl() ]),
-      productCategory : new FormArray ([ new FormControl('', Validators.required), new FormControl(), new FormControl(), new FormControl(), ]),
+      productCategory : new FormArray ([ new FormControl('', Validators.required),new FormControl(), new FormControl(), new FormControl(), new FormControl(), ]),
     })
   }
 

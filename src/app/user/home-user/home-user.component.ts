@@ -14,16 +14,19 @@ import { map } from 'rxjs/operators';
 })
 export class HomeUserComponent implements OnInit {
   isLoading = false;
+  isProductEmpty = false;
   noWrapSlides = false;
   showIndicator = true;
   products : any;
   product: any[];
+  featuredProducts: any[];
   slides: any;
 
   constructor( private service : FirebaseProductsService) {
     this.products = service.getProductData();
     this.slides = service.getShopImg();
     this.isLoading = true;
+    this.isProductEmpty = false;
   }
 
   ngOnInit() {
@@ -38,8 +41,10 @@ export class HomeUserComponent implements OnInit {
           if(c != null) {
               return (
             { 
+              key: c.payload.key,
               name: c.payload.val().name, 
               productImages: c.payload.val().productImages,
+              productCategory: c.payload.val().productCategory,
             }
           );
         }
@@ -49,10 +54,18 @@ export class HomeUserComponent implements OnInit {
       )
     ).subscribe(datas => {
       this.product = Object.values(datas);
+      for(var i in this.product ) {
+        for ( var j in this.product[i].productCategory) {
+          if (this.product[i].productCategory[j] == "Featured") {
+           this.featuredProducts.push(this.product[i] )
+          }        
+        }
+      }
     });
   }
 
   getBannerImg() {
     this.service.getShopPageImg('banner').valueChanges().subscribe(data => {
     this.slides = data;  } ) } 
+
 }

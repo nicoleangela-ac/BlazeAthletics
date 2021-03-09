@@ -2,40 +2,46 @@
   <div class="col-sm-12">
     <img src="../../../assets/images/LOGO.png" class="img-fluid center-block " width="220">
     <h2>DASHBOARD</h2>
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+      <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+      </svg>
+      <span class="alert-msg">{{errorMessage}}</span>			
+    </div>
   </div>
   
   <div class="col-sm-4">
-      <div class="card">
+      <div class="card" (click)="orderDetails()" style="cursor: pointer;">
         <div class="card-body">
-          <a routerLink="/orders-topay"> 
-           <svg viewBox="0 0 16 16" class="bi bi-cart txtblack" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <!-- <a routerLink="/orders-topay">  -->
+           <svg viewBox="0 0 16 16" class="bi bi-cart txtblack dashboard-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg" >
               <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
            </svg>
-          </a>
+          <!-- </a> -->
           <h5 class="card-title">ORDER DETAILS</h5>      
         </div>
       </div>
     </div>
     <div class="col-sm-4">
-      <div class="card">
+      <div class="card" (click)="inventory()" style="cursor: pointer;">
         <div class="card-body">
-          <a routerLink="/inventory"> 
-            <svg viewBox="0 0 16 16" class="bi bi-box-seam txtblack" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <!-- <a routerLink="/inventory">  -->
+            <svg viewBox="0 0 16 16" class="bi bi-box-seam txtblack dashboard-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
             </svg>
-            </a>
+            <!-- </a> -->
             <h5 class="card-title">INVENTORY</h5>      
         </div>
       </div>
     </div>
      <div class="col-sm-4">
-      <div class="card">
+      <div class="card" (click)="accountsRegistered()" style="cursor: pointer;">
         <div class="card-body">
-          <a routerLink="/accounts-registered"> 
-            <svg viewBox="0 0 16 16" class="bi bi-person-check txtblack" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <!-- <a routerLink="/accounts-registered">  -->
+            <svg viewBox="0 0 16 16" class="bi bi-person-check txtblack dashboard-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zm4.854-7.85a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
             </svg>
-           </a>
+           <!-- </a> -->
            <h5 class="card-title">REGISTERED ACCOUNTS</h5>      
         </div>
       </div>
