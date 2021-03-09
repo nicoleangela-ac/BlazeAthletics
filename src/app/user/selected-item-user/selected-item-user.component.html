@@ -68,7 +68,9 @@
           <div class="col-sm-12">
             <p class="description">{{product.description}}</p>
           </div>
-
+          <div class="col-sm-12">
+            <p class="description" routerLink ="/faqs">View Size Chart</p>
+          </div>
           <div>
             <button type="submit" (click)="addToCart()"  
             class="btn btn-black btn-cart" [disabled]="isLoading"

@@ -28,3 +28,11 @@ img{
 p {
     font-size: 1.1em;
 }
+.emptyfeature{
+    font-family: 'Bebas Neue', cursive;
+    display: inline-block;
+    position: absolute;
+    top: 85%;
+    left: 45%; 
+    height: 80px;
+}

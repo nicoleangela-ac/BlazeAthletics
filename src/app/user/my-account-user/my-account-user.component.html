@@ -26,7 +26,7 @@
 		</div>
 
 		<div class="col-sm-12 vl" *ngIf="toPayOrders.length != 0">
-			<h5> TO PAY</h5>
+			<h5 class="statusLabel"> TO PAY</h5>
 			<div class="row">
 				<div class="col-sm-3" *ngFor='let toPays of toPayOrders'>
 				<div class="card">
@@ -37,8 +37,14 @@
 					<p>{{toPay.noItems + " x "+ toPay.price + " PHP"}}</p>
 				</div>
 				<div class="custom-file upload">
-					<input type="file" class="custom-file-input" id="customInput" required>
+					<input type="file" class="custom-file-input" id="customInput" required (change)="selectFile($event)">
 					<label class="custom-file-label" for="customInput">Upload Receipt</label>
+				</div>
+				<div class="receiptImg">
+					<img [src]="url" *ngFor="let url of url" [src]="url"  class="img-responsive image-display" style="width:50%" alt="Image"> 
+				</div>
+				<div *ngIf="isSizeLarge">
+					<p class="errorMessage redError"> File Too Large: should be less than 1MB</p>  
 				</div>
 				<button type="submit" class="btn  btn-black  upload">UPLOAD RECEIPT</button>
 			</div>
@@ -47,7 +53,7 @@
 		</div>
 
 		<div class="col-sm-12" *ngIf="toReceiveOrders.length != 0">
-			<h5> TO RECEIVE</h5>	 
+			<h5 class="statusLabel"> TO RECEIVE</h5>	 
 				<div class="row">
 					<div class="col-sm-3"  *ngFor='let toReceives of toReceiveOrders'>
 					 <div class="card">
@@ -66,7 +72,7 @@
 
 
 		<div class="col-sm-12 vl" *ngIf="otherOrders.length != 0">
-			<h5>ORDERS</h5>
+			<h5 class="statusLabel">ORDERS</h5>
 			<div class="row">
 				<div class="col-sm-3" *ngFor='let others of otherOrders'>
 				<div class="card">

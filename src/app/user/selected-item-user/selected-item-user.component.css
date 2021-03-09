@@ -68,6 +68,7 @@ input:checked + label {
 }
 .description{
   font-style: italic;
+  font-size: 1.2em;
   font-family: 'Bebas Neue', cursive;
 }
 .price{

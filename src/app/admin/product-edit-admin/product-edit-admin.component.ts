@@ -36,8 +36,7 @@ export class ProductEditAdminComponent implements OnInit {
     { id: 1, name: 'Anime' },
     { id: 2, name: 'Shirts' },
     { id: 3, name: 'Jerseys' },
-    { id: 4, name: 'Hoodies'},
-    { id: 5, name: 'Featured'}
+    { id: 4, name: 'Hoodies'}
   ];
 
 
@@ -79,13 +78,15 @@ export class ProductEditAdminComponent implements OnInit {
   getData() {
     this.sizeValue= Object.values(this.product.sizeVariation ) 
     this.getinputField("soldProducts").setValue(this.product.soldProducts);
-    this.getArrayField("productCategory" ).patchValue(this.product.productCategory);
 
     if ( !this.getinputField("name").valid) {
       this.getinputField("name").setValue(this.product.name)
     } 
     if ( !this.getinputField("description").valid ) {
       this.getinputField("description").setValue(this.product.description);
+    }
+    if (!this.getArrayField('productCategory').valid) {
+      this.getArrayField("productCategory" ).patchValue(this.product.productCategory);
     }
 
     //size  control
@@ -108,6 +109,24 @@ export class ProductEditAdminComponent implements OnInit {
     this.isSizeSave = false
   }
  
+  setFeature(e: any) {
+  if(e.target.checked){
+   this.getinputField('featureProduct').setValue('yes');
+      }
+    else {
+      this.getinputField('featureProduct').setValue('no');
+    }
+  }
+
+  isFeature() : boolean{
+    if(this.product.featureProduct== 'yes') {
+      return true
+    }
+    else{
+      return false
+    }
+  }
+
   getProductData() {
     this.productService.getSingleProduct(this.id).valueChanges().subscribe(data => {
     this.product = data;  
@@ -186,9 +205,10 @@ export class ProductEditAdminComponent implements OnInit {
       totalStock : new FormControl(''),
       highPrice : new FormControl(''),
       lowPrice : new FormControl(''),
+      featureProduct: new FormControl(),
       productVariation : new FormArray ([  EditProductDynamicComponent.addVariationItem()  ], Validators.required),
       productImages : new FormArray([ new FormControl(), new FormControl(), new FormControl(), new FormControl(), new FormControl() ]),
-      productCategory : new FormArray ([ new FormControl('', Validators.required),new FormControl(), new FormControl(), new FormControl(), new FormControl(), ]),
+      productCategory : new FormArray ([ new FormControl('', Validators.required),new FormControl(),new FormControl(), new FormControl(), ]),
     })
   }
 

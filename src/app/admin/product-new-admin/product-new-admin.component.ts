@@ -32,8 +32,6 @@ export class ProductNewAdminComponent implements OnInit {
     { id: 2, name: 'Shirts' },
     { id: 3, name: 'Jerseys' },
     { id: 4, name: 'Hoodies'},
-    { id: 5, name: 'Featured'}
-
   ];
 
   constructor(private fb:FormBuilder ,
@@ -54,6 +52,14 @@ export class ProductNewAdminComponent implements OnInit {
     this.removeVariation();
   }
 
+  setFeature(e: any) {
+    if(e.target.checked){
+     this.getinputField('featureProduct').setValue('yes');
+        }
+      else {
+        this.getinputField('featureProduct').setValue('no');
+      }
+    }
 
 //checkbox i
   getCategoryId(e: any, name: string) {
@@ -118,9 +124,10 @@ export class ProductNewAdminComponent implements OnInit {
       totalStock : new FormControl(''),
       highPrice : new FormControl(''),
       lowPrice : new FormControl(''),
+      featureProduct: new FormControl(),
       productVariation : new FormArray ([ NewProductDynamicComponent.addVariationItem() ], Validators.required),
       productImages : new FormArray([ new FormControl(), new FormControl(), new FormControl(), new FormControl(), new FormControl() ]),
-      productCategory : new FormArray ([ new FormControl('', Validators.required), new FormControl(), new FormControl(), new FormControl(), new FormControl(), ]),
+      productCategory : new FormArray ([ new FormControl('', Validators.required), new FormControl(), new FormControl(), new FormControl(), ]),
     })
   }
 

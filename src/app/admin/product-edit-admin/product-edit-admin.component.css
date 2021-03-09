@@ -20,3 +20,6 @@
 .ng-untouched.ng-invalid {
     border-color: #ccc; 
 }
+.featureItem{
+    margin-left: 1em;
+}

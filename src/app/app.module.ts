@@ -64,6 +64,7 @@ import { EditAdminGuard } from './route-guard/edit-admin.guard';
 import { EditProductDynamicComponent } from './template/edit-product-dynamic/edit-product-dynamic.component';
 import { LoadingSpinner } from './template/spinners/loading-spinner.component';
 import { AdminAccessGuard } from './route-guard/admin-access.guard';
+import { FooterComponent } from './template/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { AdminAccessGuard } from './route-guard/admin-access.guard';
     CheckoutDiffAddressComponent,
     NewProductDynamicComponent,
     EditProductDynamicComponent,
-    LoadingSpinner
+    LoadingSpinner,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

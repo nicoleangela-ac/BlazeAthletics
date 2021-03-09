@@ -16,16 +16,19 @@ export class MyAccountUserComponent implements OnInit{
   title = 'appBootstrap';
   orders: any;
   toPayOrders = []
-
+  url : string[];
+  isSizeLarge = false;
   toReceiveOrders = [];
   otherOrders = []; 
   public isCollapsed = false;
+
   constructor(private authService: AuthenticationService, 
               private router: Router,
               private service : OrdersFirebaseService)
                {  }
 
   ngOnInit() {
+    this.url = new Array<string>();
     this.toReceiveOrders = [];
     this.otherOrders = [];
     this.toPayOrders = [];
@@ -46,6 +49,26 @@ export class MyAccountUserComponent implements OnInit{
       }    } )
   }
 
+    //upload  images
+    count : number;
+    selectFile(event) {
+      this.url = [];
+      var files = event.target.files;
+      if (files) {
+        var file =  files[0].size/1024
+        if ( file < 1024 ) {
+         for (let file of files) {
+          let reader = new FileReader();
+          reader.onload = (e: any) => { this.url.push(e.target.result) ;}
+          reader.readAsDataURL(file);
+        }
+          this.isSizeLarge = false;             
+        }
+        else {
+          this.isSizeLarge = true;
+        }        
+       }
+      }
 
   onLogOut()
   {

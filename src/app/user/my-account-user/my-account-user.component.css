@@ -20,3 +20,12 @@
   .custom-file-label{
     max-width: 13em;
   }
+  .statusLabel {
+    margin-top: 1em;
+  }
+  .redError {
+    color: red;
+}
+.receiptImg{
+  margin-left: 1em;
+}

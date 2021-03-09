@@ -1,3 +1,4 @@
+import { stringify } from '@angular/compiler/src/util';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { CarouselConfig } from 'ngx-bootstrap/carousel';
@@ -23,19 +24,18 @@ export class HomeUserComponent implements OnInit {
   slides: any;
 
   constructor( private service : FirebaseProductsService) {
-    this.products = service.getProductData();
     this.slides = service.getShopImg();
     this.isLoading = true;
     this.isProductEmpty = false;
   }
 
   ngOnInit() {
-    this.getProductData();
+    this.getFeatured();
     this.getBannerImg();
   }
 
-  getProductData() {
-    this.service.getProductData().snapshotChanges().pipe(
+  getFeatured() {
+    this.service.getFeatured().snapshotChanges().pipe(
       map(changes =>
         changes.map((c: any) => {
           if(c != null) {
@@ -44,23 +44,21 @@ export class HomeUserComponent implements OnInit {
               key: c.payload.key,
               name: c.payload.val().name, 
               productImages: c.payload.val().productImages,
-              productCategory: c.payload.val().productCategory,
             }
-          );
+          );  
+        }
+        else {
+          this.isProductEmpty = true;
+          this.isLoading = true;
         }
         return this.isLoading = false;
         }
         )
       )
     ).subscribe(datas => {
-      this.product = Object.values(datas);
-      for(var i in this.product ) {
-        for ( var j in this.product[i].productCategory) {
-          if (this.product[i].productCategory[j] == "Featured") {
-           this.featuredProducts.push(this.product[i] )
-          }        
-        }
-      }
+      this.featuredProducts = datas; 
+      this.isLoading = false;
+
     });
   }
 
