@@ -63,6 +63,7 @@ import { NewProductDynamicComponent } from './template/new-product-dynamic/new-p
 import { EditAdminGuard } from './route-guard/edit-admin.guard';
 import { EditProductDynamicComponent } from './template/edit-product-dynamic/edit-product-dynamic.component';
 import { LoadingSpinner } from './template/spinners/loading-spinner.component';
+import { AdminAccessGuard } from './route-guard/admin-access.guard';
 
 @NgModule({
   declarations: [
@@ -123,7 +124,7 @@ import { LoadingSpinner } from './template/spinners/loading-spinner.component';
       {path: 'faqs', component: FaqsUserComponent},
       {path: 'about-us', component: AboutUsUserComponent},
       {path: 'products-user', component: ProductsUserComponent},
-      {path: 'shopping-cart', component: ShoppingCartUserComponent},
+      {path: 'shopping-cart', component: ShoppingCartUserComponent, canActivate:[UserAuthenticationGuard]},
       {path: 'login-user', component: LoginUserComponent, canActivate:[SignInGuard]},
       {path: 'signup-user', component: SignupUserComponent, canActivate:[SignInGuard]},
       {path: 'check-out', component:CheckoutUserComponent},

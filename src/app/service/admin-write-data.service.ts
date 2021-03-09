@@ -25,9 +25,9 @@ export class AdminWriteData
    return this.http.delete('https://blazestorage-92eaf-default-rtdb.firebaseio.com/admins/'+UID+'.json');
   }
 
-  addAdmin(adminUID: string)
+  addAdmin(adminUID: string, position: string)
   { 
-   this.admins[adminUID] = true;   
+   this.admins[adminUID] = position;   
    return this.http.patch('https://blazestorage-92eaf-default-rtdb.firebaseio.com/admins.json', this.admins);
   }
 
@@ -43,4 +43,19 @@ export class AdminWriteData
         this.adminService.setAdminData(adminData);
     });
   } 
+
+  verifyClerkAccess()
+  {
+    return this.http.get('https://blazestorage-92eaf-default-rtdb.firebaseio.com/inventoryClerkCheck.json');
+  }
+
+  verifyAdminAccess()
+  {
+    return this.http.get('https://blazestorage-92eaf-default-rtdb.firebaseio.com/adminCheck.json');
+  }
+
+  verifyOwnerAccess()
+  {
+    return this.http.get('https://blazestorage-92eaf-default-rtdb.firebaseio.com/ownerCheck.json');
+  }
 }

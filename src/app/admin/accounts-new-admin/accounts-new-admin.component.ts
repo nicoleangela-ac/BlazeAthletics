@@ -24,7 +24,8 @@ export class AccountsNewAdminComponent implements OnInit {
         "name": new FormControl(null, [Validators.required]),
         "email": new FormControl(null, [Validators.email, Validators.required]),
         "contactNumber": new FormControl(null, [Validators.required]),
-        "password": new FormControl(null, [Validators.required, Validators.minLength(6)])
+        "password": new FormControl(null, [Validators.required, Validators.minLength(6)]),
+        "role": new FormControl('Admin',[Validators.required])
       }
     );
   }
@@ -44,9 +45,9 @@ export class AccountsNewAdminComponent implements OnInit {
     this.adminAuth.adminSignUp(email, password).subscribe(responseData => 
       {
 
-          this.adminDataService.addAdmin(new AdminData(name, responseData.localId, email, contactNumber));
+          this.adminDataService.addAdmin(new AdminData(name, responseData.localId, email, contactNumber, this.addAccountForm.value.role));
 
-        this.adminWrite.addAdmin(responseData.localId).subscribe(
+        this.adminWrite.addAdmin(responseData.localId, this.addAccountForm.value.role).subscribe(
           response => {
             this.adminWrite.putAdminData();
             this.adminWrite.logAdminEntry(responseData.localId, "Admin not logged in yet").subscribe();
