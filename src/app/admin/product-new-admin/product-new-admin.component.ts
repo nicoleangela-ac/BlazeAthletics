@@ -112,6 +112,7 @@ export class ProductNewAdminComponent implements OnInit {
       name : new FormControl ('', Validators.required),
       description : new FormControl('', Validators.required),
       sizeVariation: new FormArray ([ ], Validators.required),
+      soldProducts: new FormControl(0),
       totalStock : new FormControl(''),
       highPrice : new FormControl(''),
       lowPrice : new FormControl(''),

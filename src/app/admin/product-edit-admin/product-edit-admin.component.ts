@@ -77,6 +77,7 @@ export class ProductEditAdminComponent implements OnInit {
   //get Data by Load Variation event
   getData() {
     this.sizeValue= Object.values(this.product.sizeVariation ) 
+    this.getinputField("soldProducts").setValue(this.product.soldProducts);
     this.getArrayField("productCategory" ).patchValue(this.product.productCategory);
 
     if ( !this.getinputField("name").valid) {
@@ -178,6 +179,7 @@ export class ProductEditAdminComponent implements OnInit {
       name : new FormControl ('', Validators.required),
       description : new FormControl('', Validators.required),
       sizeVariation: new FormArray ([]),
+      soldProducts: new FormControl(),
       totalStock : new FormControl(''),
       highPrice : new FormControl(''),
       lowPrice : new FormControl(''),
