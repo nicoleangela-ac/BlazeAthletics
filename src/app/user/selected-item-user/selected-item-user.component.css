@@ -39,6 +39,9 @@ margin-right: 0.7em;
 margin-bottom: 1em;
 font-size: .8em;
 background-color: gray;
+font-family: 'Montserrat', sans-serif;
+font-weight: 500;
+
 } 
 .btn-circle.btn-xl:hover {
   background: rgb(255, 251, 251);

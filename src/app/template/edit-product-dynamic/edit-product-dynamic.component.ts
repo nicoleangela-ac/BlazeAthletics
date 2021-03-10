@@ -9,9 +9,9 @@ import { Component,Input} from '@angular/core';
 export class EditProductDynamicComponent {
 
   @Input() sizeValue: any;
-  @Input() detailValue?: any;
+  @Input() static detailValue?: any;
   @Input() public variationForm : FormGroup;
-  detailLength: number;  
+  detailLength : number;
 
   constructor(private fb:FormBuilder) {
     this.variationForm = this.fb.group({ variationDetail: this.fb.array([]) });   
@@ -20,7 +20,7 @@ export class EditProductDynamicComponent {
   static addVariationItem(name?) : FormGroup {
     return new FormGroup ( {
       variationName : new FormControl (name,Validators.required),
-      variationDetail : new FormArray ([], Validators.required),
+      variationDetail : new FormArray ([ ], Validators.required),
     } ) 
   }
   ngOnInit() {  
@@ -28,12 +28,12 @@ export class EditProductDynamicComponent {
  }
 
   getSizeControl() { 
-    if(this.detailValue != null) {
+    if(EditProductDynamicComponent.detailValue != null) {
       for (var i in this.sizeValue) { 
       this.detailList().push(this.newDetail(
         this.sizeValue[i].size,
-        this.detailValue[i].stock,
-        this.detailValue[i].price ) );
+        EditProductDynamicComponent.detailValue[i].stock,
+        EditProductDynamicComponent.detailValue[i].price ) );
         }  
     }
     else {
@@ -42,10 +42,12 @@ export class EditProductDynamicComponent {
           this.sizeValue[i].size) );
           } 
     }
-    } 
+    }
+
   
 
   getinputField (field) : FormControl { return this.variationForm?.get(field) as FormControl  }
+  getArrayField (field) : FormArray { return this.variationForm?.get(field) as FormArray  }
   detailList() : FormArray {  return this.variationForm.get("variationDetail") as FormArray }
   addVariationDetail() { this.getSizeControl()  }
   removeVariationDetail() { this.detailList().removeAt(this.detailLength = this.detailList.length - this.detailList.length-1) }

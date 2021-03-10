@@ -21,7 +21,6 @@ export class ProductEditAdminComponent implements OnInit {
   isSizeSave: boolean = true;
   isSizeAdd: boolean = true;
   isAddVariation: boolean = false;
-  isLoad: boolean = false;
   productForm : FormGroup;
   product : any ;
   variationLength : number 
@@ -50,7 +49,6 @@ export class ProductEditAdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
-
     this.totalStock = null;
     this.lowPrice = null;
     this.highPrice = null;
@@ -74,41 +72,6 @@ export class ProductEditAdminComponent implements OnInit {
     return false
   }
 
-  //get Data by Load Variation event
-  getData() {
-    this.sizeValue= Object.values(this.product.sizeVariation ) 
-    this.getinputField("soldProducts").setValue(this.product.soldProducts);
-
-    if ( !this.getinputField("name").valid) {
-      this.getinputField("name").setValue(this.product.name)
-    } 
-    if ( !this.getinputField("description").valid ) {
-      this.getinputField("description").setValue(this.product.description);
-    }
-    if (!this.getArrayField('productCategory').valid) {
-      this.getArrayField("productCategory" ).patchValue(this.product.productCategory);
-    }
-
-    //size  control
-    for(var i in this.product.sizeVariation) {
-      this.addSize(this.product.sizeVariation[i].size )
-
-    }
-    //variation control
-    for(let i in this.product.productVariation){
-      console.log( this.product.productVariation[i].variationName)
-      this.addVariation(this.product.productVariation[i].variationName);
-      for(let j in this.product.productVariation[i]) {
-        this.detailValue= this.product.productVariation[i].variationDetail;
-        console.log(this.detailValue= this.product.productVariation[i].variationDetail )
-      }
-    }
-    this.isLoad = true;
-    this.isAddVariation = true;
-    this.isSizeAdd = false;
-    this.isSizeSave = false
-  }
- 
   setFeature(e: any) {
   if(e.target.checked){
    this.getinputField('featureProduct').setValue('yes');
@@ -130,7 +93,35 @@ export class ProductEditAdminComponent implements OnInit {
   getProductData() {
     this.productService.getSingleProduct(this.id).valueChanges().subscribe(data => {
     this.product = data;  
-    this.isLoading = false; } ) }
+    this.isLoading = false; 
+    this.getData();
+  
+  } ) 
+}
+
+  getData() {
+    this.sizeValue= Object.values(this.product.sizeVariation ) 
+    this.getinputField("soldProducts").setValue(this.product.soldProducts);
+    this.getArrayField("productCategory" ).patchValue(this.product.productCategory);
+    this.getinputField("name").setValue(this.product.name)
+    this.getinputField("description").setValue(this.product.description);
+    
+    //size  control
+    for(var i in this.product.sizeVariation) {
+      this.addSize(this.product.sizeVariation[i].size)
+    }
+
+    //variation control
+    for(let i in this.product.productVariation){
+      this.addVariation(this.product.productVariation[i].variationName);
+      EditProductDynamicComponent.detailValue= this.product.productVariation[i].variationDetail;
+    }
+
+    this.isAddVariation = true;
+    this.isSizeAdd = false;
+    this.isSizeSave = false
+  }
+
 
   //checkbox i
   getCategoryId(e: any, name: string) {
@@ -161,7 +152,7 @@ export class ProductEditAdminComponent implements OnInit {
       } } }
 
   getSizeValue() {
-  this.sizeValue = Object.values(this.size().value);
+  this.sizeValue = Object.values(this.getArrayField("sizeVariation").value);
   this.detailValue = null;
   this.isSizeSave = false;
   this.isAddVariation = true
@@ -170,31 +161,37 @@ export class ProductEditAdminComponent implements OnInit {
   //reactive form
   getinputField (field) : FormControl { return this.productForm?.get(field) as FormControl  }
   getArrayField (field) : FormArray { return this.productForm?.get(field) as FormArray  }
-  size(): FormArray { return this.productForm.get("sizeVariation") as FormArray }
-  addSize(size?) {  this.size().push(this.newSize(size)); this.isSizeAdd = false }
+
+  //Size Form Functions
+  addSize(size?) {  this.getArrayField("sizeVariation").push(this.newSize(size)); this.isSizeAdd = false }
   newSize(sizes?): FormGroup { 
      return this.fb.group({
         size: [  [sizes], Validators.required ] 
        }  )  }
+
   removeSize() { 
-    this.size().removeAt( this.sizeLength = this.size().length - this.size().length - 1 ); 
+    this.getArrayField("sizeVariation").removeAt( this.sizeLength = this.getArrayField("sizeVariation").length - this.getArrayField("sizeVariation").length - 1 ); 
     this.myChild.removeVariationDetail() 
   }
+
   resetSize() { 
-    this.size().clear();
-     this.variation().clear(); 
-     this.size().reset();
-     this.variation().reset(); 
+    this.getArrayField("sizeVariation").clear();
+    this.getArrayField("sizeVariation").reset();
+    this.getArrayField("productVariation").clear(); 
+    this.getArrayField("productVariation").reset(); 
+     this.detailValue = null;
+     this.isAddVariation = false;
      this.isSizeSave = true; 
      this.isAddVariation= false; 
-     this.isSizeAdd = true }
-  variation() : FormArray { return this.productForm.get("productVariation") as FormArray  }
+     this.isSizeAdd = true; 
+    }
+//Variation Form Functions
   newVariation(name?): FormGroup {  return EditProductDynamicComponent.addVariationItem(name)  }  
-  addVariation(name? ) { this.variation().push(this.newVariation(name));  }
-  removeVariation() { this.variation().removeAt(this.variationLength = this.variation.length - this.variation.length-1 ); }
-  stock() : FormControl { return this.productForm.get("totalStock") as FormControl  }  //setting/getting form value
-  hPrice() : FormControl { return this.productForm.get("highPrice") as FormControl  }  //setting/getting form value
-  lPrice() : FormControl { return this.productForm.get("lowPrice") as FormControl  }  //setting/getting form value
+  addVariation(name? ) { this.getArrayField("productVariation").push(this.newVariation(name));  }
+  removeVariation() { 
+    this.getArrayField("productVariation").removeAt( 
+      this.variationLength = this.getArrayField("productVariation").length 
+        - this.getArrayField("productVariation").length-1 ); }
 
   public generateProductVariation(): void {
     this. productForm = new FormGroup({
@@ -212,48 +209,37 @@ export class ProductEditAdminComponent implements OnInit {
     })
   }
 
-getTotalStock() {
-  for(var i in this.productForm.value.productVariation) {
-      for(var k in this.productForm.value.productVariation[i].variationDetail) {
-        this.totalStock += this.productForm.value.productVariation[i].variationDetail[k].stock
-      }
-  }
-  this.stock().setValue(this.totalStock);
-}
-getLowPrice() {
+  //get Total Stock and Price High n Low Range
+getPriceRangeandStock() {
+  this.highPrice = this.productForm.value.productVariation[0].variationDetail[0].price
   this.lowPrice = this.productForm.value.productVariation[0].variationDetail[0].price
   for(var i in this.productForm.value.productVariation) {
     for(var k in this.productForm.value.productVariation[i].variationDetail) {
-      if ( this.lowPrice > this.productForm.value.productVariation[i].variationDetail[k].price) {
+      this.totalStock += this.productForm.value.productVariation[i].variationDetail[k].stock
+      if ( this.lowPrice < this.productForm.value.productVariation[i].variationDetail[k].price) {
+        this.highPrice = this.productForm.value.productVariation[i].variationDetail[k].price
+      }
+      else if (this.lowPrice > this.productForm.value.productVariation[i].variationDetail[k].price) {
         this.lowPrice = this.productForm.value.productVariation[i].variationDetail[k].price
       }
     }
 }
-  this.lPrice().setValue(this.lowPrice);
+  this.getinputField("highPrice").setValue(this.highPrice);
+  this.getinputField("lowPrice").setValue(this.lowPrice);
+  this.getinputField("totalStock").setValue(this.totalStock);
 }
 
-getHighPrice() {
-  this.highPrice = this.productForm.value.productVariation[0].variationDetail[0].price
-  for(var i in this.productForm.value.productVariation) {
-    for(var k in this.productForm.value.productVariation[i].variationDetail) {
-      if ( this.lowPrice < this.productForm.value.productVariation[i].variationDetail[k].price) {
-        this.highPrice = this.productForm.value.productVariation[i].variationDetail[k].price
-      }
-    }
-}
-  this.hPrice().setValue(this.highPrice);
-}
 //save data to firebase
-  update() {  this.productService.updateProduct(this.id, this.productForm.value);  }
+  update() { 
+    (this.productForm.get("productImages") as FormArray).patchValue(this.product.productImages);  
+    this.getArrayField("sizeVariation").setValue(Object.values(this.sizeValue )) 
+    this.getPriceRangeandStock()    
+    this.productService.updateProduct(this.id, this.productForm.value);  
+  }
 
   onSubmit() {
-  (this.productForm.get("productImages") as FormArray).patchValue(this.product.productImages);  
-  this.size().setValue(Object.values(this.sizeValue )) 
-  this.getTotalStock()
-  this.getLowPrice()
-  this.getHighPrice()
   this.update();
-  //console.log(this.productForm.value)
+  console.log(this.productForm.value)
   this.router.navigate(['/inventory']);
   }
 

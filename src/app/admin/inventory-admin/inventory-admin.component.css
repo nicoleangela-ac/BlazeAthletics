@@ -44,6 +44,8 @@ p{
     position: absolute;
     top: 10%;
     left: 5%;
+    width: 90%;
+    text-align: center;
     margin-bottom: 2em; 
     display: inline-block;
 }
