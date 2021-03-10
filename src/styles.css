@@ -70,3 +70,7 @@ P {
     left: 50%; 
     height: 80px;
 }
+
+.wrapper {
+    min-height: calc(70vh - 50px);
+}

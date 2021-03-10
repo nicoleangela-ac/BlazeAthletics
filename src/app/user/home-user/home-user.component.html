@@ -16,10 +16,10 @@
   <p class="emptyfeature"> No Featured Products</p>  
 </div>
 
-<div class="container-fluid text-center"> 
+<div class="container-fluid text-center wrapper"> 
   <h2 class="home-header" >FEATURED PRODUCTS</h2><br>
   <div class="row">
-    <div class="col-sm-3" *ngFor='let featuredProducts of featuredProducts'>
+    <div class="col-sm-4" *ngFor='let featuredProducts of featuredProducts'>
      <div class="card">
        <div class="card-body">
          <img routerLink="/selected-item/{{featuredProducts.key}}" class="card-img" [src]="featuredProducts.productImages[0]" alt="No Image Available">
@@ -29,3 +29,6 @@
    </div> 
   </div>
 </div>
+
+<app-footer></app-footer>
+

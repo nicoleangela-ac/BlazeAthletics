@@ -7,9 +7,8 @@
 </button>
 
 <h2 class="center-text">MY ACCOUNT</h2>
-<div class="container">
+<div class="container wrapper">
 
-	<h5>MY ORDERS</h5>
 	<div class="row">
 
 		<div class="col-sm-12">
@@ -89,8 +88,7 @@
 		</div>
 
  	</div>
-<hr>
-	
+	<hr>
 	<button type="button" class="btn btn-block text-left" (click)="isCollapsed = !isCollapsed"
 			[attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
 		<h5>> ACCOUNT INFORMATION  </h5>	
@@ -105,6 +103,8 @@
 	</div>
 
 </div>
+
+<app-footer></app-footer>
 
 
 

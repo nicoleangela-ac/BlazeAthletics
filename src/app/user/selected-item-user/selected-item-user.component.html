@@ -11,7 +11,7 @@
     <app-loading-spinner></app-loading-spinner>
 </div>
 
-<div class="row container-fluid" *ngIf="!isLoad">
+<div class="row container-fluid wrapper" *ngIf="!isLoad">
   <div class="col-sm-6">
     <carousel [noWrap]="noWrapSlides" [showIndicators]="showIndicator">
       <slide *ngFor="let product of product.productImages">
@@ -80,4 +80,6 @@
     </div>
   </div>
 </div>
+
+<app-footer></app-footer>
 

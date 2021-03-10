@@ -1,8 +1,8 @@
 .page-footer{
     border-top: 1px solid black;
     text-align: center;
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding-top: 15px;
+    padding-bottom: 10px;
     position:sticky; 
   }
   .bi-facebook{
@@ -10,9 +10,11 @@
   }
   p, label {
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.1em;
+    font-size: 0.8em;
   }
   a{
     color: black;
   }
-
+  svg{
+    height: 20px;
+  }

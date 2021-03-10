@@ -2,9 +2,9 @@
   <p class="loadingMessage"> Checkout Page Loading</p>  
     <app-loading-spinner></app-loading-spinner>
 </div>
-
+<div class="container-fluid wrapper">
 <form [formGroup]="checkoutForm" action="/action_page.php" *ngIf="!isLoading">  
-<div class="row container">
+<div class="row container wrapper">
   <div class="col-sm-6"> 
      <h2> SHIPPING DETAILS</h2>
      <div class="row">
@@ -142,4 +142,8 @@
     </div>
   </div>
 </div> 
-</form>
+</form>  
+</div>
+
+
+<app-footer></app-footer>
