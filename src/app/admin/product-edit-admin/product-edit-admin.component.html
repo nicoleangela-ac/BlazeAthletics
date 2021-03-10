@@ -76,14 +76,11 @@
           <div class="card-body">
             <h4>SALES INFORMATION</h4>
             <div class="row">   
-              <div class="col-sm-12">
-                <button class="btn btn-black btn-block" [hidden]="isLoad" (click)=getData()> LOAD VARIATION DETAILS</button>
-              </div>
               <div class="col-sm-5">
                 <div class="row" >
                   <div class="col-sm-12">
                     <button class="btn btn-black btn-block"  (click)="addSize()"
-                            [hidden]="!isLoad"
+                            [hidden]="isLoading"
                             [disabled]="isAddVariation"
                             value="value">Add Size</button>
                   </div>
@@ -111,7 +108,7 @@
               </div>
   
               <div formArrayName="sizeVariation">
-             <div class="col-sm-7" *ngFor="let sizeForm of size().controls let i=index" [formGroupName]="i">
+             <div class="col-sm-7" *ngFor="let sizeForm of getArrayField('sizeVariation').controls let i=index" [formGroupName]="i">
                <span> <input type="text" placeholder="Enter Size"
                        class="form-control" formControlName='size'
                        [readonly]="isAddVariation"
@@ -122,8 +119,8 @@
    
              
             </div>
-              <app-edit-product-dynamic *ngFor="let variationForm of variation().controls"
-                [variationForm]="variationForm" [sizeValue]="sizeValue" [detailValue]= "detailValue" >
+              <app-edit-product-dynamic *ngFor="let variationForm of getArrayField('productVariation').controls"
+                [variationForm]="variationForm" [sizeValue]="sizeValue">
               </app-edit-product-dynamic>
           </div>
         </div>
