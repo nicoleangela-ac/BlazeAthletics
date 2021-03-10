@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
-
+import { DataTablesModule } from 'angular-datatables';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -108,6 +108,7 @@ import { FooterComponent } from './template/footer/footer.component';
   ],
   imports: [
     BrowserModule,
+    DataTablesModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
