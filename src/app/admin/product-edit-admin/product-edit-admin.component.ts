@@ -15,8 +15,6 @@ export class ProductEditAdminComponent implements OnInit {
 
   isLoading = false;
   id: any
-  sizeValue : any;
-  detailValue : any;
   price : any;
   isSizeSave: boolean = true;
   isSizeAdd: boolean = true;
@@ -90,44 +88,8 @@ export class ProductEditAdminComponent implements OnInit {
     }
   }
 
-  getProductData() {
-    this.productService.getSingleProduct(this.id).valueChanges().subscribe(data => {
-    this.product = data;  
-    this.isLoading = false; 
-    this.getData();
-  
-  } ) 
-}
-
-  getData() {
-    this.sizeValue= Object.values(this.product.sizeVariation ) 
-    this.getinputField("soldProducts").setValue(this.product.soldProducts);
-    this.getArrayField("productCategory" ).patchValue(this.product.productCategory);
-    this.getinputField("name").setValue(this.product.name)
-    this.getinputField("description").setValue(this.product.description);
-    
-    //size  control
-    for(var i in this.product.sizeVariation) {
-      this.addSize(this.product.sizeVariation[i].size)
-    }
-
-    //variation control
-    for(let i in this.product.productVariation){
-      this.addVariation(this.product.productVariation[i].variationName);
-    //  this.myChild.setPriceStock(this.product.productVariation[i].variationDetail );
-      EditProductDynamicComponent.detailValue = this.product.productVariation
-      console.log(  EditProductDynamicComponent.detailValue )
-    } 
-
-
-    this.isAddVariation = true;
-    this.isSizeAdd = false;
-    this.isSizeSave = false
-  }
-
-
-  //checkbox i
-  getCategoryId(e: any, name: string) {
+   //checkbox i
+   getCategoryId(e: any, name: string) {
     (this.productForm.get("productCategory") as FormArray).reset();
     if(e.target.checked){
       this.product.productCategory.push(name)
@@ -153,13 +115,47 @@ export class ProductEditAdminComponent implements OnInit {
         this.count++; }
         reader.readAsDataURL(file);
       } } }
+      
+      
+  getProductData() {
+    this.productService.getSingleProduct(this.id).valueChanges().subscribe(data => {
+    this.product = data;  
+    this.isLoading = false; 
+
+    EditProductDynamicComponent.sizeValue= Object.values(this.product.sizeVariation ) 
+    this.getinputField("soldProducts").setValue(this.product.soldProducts);
+    this.getArrayField("productCategory" ).patchValue(this.product.productCategory);
+    this.getinputField("name").setValue(this.product.name)
+    this.getinputField("description").setValue(this.product.description);
+    EditProductDynamicComponent.detailValue = this.product.productVariation
+    
+    //size  control
+    for(var i in this.product.sizeVariation) {
+      this.addSize(this.product.sizeVariation[i].size)
+    }
+
+    //variation control
+    for(let i in this.product.productVariation){
+      this.addVariation(this.product.productVariation[i].variationName);
+    } 
+    this.isSizeAdd = false;
+    this.isSizeSave = false
+    } ) 
+  }
+
+
 
   getSizeValue() {
-  this.sizeValue = Object.values(this.getArrayField("sizeVariation").value);
-  this.detailValue = null;
+  EditProductDynamicComponent.sizeValue = Object.values(this.getArrayField("sizeVariation").value);
   this.isSizeSave = false;
-  this.isAddVariation = true
+  this.getArrayField("productVariation").clear();
+
+  for(let i in this.product.productVariation){
+    this.addVariation(this.product.productVariation[i].variationName);
+  } 
+
   }
+
 
   //reactive form
   getinputField (field) : FormControl { return this.productForm?.get(field) as FormControl  }
@@ -174,7 +170,7 @@ export class ProductEditAdminComponent implements OnInit {
 
   removeSize() { 
     this.getArrayField("sizeVariation").removeAt( this.sizeLength = this.getArrayField("sizeVariation").length - this.getArrayField("sizeVariation").length - 1 ); 
-    this.myChild.removeVariationDetail() 
+    this.getSizeValue(); 
   }
 
   resetSize() { 
@@ -183,11 +179,10 @@ export class ProductEditAdminComponent implements OnInit {
     this.getArrayField("productVariation").clear(); 
     this.getArrayField("productVariation").reset(); 
     EditProductDynamicComponent.detailValue = null;
-     this.isAddVariation = false;
-     this.isSizeSave = true; 
-     this.isAddVariation= false; 
-     this.isSizeAdd = true; 
+    this.product.productVariation = null
+    this.isSizeSave = true; 
     }
+
 //Variation Form Functions
   newVariation(name?): FormGroup {  return EditProductDynamicComponent.addVariationItem(name)  }  
   addVariation(name?) { this.getArrayField("productVariation").push(this.newVariation(name));  }
@@ -235,12 +230,12 @@ getPriceRangeandStock() {
 //save data to firebase
   update() { 
     (this.productForm.get("productImages") as FormArray).patchValue(this.product.productImages);  
-    this.getArrayField("sizeVariation").setValue(Object.values(this.sizeValue )) 
-    this.getPriceRangeandStock()    
+    this.getArrayField("sizeVariation").setValue(Object.values(EditProductDynamicComponent.sizeValue )) 
+    this.getPriceRangeandStock()     
     this.productService.updateProduct(this.id, this.productForm.value);  
   }
 
-  onSubmit() {
+  onSubmit() {    
   this.update();
   console.log(this.productForm.value)
   this.router.navigate(['/inventory']);

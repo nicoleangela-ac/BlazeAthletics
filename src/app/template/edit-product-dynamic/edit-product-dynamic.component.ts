@@ -8,11 +8,11 @@ import { Component,Input} from '@angular/core';
 })
 export class EditProductDynamicComponent {
 
-  @Input() sizeValue: any;
+  static sizeValue: any;
   static detailValue?: any;
   @Input() public variationForm : FormGroup;
   detailLength : number;
-  details : any;
+  value : number
   constructor(private fb:FormBuilder) {
     this.variationForm = this.fb.group({ variationDetail: this.fb.array([]) });   
   }
@@ -24,6 +24,7 @@ export class EditProductDynamicComponent {
     } ) 
   }
   ngOnInit() {  
+    this.value = 1;
     this.getSizeControl();  
  }
 
@@ -31,35 +32,39 @@ export class EditProductDynamicComponent {
     if(EditProductDynamicComponent.detailValue != null) {
       for(var j in EditProductDynamicComponent.detailValue) {
         if( EditProductDynamicComponent.detailValue[j].variationName == this.getinputField('variationName').value) {
-          for (var i in this.sizeValue) { 
-          this.detailList().push(this.newDetail(
-            this.sizeValue[i].size, 
-            EditProductDynamicComponent.detailValue[j].variationDetail[i].stock,
-            EditProductDynamicComponent.detailValue[j].variationDetail[i].price ) );
+          for (var i in EditProductDynamicComponent.sizeValue) { 
+          if(EditProductDynamicComponent.detailValue[j].variationDetail[i] != undefined) {
+              this.detailList().push(this.newDetail(
+                EditProductDynamicComponent.sizeValue[i].size, 
+                EditProductDynamicComponent.detailValue[j].variationDetail[i].stock,
+                EditProductDynamicComponent.detailValue[j].variationDetail[i].price ) );            
+          }
+           else {
+             for(var k in this.getArrayField('variationDetail').value ) {
+              if(EditProductDynamicComponent.sizeValue[i] != this.getArrayField('variationDetail').value[k].size && this.value == 1) 
+                {
+                this.detailList().push(this.newDetail(EditProductDynamicComponent.sizeValue[i].size)); 
+                this.value++;             
+                }                
+             } 
+          }
             }           
         }
-        else if (this.getinputField('variationName').value == null) {
-         for (var i in this.sizeValue) { 
-          this.detailList().push(this.newDetail(
-          this.sizeValue[i].size) );
-          }        
+        else if (this.getinputField('variationName').value == null && this.value == 1) {
+          this.setSizeControl();
+          this.value++;      
         }
-        
       }
- 
     }
     else {
-      for (var i in this.sizeValue) { 
-        this.detailList().push(this.newDetail(
-          this.sizeValue[i].size) );
-          } 
+      this.setSizeControl();
     }
     }
 
-    setSizeControl() {
-      for (var i in this.sizeValue) { 
+    public setSizeControl() {
+      for (var i in EditProductDynamicComponent.sizeValue) { 
         this.detailList().push(this.newDetail(
-          this.sizeValue[i].size) );
+          EditProductDynamicComponent.sizeValue[i].size) );
           } 
     }
 

@@ -69,27 +69,28 @@
             <div class="col-sm-5">
               <div class="row">
                 <div class="col-sm-12">
-                  <button class="btn btn-black btn-block"  (click)="addSize()"
-                          [disabled]="isAddVariation" value="value">Add Size</button>
+                  <button class="btn btn-black btn-block"  
+                          (click)="addSize()"
+                          value="value">Add Size</button>
                 </div>
                 <div class="col-sm-12">
-                  <button class="btn btn-black btn-block" [hidden]="isSizeAdd" [disabled]="isAddVariation"
+                  <button class="btn btn-black btn-block" 
+                          [hidden]="isSizeAdd" 
                           (click)="removeSize()" value="value" >Remove Size</button>
                 </div>
-                <div class="col-sm-12">
-                  <button class="btn btn-black btn-block" [hidden]="isSizeAdd"
-                        (click)="getSizeValue()" value="value" 
-                        [disabled] = "isAddVariation"
-                        >Save Size</button>
-                </div>
                <div class="col-sm-12">
-                  <button class="btn btn-black btn-block" [hidden]="isSizeSave" (click)="addVariation()" >Add Variation</button>
+                  <button class="btn btn-black btn-block" 
+                          [hidden]="isSizeAdd" 
+                          (click)="addVariation()" >Add Variation</button>
                 </div> 
                 <div class="col-sm-12">
-                  <button class="btn btn-black btn-block" [hidden]="isSizeSave" (click)="removeVariation()">Remove Variation</button>
+                  <button class="btn btn-black btn-block" 
+                          [hidden]="isSizeAdd" 
+                          (click)="removeVariation()">Remove Variation</button>
                 </div>
                 <div class="col-sm-12">
-                  <button class="btn btn-danger btn-block" [hidden]="isSizeSave" 
+                  <button class="btn btn-danger btn-block" 
+                          [hidden]="isSizeSave" 
                           (click)="resetSize()" value="value" >RESET</button>
                 </div> 
               </div>
@@ -99,7 +100,7 @@
            <div class="col-sm-7" *ngFor="let sizeForm of size().controls let i=index" [formGroupName]="i">
              <span> <input type="text" placeholder="Enter Size"
                      class="form-control" formControlName='size'
-                     [readonly]="isAddVariation" > 
+                     (change)="getSizeValue()" > 
             </span> 
             </div>
             </div>

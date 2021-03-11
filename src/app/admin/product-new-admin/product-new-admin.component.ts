@@ -18,6 +18,7 @@ export class ProductNewAdminComponent implements OnInit {
   isSizeSave: boolean = true;
   isSizeAdd: boolean = true;
   isAddVariation: boolean = false;
+  tempData : any;
   productForm : FormGroup;
   variationLength : number 
   sizeLength : number;
@@ -93,9 +94,16 @@ export class ProductNewAdminComponent implements OnInit {
       } } console.log(this.urls); }
   
   getSizeValue() {
+  this.tempData = this.getArrayField("productVariation").value;
+  NewProductDynamicComponent.detailValue = this.tempData
   this.sizeValue = Object.values(this.size().value);
   this.isSizeSave = false;
-  this.isAddVariation = true
+
+  this.getArrayField("productVariation").clear();
+
+  for(let i in this.tempData){
+    this.addVariation(this.tempData[i].variationName);
+  } 
   }
 
   //reactive form
@@ -104,11 +112,14 @@ export class ProductNewAdminComponent implements OnInit {
   size(): FormArray { return this.productForm.get("sizeVariation") as FormArray }
   addSize() {  this.size().push(this.newSize()); this.isSizeAdd = false}
   newSize(): FormGroup {  return this.fb.group({  size: [[], Validators.required]  })  }
-  removeSize() { this.size().removeAt( this.sizeLength = this.size().length - this.size().length - 1 ); this.myChild.removeVariationDetail() }
+  removeSize() { 
+    this.size().removeAt( this.sizeLength = this.size().length - this.size().length - 1 );
+    this.getSizeValue();
+    }
   resetSize() {this.size().clear(); this.variation().clear(); this.isSizeSave = true; this.isAddVariation= false; this.isSizeAdd = true }
   variation() : FormArray { return this.productForm.get("productVariation") as FormArray  }
-  newVariation(): FormGroup {  return NewProductDynamicComponent.addVariationItem()  }  
-  addVariation() { this.variation().push(this.newVariation()); }
+  newVariation(name?): FormGroup {  return NewProductDynamicComponent.addVariationItem(name)  }  
+  addVariation(name?) { this.variation().push(this.newVariation(name)); }
   removeVariation() { this.variation().removeAt(this.variationLength = this.variation.length - this.variation.length-1 ); }
   stock() : FormControl { return this.productForm.get("totalStock") as FormControl  }  //setting/getting form value
   hPrice() : FormControl { return this.productForm.get("highPrice") as FormControl  }  //setting/getting form value
