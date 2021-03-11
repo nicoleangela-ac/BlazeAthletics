@@ -79,30 +79,30 @@
               <div class="col-sm-5">
                 <div class="row" >
                   <div class="col-sm-12">
-                    <button class="btn btn-black btn-block"  (click)="addSize()"
-                            [hidden]="isLoading"
-                            [disabled]="isAddVariation"
-                            value="value">Add Size</button>
+                    <button class="btn btn-black btn-block"  
+                            (click)="addSize()"
+                            value="value"> Add Size</button>
                   </div>
                   <div class="col-sm-12">
-                    <button class="btn btn-black btn-block" [hidden]="isSizeAdd" [disabled]="isAddVariation"
-                            (click)="removeSize()" value="value" >Remove Size</button>
-                  </div>
-                  <div class="col-sm-12">
-                    <button class="btn btn-black btn-block" [hidden]="isSizeAdd"
-                          (click)="getSizeValue()" value="value" 
-                          [disabled] = "isAddVariation"
-                          >Save Size</button>
+                    <button class="btn btn-black btn-block" 
+                            [hidden]="isSizeAdd" 
+                            (click)="removeSize()" 
+                            value="value" > Remove Size</button>
                   </div>
                  <div class="col-sm-12">
-                    <button class="btn btn-black btn-block" [hidden]="isSizeSave" (click)="addVariation()" >Add Variation</button>
+                    <button class="btn btn-black btn-block" 
+                            [hidden]="isSizeAdd" 
+                            (click)="addVariation()" > Add Variation</button>
                   </div> 
                   <div class="col-sm-12">
-                    <button class="btn btn-black btn-block" [hidden]="isSizeSave" (click)="removeVariation()">Remove Variation</button>
+                    <button class="btn btn-black btn-block" 
+                            [hidden]="isSizeAdd" 
+                            (click)="removeVariation()" > Remove Variation</button>
                   </div>
                   <div class="col-sm-12">
-                    <button class="btn btn-danger btn-block" [hidden]="isSizeSave" 
-                            (click)="resetSize()" value="value" >RESET</button>
+                    <button class="btn btn-danger btn-block" 
+                            [hidden]="isSizeSave" 
+                            (click)="resetSize()" > RESET</button>
                   </div> 
                 </div>
               </div>
@@ -111,8 +111,7 @@
              <div class="col-sm-7" *ngFor="let sizeForm of getArrayField('sizeVariation').controls let i=index" [formGroupName]="i">
                <span> <input type="text" placeholder="Enter Size"
                        class="form-control" formControlName='size'
-                       [readonly]="isAddVariation"
-                       > 
+                       (change)="getSizeValue()"> 
               </span> 
               </div>
               </div>
@@ -120,7 +119,7 @@
              
             </div>
               <app-edit-product-dynamic *ngFor="let variationForm of getArrayField('productVariation').controls"
-                [variationForm]="variationForm" [sizeValue]="sizeValue">
+                [variationForm]="variationForm">
               </app-edit-product-dynamic>
           </div>
         </div>
