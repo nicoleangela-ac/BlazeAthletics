@@ -4,7 +4,8 @@ import {ProductsService} from 'src/app/service/products.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireDatabase, AngularFireList} from '@angular/fire/database';
 
-import { map } from 'rxjs/operators';
+import { map,take } from 'rxjs/operators';
+
 
 
 @Component({
@@ -16,13 +17,12 @@ export class OrderPendingComponent implements OnInit {
   product$;
   public isCollapsed = true;
   key$;
+UIDdata : any
 orders : any
 
  constructor(private productService: ProductsService,
             private ordersService : OrdersFirebaseService,
             private modalService: NgbModal,private db: AngularFireDatabase) {
-  //  this.key$= this.productService.getPendingKEY();
-  //  this.ordersService.getStatusOrder('Pending');
  }
 
  ngOnInit() {
@@ -39,11 +39,23 @@ orders : any
  }
 
 
-openVerticallyCentered(content) {
+openVerticallyCentered(content, UID:string) {
   this.modalService.open(content, { centered: true });
-  this.db.list
-  console.log(content)
+  this.ordersService.getOrderKey(UID).snapshotChanges().pipe(
+    map(changes =>
+      changes.map(c =>
+        ({ key: c.payload.key, ...c.payload.val() })
+      )
+    )
+  ).subscribe(datas => {
+    this.UIDdata = datas; 
+    console.log(this.UIDdata)
+  });
+ }
+
 
 }
 
-}
+
+
+

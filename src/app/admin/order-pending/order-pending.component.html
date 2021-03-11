@@ -22,8 +22,7 @@
                     <td>{{ p.orderDate }}</td>  
                     <td>{{ p.courier }}</td>
                     <td>{{ p.orderStatus }}</td>
-                    <p> {{p.key}} </p>
-                    <td><button (click)="openVerticallyCentered(content)" >Update</button></td>
+                    <td><button (click)="openVerticallyCentered(content, p.key)" >Update</button></td>
                 </tbody>
               </table>
             </div>
@@ -33,34 +32,32 @@
     <ng-template #content let-modal>
       <div class="modal-header">
         <h4 class="modal-title">Order Details</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <button type="button" class="close" aria-label="Close" >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body"*ngFor="let id of UIDdata" >
         <div class="col-sm-12 details">
-        <p>name</p>
-        <p>juancarlos@gmail.com</p>
+        <p></p>
+        <p>{{id.cutomerName}}</p>
         </div>
         <div class="col-sm-12 details">
           <p>Order Summary</p>
-          <p>TSHIRT</p>
-         <p>SIZE - LARGE</p>
-         <P>COLOR BLACK</P>
-         <P>1 X PHP 300</P> 
        </div>
+       
        <div class="col-sm-12 details">
-        <p>Address</p>
-        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Number Of Items: {{id.orderProduct[0].noItems}}</p>
+        <p>Total Price : {{id.orderProduct[0].price}}</p>
+        <p></p>
       </div>
       <div class="col-sm-12 details">
-        <img src="https://tse4.mm.bing.net/th?id=OIP.POTtHrDCCg0IZ73xo21jgwHaHa&pid=Api" class="img-responsive" style="width:100%" alt="Image">  
+        <img [src]="id.receiptImage[0]" class="img-responsive" style="width:100%" alt="Image">
       </div>
 
 
       <div class="modal-footer">
         <button class="btn btn-success">Confirm</button>
-        <button type="button" class="btn btn-danger float-right" (click)="modal.close('Close click')">Close</button>
+        <button type="button" class="btn btn-danger float-right" >Close</button>
       </div>
       </div>
     </ng-template>
