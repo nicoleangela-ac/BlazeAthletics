@@ -13,6 +13,7 @@ export class EditProductDynamicComponent {
   @Input() public variationForm : FormGroup;
   detailLength : number;
   details : any;
+  value : number
   constructor(private fb:FormBuilder) {
     this.variationForm = this.fb.group({ variationDetail: this.fb.array([]) });   
   }
@@ -24,6 +25,7 @@ export class EditProductDynamicComponent {
     } ) 
   }
   ngOnInit() {  
+    this.value = 1;
     this.getSizeControl();  
  }
 
@@ -38,15 +40,15 @@ export class EditProductDynamicComponent {
             EditProductDynamicComponent.detailValue[j].variationDetail[i].price ) );
             }           
         }
-        else if (this.getinputField('variationName').value == null) {
+        else if (this.getinputField('variationName').value == null && this.value == 1) {
          for (var i in this.sizeValue) { 
           this.detailList().push(this.newDetail(
           this.sizeValue[i].size) );
-          }        
+          }  
+          this.value++;      
         }
         
       }
- 
     }
     else {
       for (var i in this.sizeValue) { 
