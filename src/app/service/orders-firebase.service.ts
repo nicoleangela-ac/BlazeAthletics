@@ -31,4 +31,8 @@ export class OrdersFirebaseService {
   getUserOrder(UID: string): AngularFireList<any> {  
     return this.db.list(this.dbPathOrders, ref => ref.orderByChild('customerId').equalTo(UID));
   }
+
+  getStatusOrder(Status: string): AngularFireList<any> {  
+    return this.db.list(this.dbPathOrders, ref => ref.orderByChild('orderStatus').equalTo(Status));
+  }
 }

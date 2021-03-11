@@ -9,10 +9,10 @@ import { Component,Input} from '@angular/core';
 export class EditProductDynamicComponent {
 
   @Input() sizeValue: any;
-  @Input() static detailValue?: any;
+  static detailValue?: any;
   @Input() public variationForm : FormGroup;
   detailLength : number;
-
+  details : any;
   constructor(private fb:FormBuilder) {
     this.variationForm = this.fb.group({ variationDetail: this.fb.array([]) });   
   }
@@ -29,12 +29,24 @@ export class EditProductDynamicComponent {
 
   getSizeControl() { 
     if(EditProductDynamicComponent.detailValue != null) {
-      for (var i in this.sizeValue) { 
-      this.detailList().push(this.newDetail(
-        this.sizeValue[i].size,
-        EditProductDynamicComponent.detailValue[i].stock,
-        EditProductDynamicComponent.detailValue[i].price ) );
-        }  
+      for(var j in EditProductDynamicComponent.detailValue) {
+        if( EditProductDynamicComponent.detailValue[j].variationName == this.getinputField('variationName').value) {
+          for (var i in this.sizeValue) { 
+          this.detailList().push(this.newDetail(
+            this.sizeValue[i].size, 
+            EditProductDynamicComponent.detailValue[j].variationDetail[i].stock,
+            EditProductDynamicComponent.detailValue[j].variationDetail[i].price ) );
+            }           
+        }
+        else if (this.getinputField('variationName').value == null) {
+         for (var i in this.sizeValue) { 
+          this.detailList().push(this.newDetail(
+          this.sizeValue[i].size) );
+          }        
+        }
+        
+      }
+ 
     }
     else {
       for (var i in this.sizeValue) { 
@@ -44,12 +56,19 @@ export class EditProductDynamicComponent {
     }
     }
 
-  
+    setSizeControl() {
+      for (var i in this.sizeValue) { 
+        this.detailList().push(this.newDetail(
+          this.sizeValue[i].size) );
+          } 
+    }
+
+
 
   getinputField (field) : FormControl { return this.variationForm?.get(field) as FormControl  }
   getArrayField (field) : FormArray { return this.variationForm?.get(field) as FormArray  }
   detailList() : FormArray {  return this.variationForm.get("variationDetail") as FormArray }
-  addVariationDetail() { this.getSizeControl()  }
+  addVariationDetail() { this.setSizeControl()  }
   removeVariationDetail() { this.detailList().removeAt(this.detailLength = this.detailList.length - this.detailList.length-1) }
   newDetail(size, stock?, price?): FormGroup {
     return this.fb.group({

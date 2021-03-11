@@ -114,8 +114,11 @@ export class ProductEditAdminComponent implements OnInit {
     //variation control
     for(let i in this.product.productVariation){
       this.addVariation(this.product.productVariation[i].variationName);
-      EditProductDynamicComponent.detailValue= this.product.productVariation[i].variationDetail;
-    }
+    //  this.myChild.setPriceStock(this.product.productVariation[i].variationDetail );
+      EditProductDynamicComponent.detailValue = this.product.productVariation
+      console.log(  EditProductDynamicComponent.detailValue )
+    } 
+
 
     this.isAddVariation = true;
     this.isSizeAdd = false;
@@ -179,7 +182,7 @@ export class ProductEditAdminComponent implements OnInit {
     this.getArrayField("sizeVariation").reset();
     this.getArrayField("productVariation").clear(); 
     this.getArrayField("productVariation").reset(); 
-     this.detailValue = null;
+    EditProductDynamicComponent.detailValue = null;
      this.isAddVariation = false;
      this.isSizeSave = true; 
      this.isAddVariation= false; 
@@ -187,7 +190,7 @@ export class ProductEditAdminComponent implements OnInit {
     }
 //Variation Form Functions
   newVariation(name?): FormGroup {  return EditProductDynamicComponent.addVariationItem(name)  }  
-  addVariation(name? ) { this.getArrayField("productVariation").push(this.newVariation(name));  }
+  addVariation(name?) { this.getArrayField("productVariation").push(this.newVariation(name));  }
   removeVariation() { 
     this.getArrayField("productVariation").removeAt( 
       this.variationLength = this.getArrayField("productVariation").length 

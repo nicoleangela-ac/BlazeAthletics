@@ -40,19 +40,20 @@ textarea.ng-invalid.ng-touched
   padding-bottom: 25px;
 
 }
+.bi-facebook{
+  margin-right: 10px;
+}
 p, label {
   font-family: 'Montserrat', sans-serif;
   font-size: 1.1em;
 }
-.bi-facebook{
-  margin-right: 10px;
+a{
+  color: black;
 }
 .margin-top{
   margin-top: 10px;
 }
-a{
-  color: black;
-}
+
 .sizeChart{
   padding: 3.1em;
   background-color: black;
