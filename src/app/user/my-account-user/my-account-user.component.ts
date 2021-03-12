@@ -16,10 +16,12 @@ export class MyAccountUserComponent implements OnInit{
   title = 'appBootstrap';
   orders: any;
   toPayOrders = []
+  tempData : any[];
   url : string[];
   isSizeLarge = false;
   toReceiveOrders = [];
   otherOrders = []; 
+  UIDdata : any[];
   public isCollapsed = false;
 
   constructor(private authService: AuthenticationService, 
@@ -30,25 +32,35 @@ export class MyAccountUserComponent implements OnInit{
   ngOnInit() {
     this.url = new Array<string>();
     this.toReceiveOrders = [];
+    this.tempData = [];
     this.otherOrders = [];
     this.toPayOrders = [];
-    this.service.getUserOrder(this.authService.userToken).valueChanges().subscribe(data => {
-      this.orders = data; 
-      for (var i in this.orders) {
-        if(this.orders[i].orderStatus == 'To Pay' )  {
-          this.toPayOrders.push(this.orders[i]);
-          console.log(this.toPayOrders);
-        }
-        if(this.orders[i].orderStatus == 'To Receive') {
-          this.toReceiveOrders.push(this.orders[i]);
-        }
-        else  {
-          this.otherOrders.push(this.orders[i]);
-          console.log(this.otherOrders);
-        }
-      }    } )
-  }
+    this.UIDdata = [];
 
+      this.service.getUserOrder(this.authService.userToken).snapshotChanges().pipe(
+        map(changes =>
+          changes.map(c =>
+            ({ key: c.payload.key, ...c.payload.val() })
+          )
+        )
+      ).subscribe(datas => {
+        this.orders = datas; 
+        console.log(this.orders)
+        for (var i in this.orders) {
+          if(this.orders[i].orderStatus == 'To Pay' )  {
+            this.toPayOrders.push(this.orders[i]);
+            console.log(this.toPayOrders);
+          }
+          if(this.orders[i].orderStatus == 'To Receive') {
+            this.toReceiveOrders.push(this.orders[i]);
+          }
+          else  {
+            this.otherOrders.push(this.orders[i]);
+            console.log(this.otherOrders);
+          }
+      } }); 
+  }
+  
     //upload  images
     count : number;
     selectFile(event) {
@@ -69,6 +81,20 @@ export class MyAccountUserComponent implements OnInit{
         }        
        }
       }
+  updateStatus(UID) {
+ //   console.log( this.toPayOrders)
+ //   console.log(UID)
+   for(var i in this.toPayOrders ) {
+      if (UID == this.toPayOrders[i].key){
+      //  this.UIDdata.push(this.toPayOrders[i].orderStatus)
+      this.toPayOrders[i].orderStatus = "Pending";
+      this.toPayOrders[i].receiptImage = this.url;
+        console.log(this.toPayOrders[i])
+        this.service.updateOrder(UID,  this.toPayOrders[i]);
+        window.location.reload();        
+    }} 
+    
+  }
 
   onLogOut()
   {

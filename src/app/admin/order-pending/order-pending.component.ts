@@ -26,6 +26,7 @@ orders : any
  }
 
  ngOnInit() {
+  this.UIDdata = [];
   this.ordersService.getStatusOrder('Pending').snapshotChanges().pipe(
     map(changes =>
       changes.map(c =>
@@ -40,6 +41,16 @@ orders : any
 
 
 openVerticallyCentered(content, UID:string) {
+  this.UIDdata.pop();
+  this.modalService.open(content, { centered: true });
+  for(var i in this.orders ) {
+    if (UID == this.orders[i].key){
+      this.UIDdata.push(this.orders[i] )
+      console.log(this.UIDdata)
+    
+  }}
+}
+  /*
   this.modalService.open(content, { centered: true });
   this.ordersService.getOrderKey(UID).snapshotChanges().pipe(
     map(changes =>
@@ -51,7 +62,8 @@ openVerticallyCentered(content, UID:string) {
     this.UIDdata = datas; 
     console.log(this.UIDdata)
   });
- }
+  */
+ 
 
 update(key:string, value){
  

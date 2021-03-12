@@ -41,19 +41,16 @@
         <p></p>
         <p>{{id.cutomerName}}</p>
         <p>{{id.customerEmail}}</p>
+        <p>Order Summary</p>
         </div>
-        <div class="col-sm-12 details">
-          <p>Order Summary</p>
-          <p>{{id.orderProduct[i].productName}}</p>
-          <p>Size: {{id.orderProduct[i].productSize}}</p>
-          <p>Product Variation: {{id.orderProduct[i].productVariation}}</p>
-          <p>{{id.orderProduct[i].noItems}} x PHP {{id.orderProduct[i].price}}</p>
-       </div>
        
-       <div class="col-sm-12 details">
-        
-        <p>Shipping Address</p>
-        <p>{{id.shippingAddress[i].address1}}</p>
+       <div class="col-sm-12 details" *ngFor="let order of id.orderProduct">
+        <p class="orderSummary">Product Name: {{order.productName}} </p>
+        <p class="orderSummary">Variation: {{order.productVariation}} </p>
+        <p class="orderSummary">Size: {{order.productSize}}</p>
+        <p class="orderSummary">Number Of Items: {{order.noItems}}</p>
+        <p class="orderSummary">Price : {{order.price}}</p>
+        <p></p>
       </div>
       <div class="col-sm-12 details">
         <img [src]="id.receiptImage[0]" class="img-responsive" style="width:100%" alt="Image">
