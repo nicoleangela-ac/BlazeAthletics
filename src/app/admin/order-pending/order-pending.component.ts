@@ -53,9 +53,20 @@ openVerticallyCentered(content, UID:string) {
   });
  }
 
+update(key:string, value){
+ 
+ this.ordersService.getOrderKey(key).update(key,{orderStatus: value})
+ console.log(this.UIDdata)
+ 
+
+
+}
+updatef(){
+  
 
 }
 
 
 
+}
 

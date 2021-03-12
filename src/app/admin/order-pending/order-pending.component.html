@@ -22,7 +22,7 @@
                     <td>{{ p.orderDate }}</td>  
                     <td>{{ p.courier }}</td>
                     <td>{{ p.orderStatus }}</td>
-                    <td><button (click)="openVerticallyCentered(content, p.key)" >Update</button></td>
+                    <td><button class="btn btn-black" (click)="openVerticallyCentered(content, p.key)" >Update</button></td>
                 </tbody>
               </table>
             </div>
@@ -36,19 +36,24 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body"*ngFor="let id of UIDdata" >
+      <div class="modal-body"*ngFor="let id of UIDdata ; let i = index" >
         <div class="col-sm-12 details">
         <p></p>
         <p>{{id.cutomerName}}</p>
+        <p>{{id.customerEmail}}</p>
         </div>
         <div class="col-sm-12 details">
           <p>Order Summary</p>
+          <p>{{id.orderProduct[i].productName}}</p>
+          <p>Size: {{id.orderProduct[i].productSize}}</p>
+          <p>Product Variation: {{id.orderProduct[i].productVariation}}</p>
+          <p>{{id.orderProduct[i].noItems}} x PHP {{id.orderProduct[i].price}}</p>
        </div>
        
        <div class="col-sm-12 details">
-        <p>Number Of Items: {{id.orderProduct[0].noItems}}</p>
-        <p>Total Price : {{id.orderProduct[0].price}}</p>
-        <p></p>
+        
+        <p>Shipping Address</p>
+        <p>{{id.shippingAddress[i].address1}}</p>
       </div>
       <div class="col-sm-12 details">
         <img [src]="id.receiptImage[0]" class="img-responsive" style="width:100%" alt="Image">
@@ -56,7 +61,7 @@
 
 
       <div class="modal-footer">
-        <button class="btn btn-success">Confirm</button>
+        <button class="btn btn-success"(click)="update(id.key,'For Delivery')">Confirm</button>
         <button type="button" class="btn btn-danger float-right" >Close</button>
       </div>
       </div>
