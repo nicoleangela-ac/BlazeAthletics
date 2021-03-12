@@ -22,7 +22,7 @@
                     <td>{{ p.orderDate }}</td>  
                     <td>{{ p.courier }}</td>
                     <td>{{ p.orderStatus }}</td>
-                    <td><button (click)="openVerticallyCentered(content, p.key)" >Update</button></td>
+                    <td><button class="btn btn-black" (click)="openVerticallyCentered(content, p.key)" >Update</button></td>
                 </tbody>
               </table>
             </div>
@@ -45,9 +45,12 @@
           <p>Order Summary</p>
        </div>
        
-       <div class="col-sm-12 details">
-        <p>Number Of Items: {{id.orderProduct[0].noItems}}</p>
-        <p>Total Price : {{id.orderProduct[0].price}}</p>
+       <div class="col-sm-12 details" *ngFor="let order of id.orderProduct">
+        <p class="orderSummary">Product Name: {{order.productName}} </p>
+        <p class="orderSummary">Variation: {{order.productVariation}} </p>
+        <p class="orderSummary">Size: {{order.productSize}}</p>
+        <p class="orderSummary">Number Of Items: {{order.noItems}}</p>
+        <p class="orderSummary">Price : {{order.price}}</p>
         <p></p>
       </div>
       <div class="col-sm-12 details">

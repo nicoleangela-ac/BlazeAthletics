@@ -5,7 +5,7 @@
           <app-order-sidenav> </app-order-sidenav>
         </div>
     
-        <div class="col-sm-8 text-left"> 
+        <div class="col-sm-10 text-left"> 
             <h5>TO PAY ORDERS</h5>
               <table class="table table-hover">
                 <thead>
@@ -21,15 +21,11 @@
                     <td>{{ p.cutomerName }}</td>
                     <td>{{ p.orderDate }}</td>
                     <td>{{ p.courier }}</td>
-                    <td>{{ p.orderStatus }}</td>
-                    <td><button class="btn btn-black" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
-                      aria-controls="collapseExample">Update</button></td>   
+                    <td>Waiting for buyer to upload payment receipt</td>
+ 
                   </tr>
                 </tbody>
               </table>
-              </div>
-              <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="col col-sm-2">
-                <app-order-pending-details></app-order-pending-details>
               </div>
             </div>
           </div>

@@ -39,4 +39,7 @@ export class OrdersFirebaseService {
   getOrderKey(UID: string): AngularFireList<any> {  
     return this.db.list(this.dbPathOrders, ref => ref.orderByKey().equalTo(UID));
   }
+  updateOrder(key: string, value: any): Promise<any> {
+    return this.ordersRef.update(key, value);
+  }
 }
