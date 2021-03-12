@@ -12,27 +12,20 @@
                   <tr>
                     <th>Name</th>
                     <th>Order Time</th>
-                    <th>Order Id</th>
+                    <th>Courier</th>
                     <th>Status</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Baby Isangwi</td>
-                    <td>8/26/20 10:30 pm</td>
-                    <td>201113652498 </td>
-                    <td>For Delivery</td>
+                  <tr *ngFor="let p of orders">
+                    <td>{{ p.cutomerName }}</td>
+                    <td>{{ p.orderDate }}</td>
+                    <td>{{ p.courier }}</td>
+                    <td>{{ p.orderStatus }}</td>
                     <td><input id="go" type="button" value="Upload Tracking No." class="btn btn-black" onclick="prompt('Enter Tracking No.');"></td>
                   </tr>
-                  <tr>
-                  <tr>
-                    <td>Juan Carlos</td>
-                    <td>8/29/20 10:30  pm</td>
-                    <td>201155652498 </td>
-                    <td>For Delivery</td>
-                    <td><input id="go" type="button" value="Upload Tracking No." class="btn btn-black" onclick="prompt('Enter Tracking No.');"></td>
-                  </tr>
+                  
                 </tbody>
               </table>
             </div>
