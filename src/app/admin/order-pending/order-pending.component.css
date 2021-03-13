@@ -2,3 +2,9 @@
     font-size: 0.9em;
     margin-bottom: 0;
 }
+.noMargin {
+margin-bottom: 0;
+}
+.order, .footer {
+    margin-top: 1em;
+}

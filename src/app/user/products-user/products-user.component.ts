@@ -77,5 +77,27 @@ export class ProductsUserComponent implements OnInit {
     }
   }
 
+  getNewProduct() {
+    this.isProductEmpty = false;
+    this.product.splice(0, this.product.length) 
+    var i = 0
+    var length = this.tempProduct.length-1
+    while (i < 4 ) {
+    if (this.tempProduct[length] != null) {
+      this.product.push(this.tempProduct[length] )
+    }
+    else {
+      break;
+    }
+    length--;
+    i++;
+    }
+    if(this.product.length <= 0) {
+      this.isProductEmpty = true;
+    }
+
+
+  }
+
 
 }
