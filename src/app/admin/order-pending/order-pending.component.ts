@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireDatabase, AngularFireList} from '@angular/fire/database';
 
 import { map,take } from 'rxjs/operators';
+import {FirebaseProductsService} from './../../service/firebase-products.service'
 
 
 
@@ -14,15 +15,17 @@ import { map,take } from 'rxjs/operators';
   styleUrls: ['./order-pending.component.css']
 })
 export class OrderPendingComponent implements OnInit {
-  product$;
+ 
   public isCollapsed = true;
-  key$;
+key$;
 UIDdata : any
 orders : any
+product$: any
+productdata: any
 
  constructor(private productService: ProductsService,
             private ordersService : OrdersFirebaseService,
-            private modalService: NgbModal,private db: AngularFireDatabase) {
+            private modalService: NgbModal,private db: AngularFireDatabase, private firebaseproductservice: FirebaseProductsService) {
  }
 
  ngOnInit() {
@@ -37,6 +40,8 @@ orders : any
     this.orders = datas; 
     console.log(this.orders)
   });
+
+  
  }
 
 
@@ -46,9 +51,16 @@ openVerticallyCentered(content, UID:string) {
   for(var i in this.orders ) {
     if (UID == this.orders[i].key){
       this.UIDdata.push(this.orders[i] )
-      console.log(this.UIDdata)
-    
-  }}
+      console.log(this.orders)
+      console.log(this.orders[i].orderProduct[i].productName)
+    }
+  }
+  
+
+
+  
+  
+
 }
   /*
   this.modalService.open(content, { centered: true });
@@ -69,6 +81,12 @@ update(key:string, value){
  
  this.ordersService.getOrderKey(key).update(key,{orderStatus: value})
  this.modalService.dismissAll();
+
+ this.firebaseproductservice.getProductData()
+
+ 
+
+
  console.log(this.UIDdata)
  
 

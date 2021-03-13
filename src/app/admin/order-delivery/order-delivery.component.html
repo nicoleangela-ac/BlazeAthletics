@@ -23,12 +23,24 @@
                     <td>{{ p.orderDate }}</td>
                     <td>{{ p.courier }}</td>
                     <td>{{ p.orderStatus }}</td>
-                    <td><input id="go" type="button" value="Upload Tracking No." class="btn btn-black" onclick="prompt('Enter Tracking No.');"></td>
+                    <td><button class="btn btn-black" (click)="openVerticallyCentered(content, p.key)" >Upload Tracking No.</button></td>
                   </tr>
                   
                 </tbody>
               </table>
             </div>
-    
           </div>
-    </div>
+        </div>
+
+    <ng-template #content let-modal>
+      <div class="modal-body"*ngFor="let id of UIDdata ; let i = index" >
+        <label for="recipient-name" class="col-form-label">Enter Tracking Number:  </label><br>
+        <input type="text" class="form-control form-control-lg flat-input" #trackingnum placeholder="Tracking Number" required><br><br>
+        
+        <div class="modal-footer">
+        <button class="btn btn-success"(click)="update(id.key,'On Delivery',trackingnum)">Confirm</button>
+        <button type="button" class="btn btn-danger float-right"(click)="modal.close('Close click')">Close</button>
+      </div>
+      </div>
+    </ng-template>
+

@@ -30,10 +30,24 @@ export class OrderDeliveryComponent implements OnInit {
     });
   }
   update(key:string, value, trackingnum){
-    value='PLEase'
+    //console.log(trackingnum.value)
+    
  
-    this.ordersService.getOrderKey(key).update(key,{ trackingNum: trackingnum, orderStatus: value})
+   this.ordersService.getOrderKey(key).update(key,{ trackingNum: trackingnum})
     console.log(this.UIDdata)
+    //this.modalService.dismissAll();
+
+  }
+
+  openVerticallyCentered(content, UID:string) {
+    this.UIDdata.pop();
+    this.modalService.open(content);
+    for(var i in this.orders ) {
+      if (UID == this.orders[i].key){
+        this.UIDdata.push(this.orders[i] )
+        console.log(this.UIDdata)
+      
+    }}
   }
 
 }

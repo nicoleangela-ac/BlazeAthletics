@@ -44,6 +44,10 @@ export class FirebaseProductsService {
     console.log(snap.val()))
   }
 
+  getProductName(productname: string): AngularFireList<any> {  
+    return this.db.list(this.dbPathProducts, ref => ref.orderByChild('name').equalTo(productname));
+  }
+
   getFeatured(): AngularFireList<any> {  
    return this.db.list(this.dbPathProducts, ref => ref.orderByChild('featureProduct').equalTo('yes'));
 
