@@ -29,7 +29,7 @@ export class EditProductDynamicComponent {
  }
 
   getSizeControl() { 
-    if(EditProductDynamicComponent.detailValue != null) {
+    if(EditProductDynamicComponent.detailValue.length > 0) {
       for(var j in EditProductDynamicComponent.detailValue) {
         if( EditProductDynamicComponent.detailValue[j].variationName == this.getinputField('variationName').value) {
           for (var i in EditProductDynamicComponent.sizeValue) { 

@@ -16,12 +16,11 @@ export class MyAccountUserComponent implements OnInit{
   title = 'appBootstrap';
   orders: any;
   toPayOrders = []
-  tempData : any[];
   url : string[];
   isSizeLarge = false;
   toReceiveOrders = [];
   otherOrders = []; 
-  UIDdata : any[];
+
   public isCollapsed = false;
 
   constructor(private authService: AuthenticationService, 
@@ -32,10 +31,8 @@ export class MyAccountUserComponent implements OnInit{
   ngOnInit() {
     this.url = new Array<string>();
     this.toReceiveOrders = [];
-    this.tempData = [];
     this.otherOrders = [];
     this.toPayOrders = [];
-    this.UIDdata = [];
 
       this.service.getUserOrder(this.authService.userToken).snapshotChanges().pipe(
         map(changes =>
@@ -51,7 +48,7 @@ export class MyAccountUserComponent implements OnInit{
             this.toPayOrders.push(this.orders[i]);
             console.log(this.toPayOrders);
           }
-          if(this.orders[i].orderStatus == 'To Receive') {
+          if(this.orders[i].orderStatus == 'On Delivery') {
             this.toReceiveOrders.push(this.orders[i]);
           }
           else  {
@@ -81,20 +78,15 @@ export class MyAccountUserComponent implements OnInit{
         }        
        }
       }
-  updateStatus(UID) {
- //   console.log( this.toPayOrders)
- //   console.log(UID)
-   for(var i in this.toPayOrders ) {
-      if (UID == this.toPayOrders[i].key){
-      //  this.UIDdata.push(this.toPayOrders[i].orderStatus)
-      this.toPayOrders[i].orderStatus = "Pending";
-      this.toPayOrders[i].receiptImage = this.url;
-        console.log(this.toPayOrders[i])
-        this.service.updateOrder(UID,  this.toPayOrders[i]);
-        window.location.reload();        
-    }} 
-    
+  orderPending(UID, image) {
+    this.service.getOrderKey(UID).update(UID,{ orderStatus: "Pending", receiptImage : image });
+    window.location.reload();        
   }
+
+  orderReceive(UID) {
+    this.service.getOrderKey(UID).update(UID,{ orderStatus: "Completed"});
+    window.location.reload();         
+     }
 
   onLogOut()
   {

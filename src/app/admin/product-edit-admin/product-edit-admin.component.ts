@@ -13,6 +13,7 @@ export class ProductEditAdminComponent implements OnInit {
   @Input() variationDetail : FormGroup;
   @ViewChild(EditProductDynamicComponent) private myChild: EditProductDynamicComponent; 
 
+  tempData : any;
   isLoading = false;
   id: any
   price : any;
@@ -146,15 +147,17 @@ export class ProductEditAdminComponent implements OnInit {
 
 
   getSizeValue() {
-  EditProductDynamicComponent.sizeValue = Object.values(this.getArrayField("sizeVariation").value);
-  this.isSizeSave = false;
-  this.getArrayField("productVariation").clear();
-
-  for(let i in this.product.productVariation){
-    this.addVariation(this.product.productVariation[i].variationName);
-  } 
-
-  }
+    EditProductDynamicComponent.sizeValue = Object.values(this.getArrayField("sizeVariation").value);
+      this.tempData = this.getArrayField("productVariation").value;
+    EditProductDynamicComponent.detailValue = this.tempData;
+    this.isSizeSave = false;
+    this.getArrayField("productVariation").clear();
+  
+    for(let i in this.tempData){
+      this.addVariation(this.tempData[i].variationName);
+    } 
+  
+    }
 
 
   //reactive form

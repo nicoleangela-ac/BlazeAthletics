@@ -45,7 +45,7 @@
 				<div *ngIf="isSizeLarge">
 					<p class="errorMessage redError"> File Too Large: should be less than 1MB</p>  
 				</div>
-				<button type="submit" [hidden]="url.length == 0 " (click) = " updateStatus(toPays.key)"class="btn  btn-black  upload">UPLOAD RECEIPT</button>
+				<button type="submit" [hidden]="url.length == 0 " (click) = " orderPending(toPays.key, url)"class="btn  btn-black  upload">UPLOAD RECEIPT</button>
 			</div>
 			</div> 
 			</div> 
@@ -63,7 +63,7 @@
 							<p>{{toReceive.noItems + " x "+ toReceive.price + " PHP"}}</p>							
 					   </div>
 					   	<p>{{"Tracking No: " + toReceives.trackingNum}}</p>
-						<button type="submit" class="btn  btn-black ">ORDER RECEIVED</button>
+						<button type="submit" class="btn  btn-black " (click)= "orderReceive(toReceives.key)">ORDER RECEIVED</button>
 					 </div>
 				   </div> 
 				 </div>   

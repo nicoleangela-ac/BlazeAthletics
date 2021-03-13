@@ -29,14 +29,12 @@ export class OrderDeliveryComponent implements OnInit {
       console.log(this.orders)
     });
   }
+
   update(key:string, value, trackingnum){
+
+    this.ordersService.getOrderKey(key).update(key,{ trackingNum: trackingnum.value, orderStatus : value});
     //console.log(trackingnum.value)
     
- 
-   this.ordersService.getOrderKey(key).update(key,{ trackingNum: trackingnum})
-    console.log(this.UIDdata)
-    //this.modalService.dismissAll();
-
   }
 
   openVerticallyCentered(content, UID:string) {
