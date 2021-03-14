@@ -50,8 +50,9 @@ export class FirebaseProductsService {
 
   getFeatured(): AngularFireList<any> {  
    return this.db.list(this.dbPathProducts, ref => ref.orderByChild('featureProduct').equalTo('yes'));
-
   }
+
+  
 
   updateProduct(key: string, value: any): Promise<any> {
     return this.productRef.update(key, value);
