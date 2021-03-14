@@ -22,7 +22,8 @@ UIDdata : any
 orders : any
 product$: any
 productdata: any
-
+singleProduct: any
+variation: any
  constructor(private productService: ProductsService,
             private ordersService : OrdersFirebaseService,
             private modalService: NgbModal,private db: AngularFireDatabase, private firebaseproductservice: FirebaseProductsService) {
@@ -79,18 +80,23 @@ openVerticallyCentered(content, UID:string) {
 
 update(key:string, value){
  
- this.ordersService.getOrderKey(key).update(key,{orderStatus: value})
- this.modalService.dismissAll();
+// this.ordersService.getOrderKey(key).update(key,{orderStatus: value})
+// this.modalService.dismissAll();
+for (var i in this.orders ) {
+ // console.log( this.orders[i].key)
+  if (this.orders[i].key == key) {
+    console.log( this.orders[i].orderProduct)
 
- this.firebaseproductservice.getProductData()
+   for (var j in this.orders[i].orderProduct) {
+    console.log(this.orders[i].orderProduct[j].productId)
+    this.checkProductAvailability(this.orders[i].orderProduct[j].productVariation, this.orders[i].orderProduct[j].productSize, this.orders[i].orderProduct[j].productId )
+  }    
+  }
 
+}
+
+ //console.log(this.UIDdata)
  
-
-
- console.log(this.UIDdata)
- 
-
-
 }
 updatef(){
   
@@ -98,6 +104,25 @@ updatef(){
 }
 
 
+checkProductAvailability (variation, size, key) {
+//  this.isValid = false;
+ // this.isTrue = false;
+  this.firebaseproductservice.getSingleProduct(key).valueChanges().subscribe(data => {
+    this.singleProduct = data;  
+ //   this.isLoad = false;
+ console.log(data)
+    for(var i in this.singleProduct.productVariation) {
+      if(this.singleProduct.productVariation[i].variationName == variation) {
+        for(var j in this.singleProduct.productVariation[i].variationDetail) {
+          if(this.singleProduct.productVariation[i].variationDetail[j].size == size ) {
+            console.log( this.singleProduct.productVariation[i].variationDetail[j].size)
+              //  this.stock = this.singleProduct.productVariation[i].variationDetail[j].stock;
+            //    this.productItem.size = this.singleProduct.productVariation[i].variationDetail[j].size;
+             //   this.productItem.price = this.singleProduct.productVariation[i].variationDetail[j].price;
+                //  if(this.stock == 0 ){ this.isValid = true;}
+              } } } } 
+    });
+ } 
 
 }
 
