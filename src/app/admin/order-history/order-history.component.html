@@ -12,33 +12,54 @@
                   <tr>
                     <th>Name</th>
                     <th>Order Time</th>
-                    <th>Order Id</th>
+                    <th>Courier</th>
                     <th>Status</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Baby Isangwi</td>
-                    <td>8/26/20 10:30 pm</td>
-                    <td>201113652498 </td>
-                    <td>Completed</td>
-                    <td><button class="btn btn-black" data-toggle="collapse" data-target="#demo">View</button></td>
-                  </tr>
-                  <tr>
-                  <tr>
-                    <td>Juan Carlos</td>
-                    <td>8/29/20 10:30  pm</td>
-                    <td>201155652498 </td>
-                    <td>Completed</td>
-                    <td><button class="btn btn-black" data-toggle="collapse" data-target="#demo">View</button></td>
-                  </tr>
+                  <tr *ngFor="let p of orders">
+                    <td>{{ p.customerName }}</td>
+                    <td>{{ p.orderDate }}</td>  
+                    <td>{{ p.courier }}</td>
+                    <td>{{ p.orderStatus }}</td>
+                    <td><button class="btn btn-black" (click)="openVerticallyCentered(content, p.key)" >View</button></td>
                 </tbody>
               </table>
             </div>
-            <div class="col-sm-3 ">
-              <app-order-history-details></app-order-history-details>
-            </div>
           </div>
     </div>
-    
+
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title">Order Details</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.close('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body"*ngFor="let id of UIDdata" >
+        <div class="col-sm-12 details">
+        <p></p>
+        <p>{{id.customerName}}</p>
+        <p>{{id.customerEmail}}</p>
+        <p>Order Summary</p>
+        </div>
+       
+       <div class="col-sm-12 details" *ngFor="let order of id.orderProduct">
+        <p class="orderSummary">Product Name: {{order.productName}} </p>
+        <p class="orderSummary">Variation: {{order.productVariation}} </p>
+        <p class="orderSummary">Size: {{order.productSize}}</p>
+        <p class="orderSummary">Number Of Items: {{order.noItems}}</p>
+        <p class="orderSummary">Price : {{order.price}}</p>
+        <p></p>
+      </div>
+      <div class="col-sm-12 details">
+        <img [src]="id.receiptImage[0]" class="img-responsive" style="width:100%" alt="Image">
+      </div>
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger float-right"(click)="modal.close('Cross click')">Close</button>
+      </div>
+      </div>
+    </ng-template>

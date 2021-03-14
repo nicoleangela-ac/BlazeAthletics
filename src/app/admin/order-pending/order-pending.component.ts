@@ -22,6 +22,8 @@ UIDdata : any
 orders : any
 product$: any
 productdata: any
+soldproduct:any
+totalstock:any
 
  constructor(private productService: ProductsService,
             private ordersService : OrdersFirebaseService,
@@ -50,17 +52,18 @@ openVerticallyCentered(content, UID:string) {
   this.modalService.open(content, { centered: true });
   for(var i in this.orders ) {
     if (UID == this.orders[i].key){
-      this.UIDdata.push(this.orders[i] )
-      console.log(this.orders)
-      console.log(this.orders[i].orderProduct[i].productName)
+      this.UIDdata.push(this.orders[i])
+      this.key$=UID;
+      
     }
   }
+  //console.log(this.orders[i].orderProduct[0].productName)
+
   
 
+ // this.firebaseproductservice.getProductName(this.UIDdata[i].orderProduct[i].productName).push(this.productdata)
 
   
-  
-
 }
   /*
   this.modalService.open(content, { centered: true });
@@ -79,21 +82,52 @@ openVerticallyCentered(content, UID:string) {
 
 update(key:string, value){
  
- this.ordersService.getOrderKey(key).update(key,{orderStatus: value})
- this.modalService.dismissAll();
+this.ordersService.getOrderKey(key).update(key,{orderStatus: value})
+this.product$=this.UIDdata 
 
- this.firebaseproductservice.getProductData()
+ for(var i in this.orders ) {
+  if (this.key$ == this.orders[i].key){
+    this.product$.push(this.orders[i])
+
+
+this.firebaseproductservice.getProductName(this.orders[i].orderProduct[0].productName).snapshotChanges().pipe(
+  map(changes =>
+    changes.map(c =>
+      ({ key: c.payload.key, ...c.payload.val() })
+    )
+  )
+).subscribe(data => {
+  this.productdata = data;
+  console.log(this.productdata)
+
+ this.soldproduct = this.productdata[0].soldProducts + 1;
+ this.totalstock = this.productdata[0].totalStock - 1;
+
+ //console.log(this.productdata[0].name)
+
+ this.firebaseproductservice.getProductName(this.productdata[0].name).update(this.productdata[0].key, {soldProducts: this.soldproduct, totalStock: this.totalstock})
+});
+
+this.modalService.dismissAll();
+this.ngOnInit()
+
+
+//this.firebaseproductservice.getProductName(this.productdata.name).update(this.productdata.key,{soldProducts: this.productdata[0].soldProducts += 1})
+  
+//this.soldproduct=this.productdata[0].soldProducts + 1 
+// this.firebaseproductservice.getProductName(this.productdata.name).update(this.productdata.key,{soldProducts: this.soldproduct})
+
+
 
  
-
-
- console.log(this.UIDdata)
  
-
 
 }
-updatef(){
-  
+ }}
+ 
+updatef(key:string, value){
+this.ordersService.getOrderKey(key).update(key,{orderStatus: value})
+this.modalService.dismissAll();
 
 }
 

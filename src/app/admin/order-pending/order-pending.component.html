@@ -18,7 +18,7 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let p of orders">
-                    <td>{{ p.cutomerName }}</td>
+                    <td>{{ p.customerName }}</td>
                     <td>{{ p.orderDate }}</td>  
                     <td>{{ p.courier }}</td>
                     <td>{{ p.orderStatus }}</td>
@@ -36,10 +36,10 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body"*ngFor="let id of UIDdata ; let i = index" >
+      <div class="modal-body"*ngFor="let id of UIDdata" >
         <div class="col-sm-12 details">
         <p></p>
-        <p>{{id.cutomerName}}</p>
+        <p>{{id.customerName}}</p>
         <p>{{id.customerEmail}}</p>
         <p>Order Summary</p>
         </div>
@@ -59,7 +59,7 @@
 
       <div class="modal-footer">
         <button class="btn btn-success"(click)="update(id.key,'For Delivery')">Confirm Order</button>
-        <button type="button" class="btn btn-danger float-right"(click)="update(id.key,'Cancelled')">Cancel Order</button>
+        <button type="button" class="btn btn-danger float-right"(click)="updatef(id.key,'Cancelled')">Cancel Order</button>
       </div>
       </div>
     </ng-template>
