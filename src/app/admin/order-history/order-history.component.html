@@ -40,9 +40,11 @@
       <div class="modal-body"*ngFor="let id of UIDdata" >
         <div class="col-sm-12 details">
         <p></p>
-        <p>{{id.customerName}}</p>
-        <p>{{id.customerEmail}}</p>
-        <p>Order Summary</p>
+        <p><b> {{id.customerName}}</b> </p>
+        <p class="noMargin">{{id.customerEmail}}</p>
+        <p class="noMargin">Payment : P{{id.totalPayment}}</p>
+
+        <p class="order"><b>Order Summary </b> </p>
         </div>
        
        <div class="col-sm-12 details" *ngFor="let order of id.orderProduct">
@@ -53,13 +55,33 @@
         <p class="orderSummary">Price : {{order.price}}</p>
         <p></p>
       </div>
+
+      <div class="col-sm-12 details  " *ngIf="id.productMessage != null" >
+        <p><b>Note :  </b> {{id.productMessage}} </p>
+
+      </div>
+
+      <div class="col-sm-12 details">
+        <p><b>Address </b> </p>
+        <div *ngFor="let address of id.shippingAddress">
+          <p>{{address.address1}} , {{address.barangay}} , {{address.city}} , {{address.province}} , {{address.postalCode}}</p>
+        </div>
+      </div>
       <div class="col-sm-12 details">
         <img [src]="id.receiptImage[0]" class="img-responsive" style="width:100%" alt="Image">
       </div>
 
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger float-right"(click)="modal.close('Cross click')">Close</button>
+      <div class="col-sm-12 text-center footer">
+        <div class="row">
+          <div class="col-sm-6">
+           
+          </div>
+          <div class="col-sm-6">
+            <button type="button" class="btn btn-danger"(click)="modal.close('Cross click')">Cancel Order</button>
+          </div>          
+        </div>
+
       </div>
       </div>
     </ng-template>

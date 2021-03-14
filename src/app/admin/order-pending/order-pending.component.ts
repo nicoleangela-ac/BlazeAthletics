@@ -57,12 +57,7 @@ openVerticallyCentered(content, UID:string) {
       
     }
   }
-  //console.log(this.orders[i].orderProduct[0].productName)
-
-  
-
- // this.firebaseproductservice.getProductName(this.UIDdata[i].orderProduct[i].productName).push(this.productdata)
-
+ 
   
 }
   /*
@@ -98,7 +93,7 @@ this.firebaseproductservice.getProductName(this.orders[i].orderProduct[0].produc
   )
 ).subscribe(data => {
   this.productdata = data;
-  console.log(this.productdata)
+ // console.log(this.productdata)
 
  this.soldproduct = this.productdata[0].soldProducts + 1;
  this.totalstock = this.productdata[0].totalStock - 1;
@@ -112,15 +107,6 @@ this.modalService.dismissAll();
 this.ngOnInit()
 
 
-//this.firebaseproductservice.getProductName(this.productdata.name).update(this.productdata.key,{soldProducts: this.productdata[0].soldProducts += 1})
-  
-//this.soldproduct=this.productdata[0].soldProducts + 1 
-// this.firebaseproductservice.getProductName(this.productdata.name).update(this.productdata.key,{soldProducts: this.soldproduct})
-
-
-
- 
- 
 
 }
  }}
