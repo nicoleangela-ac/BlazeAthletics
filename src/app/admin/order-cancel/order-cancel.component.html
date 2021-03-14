@@ -12,23 +12,16 @@
                   <tr>
                     <th>Name</th>
                     <th>Order Time</th>
-                    <th>Order Id</th>
+                    <th>Courier</th>
                     <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Cha Ising</td>
-                    <td>8/26/20 10:30 pm</td>
-                    <td>201113652498 </td>
-                    <td>Cancelled</td>       
-                  </tr>
-                  <tr>
-                  <tr>
-                    <td>Cha Belen</td>
-                    <td>8/29/20 10:30  pm</td>
-                    <td>201155652498 </td>
-                    <td>Cancelled</td>       
+                  <tr *ngFor="let p of orders">
+                    <td>{{ p.customerName }}</td>
+                    <td>{{ p.orderDate }}</td>
+                    <td>{{ p.courier }}</td>
+                    <td>{{ p.orderStatus }}</td>
                   </tr>
                 </tbody>
               </table>

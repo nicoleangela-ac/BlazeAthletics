@@ -8,3 +8,7 @@ margin-bottom: 0;
 .order, .footer {
     margin-top: 1em;
 }
+.warning {
+    margin-top: 1em;
+    margin-left: 1em;
+}
