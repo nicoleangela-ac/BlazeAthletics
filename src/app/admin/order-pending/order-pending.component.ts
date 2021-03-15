@@ -24,8 +24,11 @@ product$: any
 productdata: any
 variation: any
 errorProduct: any[];
-updateProductKey: any[];
-updateProductValues: any[];
+updateProductKey: any;
+updateProductValues: any;
+tempProducts : any[];
+tempkeys : any [];
+ singleProduct: any;
  constructor(private productService: ProductsService,
             private ordersService : OrdersFirebaseService,
             private modalService: NgbModal,private db: AngularFireDatabase, private firebaseproductservice: FirebaseProductsService) {
@@ -36,6 +39,8 @@ updateProductValues: any[];
   this.errorProduct = [];
   this.updateProductKey = [];
   this.updateProductValues = [];
+  this.tempProducts = [];
+  this.tempkeys= [];
   this.ordersService.getStatusOrder('Pending').snapshotChanges().pipe(
     map(changes =>
       changes.map(c =>
@@ -44,10 +49,22 @@ updateProductValues: any[];
     )
   ).subscribe(datas => {
     this.orders = datas; 
-  //  console.log(this.orders)
-  });
-
+    for (var i in this.orders ) {
+      // console.log( this.orders[i].key)
   
+        for (var j in this.orders[i].orderProduct) {
+        // console.log(this.getItem(this.orders[i].orderProduct[j].productId)) 
+        this.getItem(this.orders[i].orderProduct[j].productId)
+      /*    this.checkProductAvailability( 
+                      this.orders[i].orderProduct[j].productName ,
+                      this.orders[i].orderProduct[j].productVariation, 
+                      this.orders[i].orderProduct[j].productSize,
+                      ,
+                      this.orders[i].orderProduct[j].noItems ) */  
+          }  
+        
+      }
+  });
  }
 
 
@@ -63,63 +80,57 @@ openVerticallyCentered(content, UID:string) {
   } 
   
 }
-  /*
-  this.modalService.open(content, { centered: true });
-  this.ordersService.getOrderKey(UID).snapshotChanges().pipe(
-    map(changes =>
-      changes.map(c =>
-        ({ key: c.payload.key, ...c.payload.val() })
-      )
-    )
-  ).subscribe(datas => {
-    this.UIDdata = datas; 
-    console.log(this.UIDdata)
-  });
-  */
  
-
 update(key:string, value, error?){
   if (value == "For Delivery" ) {
    this.errorProduct.splice(0, this.errorProduct.length);
-   // this.updateProductKey.splice(0, this.updateProductKey.length);
-    //this.updateProductValues.splice(0, this.updateProductValues.length);  
-
+   this.updateProductKey.splice(0, this.updateProductKey.length);
+   this.updateProductValues.splice(0, this.updateProductValues.length);  
+    var tempName ;
     for (var i in this.orders ) {
-    // console.log( this.orders[i].key)
       if (this.orders[i].key == key) {
-        console.log( this.orders[i].orderProduct)
+        console.log( this.orders[i].orderProduct) //customer order
 
-      for (var j in this.orders[i].orderProduct) {
-      //  console.log(this.orders[i].orderProduct[j].productId)
-      console.log(this.orders[i].orderProduct.length)
-        this.checkProductAvailability( this.orders[i].orderProduct[j].productName ,this.orders[i].orderProduct[j].productVariation, this.orders[i].orderProduct[j].productSize, this.orders[i].orderProduct[j].productId, this.orders[i].orderProduct[j].noItems )
-      //  this.updateProductKey.push(this.orders[i].orderProduct[j].productId); 
-      }    
+        for (var j in this.orders[i].orderProduct) {
+      //  console.log(this.getItem(this.orders[i].orderProduct[j].productId)) 
+          for(var k in this.tempProducts) {
+            console.log(this.tempProducts )
+
+            if(this.tempProducts[k].name == this.orders[i].orderProduct[j].productName) {
+              console.log(this.tempProducts[k] )
+              tempName = this.orders[i].orderProduct[j].productName
+              console.log(this.orders[i].orderProduct[j].productName)
+              this.checkProductAvailability( 
+                          this.tempProducts[k],
+                          this.orders[i].orderProduct[j].productName ,
+                          this.orders[i].orderProduct[j].productVariation, 
+                          this.orders[i].orderProduct[j].productSize,
+                          this.orders[i].orderProduct[j].productId,
+                          this.orders[i].orderProduct[j].noItems )            
+            }
+          
+          }
+          if (tempName == null) {
+            var pName = "Product " + name + " has been changed" 
+            this.errorProduct.push(pName);
+          } 
+          }  
       }
-
     }
 
-    if(this.errorProduct.length <=  0 ) {
-      console.log(this.updateProductKey.toString())
-      console.log(this.updateProductValues)
-     // console.log( this.updateProductValues[0]) 
-     setTimeout(() => {
-      for( var i in this.updateProductKey) {
-    //    console.log()
-        console.log( this.updateProductValues[i] )
-      //  this.firebaseproductservice.updateProduct(this.updateProductKey[i], this.updateProductValues[i] );
+    if(this.errorProduct.length <=  0) {
+      for (var i in this.updateProductKey ) {
+        console.log(this.updateProductKey[i])
+        console.log(this.updateProductValues[i])
+        this.firebaseproductservice.updateProduct(this.updateProductKey[i], this.updateProductValues[i])
       }
-    })
-
-      
-     // this.ordersService.getOrderKey(key).update(key,{orderStatus: value})
-      this.modalService.dismissAll();
+         this.ordersService.getOrderKey(key).update(key,{orderStatus: value})
+         this.modalService.dismissAll();      
     }
     else{
       console.log(this.errorProduct)
       this.modalService.dismissAll();
-      this.errorMessage(error);
-      
+      this.errorMessage(error);     
     }    
   }
   else {
@@ -128,72 +139,64 @@ update(key:string, value, error?){
   }
 }
 
+checkProductAvailability ( data, name, variation, size, key, noItems) {
+
+  var variationProduct : any;
+  var sizeProduct : any;
 
 
-checkProductAvailability ( name, variation, size, key, noItems) {
-//  this.isValid = false;
- // this.isTrue = false;
- var singleProduct: any;
- var variationProduct : any;
- var sizeProduct : any;
-  this.firebaseproductservice.getSingleProduct(key).valueChanges().subscribe(data => {
-    singleProduct = data;  
- //   this.isLoad = false;
-// console.log( data)
- if (data != null) {
-   if (name == singleProduct.name) {
-    for(var i in singleProduct.productVariation) {
-    //  console.log(singleProduct.productVariation )
-      if(singleProduct.productVariation[i].variationName == variation) {
-     //   console.log( singleProduct.productVariation[i].variationName)
-          variationProduct = singleProduct.productVariation[i].variationName;
-        for(var j in singleProduct.productVariation[i].variationDetail) {
-          if(singleProduct.productVariation[i].variationDetail[j].size == size ) {
-            sizeProduct = singleProduct.productVariation[i].variationDetail[j].size
-           // console.log( singleProduct.productVariation[i].variationDetail[j].size)
+    if (data != null) {
+        for(var i in data.productVariation) {
+         /* console.log(data)
+          console.log(data.productVariation[i].variationName )
+          console.log(variation) */
+          if(data.productVariation[i].variationName == variation) {
+            console.log(data.productVariation[i].variationName )
+              variationProduct = data.productVariation[i].variationName;
+            for(var j in data.productVariation[i].variationDetail) {
+              if(data.productVariation[i].variationDetail[j].size == size ) {
+                sizeProduct = data.productVariation[i].variationDetail[j].size
+                    if (data.productVariation[i].variationDetail[j].stock < noItems ) {
+                      var pStock = name +" , Insufficient Stock"
+                      this.errorProduct.push(pStock)
+                    }
+                    
+                    else {
+                      data.productVariation[i].variationDetail[j].stock -= noItems;
+                      data.soldProducts += noItems;
+                      data.totalStock -= noItems; 
+                      this.updateProductKey.push( key)
+                      this.updateProductValues.push(data)
+                    } 
+                  } 
+                } 
+              }
+              
+            }
+            if (variationProduct == null  ) {
+              var pVariation = name +" , " + variation + " Not Available"
+              this.errorProduct.push(pVariation)        
+            }
+            else if (sizeProduct == null) {
+              var pSize = name +" , " + size + " Not Available"
+              this.errorProduct.push(pSize)
+            }                  
+    }
+    else {
+          var pName = "Product " + name + " Not Available" 
+          this.errorProduct.push(pName);       
+    }
 
-                if (singleProduct.productVariation[i].variationDetail[j].stock < noItems ) {
-                  var pStock = name +" , Insufficient Stock"
-                  this.errorProduct.push(pStock)
-                }
-                else {
-                  singleProduct.productVariation[i].variationDetail[j].stock -= noItems;
-                  singleProduct.soldProducts += noItems;
-                  singleProduct.totalStock -= noItems;
-                 // console.log(singleProduct)
-                  this.updateProductValues.push(singleProduct);
-                  this.updateProductKey.push(key)
-
-                }
-              } 
-            } 
-          }
-           
-        }
-        if (variationProduct == null  ) {
-          var pVariation = name +" , " + variation + " Not Available"
-          this.errorProduct.push(pVariation)        
-        }
-        else if (sizeProduct == null) {
-          var pSize = name +" , " + size + " Not Available"
-          this.errorProduct.push(pSize)
-        }         
-             
-   }
-   else {
-    var pName = "Product " + name + " has been changed" 
-    this.errorProduct.push(pName); 
-   }           
- }
- else {
-      var pName = "Product " + name + " Not Available" 
-      this.errorProduct.push(pName);       
- }
-  } );  } 
-
-  errorMessage(content) {
-    this.modalService.open(content, { centered: true });
+  } 
+  getItem(key) {
+    this.firebaseproductservice.getSingleProduct(key).valueChanges().subscribe(data => {
+      this.tempProducts.push(data)
+       } ); 
   }
+
+    errorMessage(content) {
+      this.modalService.open(content, { centered: true });
+    }
 
 }
 
