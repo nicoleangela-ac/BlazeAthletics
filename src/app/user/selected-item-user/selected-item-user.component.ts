@@ -25,6 +25,7 @@ export class SelectedItemUserComponent implements OnInit {
  stock : number;
  isTrue : boolean;
  isValid : boolean;
+ isOutOfStock: boolean;
  isLoad= false;
  noItem : number;
  isLoading = false;
@@ -53,6 +54,7 @@ export class SelectedItemUserComponent implements OnInit {
     }
 
     ngOnInit() {
+      this.isOutOfStock = true;
       this.isTrue = true;
       this.isValid = true;
       this.id = this.actRoute.snapshot.paramMap.get('id');  
@@ -94,6 +96,7 @@ export class SelectedItemUserComponent implements OnInit {
   getPriceStock () {
     this.isValid = false;
     this.isTrue = false;
+    this.isOutOfStock =false;
     if(this.itemSize != null && this.variation != null) {
       for(var i in this.product.productVariation) {
         if(this.product.productVariation[i].variationName == this.variation) {
@@ -103,7 +106,7 @@ export class SelectedItemUserComponent implements OnInit {
                   this.stock = this.product.productVariation[i].variationDetail[j].stock;
                   this.productItem.size = this.product.productVariation[i].variationDetail[j].size;
                   this.productItem.price = this.product.productVariation[i].variationDetail[j].price;
-                    if(this.stock == 0 ){ this.isValid = true;}
+                    if(this.stock == 0 ){ this.isValid = true; this.isOutOfStock = true;}
                 } } } } } }
 
   addToCart() 

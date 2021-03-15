@@ -73,7 +73,7 @@
           </div>
           <div>
             <button type="submit" (click)="addToCart()"  
-            class="btn btn-black btn-cart" [disabled]="isLoading"
+            class="btn btn-black btn-cart" [disabled]="isLoading || isOutOfStock"
               > ADD TO CART</button>
           </div>
         </form>

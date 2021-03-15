@@ -48,22 +48,21 @@ tempkeys : any [];
       )
     )
   ).subscribe(datas => {
+    
     this.orders = datas; 
-    for (var i in this.orders ) {
-      // console.log( this.orders[i].key)
-  
-        for (var j in this.orders[i].orderProduct) {
-        // console.log(this.getItem(this.orders[i].orderProduct[j].productId)) 
-        this.getItem(this.orders[i].orderProduct[j].productId)
-      /*    this.checkProductAvailability( 
-                      this.orders[i].orderProduct[j].productName ,
-                      this.orders[i].orderProduct[j].productVariation, 
-                      this.orders[i].orderProduct[j].productSize,
-                      ,
-                      this.orders[i].orderProduct[j].noItems ) */  
-          }  
-        
-      }
+    if(datas.length != 0) {
+      var tempId = this.orders[0].orderProduct[0].productId
+      this.getItem(tempId)
+      for (var i in this.orders ) {
+          for (var j in this.orders[i].orderProduct) {
+            if(tempId != this.orders[i].orderProduct[j].productId  ) {
+              this.getItem(this.orders[i].orderProduct[j].productId)
+            }
+            }  
+          
+        }      
+    }
+
   });
  }
 
