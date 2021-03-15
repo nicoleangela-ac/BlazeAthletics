@@ -71,7 +71,6 @@ export class CheckoutUserComponent implements OnInit {
       this.userData = this.userDataService.getUser(0);      
     });
     this.checkoutProduct();
-
   }
 
     //upload  images
@@ -104,7 +103,7 @@ export class CheckoutUserComponent implements OnInit {
         "customerEmail": new FormControl(),
         "receiptImage" : new FormControl(),
         "orderProduct" : new FormArray([]),
-        "orderDate" : new FormControl(this.todayDate.toLocaleString()),
+        "orderDate" : new FormControl(this.todayDate.toUTCString()),
         "orderStatus" : new FormControl(''),
         "courier" : new FormControl(''),
         "trackingNum": new FormControl(''),
