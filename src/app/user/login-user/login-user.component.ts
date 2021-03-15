@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/service/authentication.service';
+import { PasswordReset } from 'src/app/service/password-reset.service';
 
 @Component({
   selector: 'app-login-user',
@@ -14,7 +15,8 @@ export class LoginUserComponent implements OnInit {
   error: string = null;
 
   constructor(private authService: AuthenticationService,
-    private router: Router){}
+    private router: Router,
+    private passwordReset: PasswordReset){}
 
   ngOnInit(){
     this.loginForm = new FormGroup({
