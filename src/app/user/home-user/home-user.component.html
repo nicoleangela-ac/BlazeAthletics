@@ -1,35 +1,38 @@
 <app-navbar-user></app-navbar-user>
-<div class="row container-fluid" *ngIf="isLoading">
-  <p class="loadingMessage"> Home Page Loading</p>  
-    <app-loading-spinner></app-loading-spinner>
-</div>
-
 <div class="container">
-  <carousel [noWrap]="noWrapSlides" [showIndicators]="showIndicator">
-    <slide *ngFor="let slides of slides">
-     <img  [src]="slides" class = "img-responsive img_banner"  alt="image slide" style="display: block; width: 100%;">
-   </slide>
- </carousel>
-  <br/>
-</div>
-
-<div class="row container-fluid" *ngIf="isProductEmpty">
-  <p class="emptyfeature"> No Featured Products</p>  
-</div>
-
-<div class="container-fluid text-center wrapper"> 
-  <h2 class="home-header" >BEST SELLERS</h2><br>
-  <div class="row">
-    <div class="col-sm-4" *ngFor='let featuredProducts of featuredProducts'>
-     <div class="card">
-       <div class="card-body">
-         <img routerLink="/selected-item/{{featuredProducts.key}}" class="card-img" [src]="featuredProducts.productImages[0]" alt="No Image Available">
-         <p > {{featuredProducts.name }} </p>
-       </div>
-     </div>
-   </div> 
+  <div class="row container-fluid" *ngIf="isLoading">
+    <p class="loadingMessage"> Home Page Loading</p>  
+      <app-loading-spinner></app-loading-spinner>
   </div>
+
+  <div class="container">
+    <carousel [noWrap]="noWrapSlides" [showIndicators]="showIndicator">
+      <slide *ngFor="let slides of slides">
+      <img  [src]="slides" class = "img-responsive img_banner"  alt="image slide" style="display: block; width: 100%;">
+    </slide>
+  </carousel>
+    <br/>
+  </div>
+
+  <div class="row container-fluid" *ngIf="isProductEmpty">
+    <p class="emptyfeature"> No Featured Products</p>  
+  </div>
+
+  <div class="container-fluid text-center wrapper"> 
+    <h2 class="home-header" >BEST SELLERS</h2><br>
+    <div class="row">
+      <div class="col-sm-4" *ngFor='let featuredProducts of featuredProducts'>
+      <div class="card">
+        <div class="card-body">
+          <img routerLink="/selected-item/{{featuredProducts.key}}" class="card-img" [src]="featuredProducts.productImages[0]" alt="No Image Available">
+          <p > {{featuredProducts.name }} </p>
+        </div>
+      </div>
+    </div> 
+    </div>
+  </div>
+
+  <app-footer></app-footer>
 </div>
 
-<app-footer></app-footer>
 

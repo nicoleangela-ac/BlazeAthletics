@@ -1,86 +1,89 @@
 <app-navbar-user></app-navbar-user>
-<div class="alert alert-success" *ngIf="message">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
-    <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
-    <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
-  </svg>
-  <span class="alert-msg">{{message}}</span>
-</div>
-
-<div class="row container-fluid" *ngIf="isLoad">
-  <p class="loadingMessage">Loading</p>  
-    <app-loading-spinner></app-loading-spinner>
-</div>
-
-<div class="row container-fluid wrapper" *ngIf="!isLoad">
-  <div class="col-sm-6">
-    <carousel [noWrap]="noWrapSlides" [showIndicators]="showIndicator">
-      <slide *ngFor="let product of product.productImages">
-          <img  [src]="product" class = "img-responsive"  alt="image slide" style="display: block; width: 100%;">
-      </slide>
-    </carousel>
+<div class="container-fluid">
+  <div class="alert alert-success" *ngIf="message">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+      <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+      <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+    </svg>
+    <span class="alert-msg">{{message}}</span>
   </div>
 
-  <div class="col-sm-6">
-    <svg routerLink="/products-user" width="40" height="40" fill="currentColor" class="bi bi-x float-right" viewBox="0 0 16 16">
-      <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-    </svg>
+  <div class="row container-fluid" *ngIf="isLoad">
+    <p class="loadingMessage">Loading</p>  
+      <app-loading-spinner></app-loading-spinner>
+  </div>
 
-    <div>
-      <h2>{{product.name}}</h2>                  
-        <form action="/action_page.php" >
+  <div class="row container-fluid wrapper" *ngIf="!isLoad">
+    <div class="col-sm-6">
+      <carousel [noWrap]="noWrapSlides" [showIndicators]="showIndicator">
+        <slide *ngFor="let product of product.productImages">
+            <img  [src]="product" class = "img-responsive"  alt="image slide" style="display: block; width: 100%;">
+        </slide>
+      </carousel>
+    </div>
 
-          <div class="col-sm-12 item-choices" >
-            <h5>Variation</h5>  
-              <ul>
-                <li *ngFor='let product of product.productVariation; let i= index'>
-                  <input hidden type='radio' (click)="getVariation(product.variationName)" name='variation' id={{product.variationName}}/>
-                  <label class ="btn-secondary btn-circle btn-xl" for={{product.variationName}}>{{product.variationName}}</label>
-                </li>
-              </ul>
+    <div class="col-sm-6">
+      <svg routerLink="/products-user" width="40" height="40" fill="currentColor" class="bi bi-x float-right" viewBox="0 0 16 16">
+        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+      </svg>
 
-            <h5>Sizes</h5>
-              <ul>
-                <li *ngFor='let product of product.sizeVariation'>
-                  <input  hidden type='radio'  name='size' (click)="getSize(product.size)" id={{product.size}}/>
-                  <label  class="btn-secondary btn-circle btn-xl" for={{product.size}} >{{product.size}}</label>   
-                </li>
-              </ul>
+      <div>
+        <h2>{{product.name}}</h2>                  
+          <form action="/action_page.php" >
 
-            <p class="price" *ngIf="productItem.price != null">Price: {{productItem.price}} </p>
-            <p  class="price" *ngIf="stock >=  1 ">Available Stock: {{stock}}</p>
-            <p class="errorMessage" *ngIf="stock == 0"> NO AVAILABLE STOCK </p>
-          </div>
+            <div class="col-sm-12 item-choices" >
+              <h5>Variation</h5>  
+                <ul>
+                  <li *ngFor='let product of product.productVariation; let i= index'>
+                    <input hidden type='radio' (click)="getVariation(product.variationName)" name='variation' id={{product.variationName}}/>
+                    <label class ="btn-secondary btn-circle btn-xl" for={{product.variationName}}>{{product.variationName}}</label>
+                  </li>
+                </ul>
 
-          <div class="col-sm-12">
-            <h5>Quantity</h5>
-            <div class=" btn-group">
-              <button (click)=" decreaseQuantity()"
-                      [disabled] = "isTrue"
-              class="btn btn-black quantity-btn" >-</button>
-                <input type="text" class="form-control text-center"  readonly required [value]="productItem.noItem" name="noItem" id="quantity">
-              <button (click)="incrementQuantity()"
-                [disabled] = "isValid"
-              class="btn btn-black quantity-btn">+</button>
+              <h5>Sizes</h5>
+                <ul>
+                  <li *ngFor='let product of product.sizeVariation'>
+                    <input  hidden type='radio'  name='size' (click)="getSize(product.size)" id={{product.size}}/>
+                    <label  class="btn-secondary btn-circle btn-xl" for={{product.size}} >{{product.size}}</label>   
+                  </li>
+                </ul>
+
+              <p class="price" *ngIf="productItem.price != null">Price: {{productItem.price}} </p>
+              <p  class="price" *ngIf="stock >=  1 ">Available Stock: {{stock}}</p>
+              <p class="errorMessage" *ngIf="stock == 0"> NO AVAILABLE STOCK </p>
             </div>
 
-          </div>
+            <div class="col-sm-12">
+              <h5>Quantity</h5>
+              <div class=" btn-group">
+                <button (click)=" decreaseQuantity()"
+                        [disabled] = "isTrue"
+                class="btn btn-black quantity-btn" >-</button>
+                  <input type="text" class="form-control text-center"  readonly required [value]="productItem.noItem" name="noItem" id="quantity">
+                <button (click)="incrementQuantity()"
+                  [disabled] = "isValid"
+                class="btn btn-black quantity-btn">+</button>
+              </div>
 
-          <div class="col-sm-12">
-            <p class="description">{{product.description}}</p>
-          </div>
-          <div class="col-sm-12">
-            <p class="description" routerLink ="/faqs">View Size Chart</p>
-          </div>
-          <div>
-            <button type="submit" (click)="addToCart()"  
-            class="btn btn-black btn-cart" [disabled]="isLoading || isOutOfStock"
-              > ADD TO CART</button>
-          </div>
-        </form>
+            </div>
+
+            <div class="col-sm-12">
+              <p class="description">{{product.description}}</p>
+            </div>
+            <div class="col-sm-12">
+              <p class="description" routerLink ="/faqs">View Size Chart</p>
+            </div>
+            <div>
+              <button type="submit" (click)="addToCart()"  
+              class="btn btn-black btn-cart" [disabled]="isLoading || isOutOfStock"
+                > ADD TO CART</button>
+            </div>
+          </form>
+      </div>
     </div>
   </div>
+
+  <app-footer></app-footer>
 </div>
 
-<app-footer></app-footer>
 

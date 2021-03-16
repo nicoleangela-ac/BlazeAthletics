@@ -1,51 +1,54 @@
 <app-navbar-user></app-navbar-user>
-<div class="row container-fluid" *ngIf="isLoading">
-  <p class="loadingMessage"> Products Loading</p>  
-    <app-loading-spinner></app-loading-spinner>
-</div>
+<div class="container">
+  <div class="row container-fluid" *ngIf="isLoading">
+    <p class="loadingMessage"> Products Loading</p>  
+      <app-loading-spinner></app-loading-spinner>
+  </div>
 
-<div class="row container-fluid" *ngIf=" isProductEmpty">
-  <p class="loadingMessage"> No Products</p>  
-</div>
+  <div class="row container-fluid" *ngIf=" isProductEmpty">
+    <p class="loadingMessage"> No Products</p>  
+  </div>
 
-<h2>PRODUCTS</h2><br> 
-<div class="container-fluid text-center wrapper"> 
-    <nav class="navbar navbar-expand-sm navbar-light">
-        <!-- Links -->
-        <ul class="navbar-nav  mx-auto">
-          <li class="nav-item">
-            <a (click)= "getAllProduct()" class="nav-link">ALL</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" (click)= "getNewProduct()">NEW</a>
-          </li>
-          <li class="nav-item">
-            <a (click)="getProductCategory('Anime')" class="nav-link">ANIME</a>
-          </li>
-          <li class="nav-item">
-            <a (click)="getProductCategory('Shirts')" class="nav-link">SHIRTS</a>
-          </li>
-          <li class="nav-item">
-            <a (click)="getProductCategory('Jerseys')" class="nav-link" >JERSEYS</a>
-          </li>
-          <li class="nav-item">
-            <a (click)="getProductCategory('Hoodies')" class="nav-link">HOODIES</a>
-          </li>
-        </ul>
-      </nav> 
-      <div class="row">
-        <div class="col-sm-3" *ngFor='let product of product'>
-          <div class="card">
-            <div class="card-body">
-              <img routerLink="/selected-item/{{product.key}}" class="card-img" [src]="product.productImages[0]" alt="Card image">
-              <p> {{product.name}}</p>
-              <button 
-                routerLink="/selected-item/{{product.key}}"
-                class="btn btn-block btn-light"> ADD TO CART </button>
+  <h2>PRODUCTS</h2><br> 
+  <div class="container-fluid text-center wrapper"> 
+      <nav class="navbar navbar-expand-sm navbar-light">
+          <!-- Links -->
+          <ul class="navbar-nav  mx-auto">
+            <li class="nav-item">
+              <a (click)= "getAllProduct()" class="nav-link">ALL</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" (click)= "getNewProduct()">NEW</a>
+            </li>
+            <li class="nav-item">
+              <a (click)="getProductCategory('Anime')" class="nav-link">ANIME</a>
+            </li>
+            <li class="nav-item">
+              <a (click)="getProductCategory('Shirts')" class="nav-link">SHIRTS</a>
+            </li>
+            <li class="nav-item">
+              <a (click)="getProductCategory('Jerseys')" class="nav-link" >JERSEYS</a>
+            </li>
+            <li class="nav-item">
+              <a (click)="getProductCategory('Hoodies')" class="nav-link">HOODIES</a>
+            </li>
+          </ul>
+        </nav> 
+        <div class="row">
+          <div class="col-sm-3" *ngFor='let product of product'>
+            <div class="card">
+              <div class="card-body">
+                <img routerLink="/selected-item/{{product.key}}" class="card-img" [src]="product.productImages[0]" alt="Card image">
+                <p> {{product.name}}</p>
+                <button 
+                  routerLink="/selected-item/{{product.key}}"
+                  class="btn btn-block btn-light"> ADD TO CART </button>
+            </div>
           </div>
         </div>
-      </div>
-    </div>           
+      </div>           
+  </div>
+
+  <app-footer></app-footer>
 </div>
 
-<app-footer></app-footer>

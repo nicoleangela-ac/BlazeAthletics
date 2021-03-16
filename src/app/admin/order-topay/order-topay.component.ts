@@ -14,9 +14,14 @@ export class OrderTopayComponent implements OnInit {
   public isCollapsed = true;
   UIDdata : any
   orders : any
+  isLoading = false;
+  isOrderEmpty = false;
+
 
   constructor(private productsService: ProductsService,private ordersService : OrdersFirebaseService,private modalService: NgbModal ) { 
    // this.product$ = this.productsService.getToPay();
+   this.isLoading = true;
+   this.isOrderEmpty = false;
   }
   ngOnInit() {
     this.UIDdata = [];
@@ -28,7 +33,11 @@ export class OrderTopayComponent implements OnInit {
     )
   ).subscribe(datas => {
     this.orders = datas; 
+    this.isLoading = false
     console.log(this.orders)
+    if(this.orders.length == 0 ) {
+      this.isOrderEmpty = true
+    }
   });
     
   }

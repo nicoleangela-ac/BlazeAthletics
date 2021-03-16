@@ -29,10 +29,15 @@ updateProductValues: any;
 tempProducts : any[];
 tempkeys : any [];
  singleProduct: any;
+ isLoading = false;
+ isOrderEmpty = false;
+
  constructor(private productService: ProductsService,
             private ordersService : OrdersFirebaseService,
             private modalService: NgbModal,private db: AngularFireDatabase, private firebaseproductservice: FirebaseProductsService) {
- }
+              this.isLoading = true;
+              this.isOrderEmpty = false;
+            }
 
  ngOnInit() {
   this.UIDdata = [];
@@ -61,6 +66,10 @@ tempkeys : any [];
             }  
           
         }      
+    }
+    this.isLoading = false
+    if(this.orders.length == 0 ) {
+      this.isOrderEmpty = true
     }
 
   });

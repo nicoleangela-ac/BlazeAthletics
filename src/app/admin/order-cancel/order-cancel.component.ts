@@ -11,7 +11,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class OrderCancelComponent implements OnInit {
   UIDdata : any
   orders : any
-  constructor(private ordersService : OrdersFirebaseService,private modalService: NgbModal) { }
+  isLoading = false;
+  isOrderEmpty = false;
+  constructor(private ordersService : OrdersFirebaseService,private modalService: NgbModal) {
+    this.isLoading = true;
+    this.isOrderEmpty = false;
+   }
 
   ngOnInit() {
     this.UIDdata = [];
@@ -24,6 +29,10 @@ export class OrderCancelComponent implements OnInit {
     ).subscribe(datas => {
       this.orders = datas; 
       console.log(this.orders)
+      this.isLoading = false
+      if(this.orders.length == 0 ) {
+        this.isOrderEmpty = true
+      }
     });
   }
   }

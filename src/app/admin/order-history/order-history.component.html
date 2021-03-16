@@ -1,5 +1,12 @@
 <app-navbar-admin></app-navbar-admin>
-<div class="container-fluid text-center">   
+<div class="container text-center">
+  <div class="row container-fluid" *ngIf="isLoading">
+    <p class="loadingMessage"> orders Loading</p>  
+      <app-loading-spinner></app-loading-spinner>
+  </div>
+  <div class="row container-fluid" *ngIf=" isOrderEmpty">
+    <p class="loadingMessage"> No Orders</p>  
+  </div>    
     <h2>ORDER DETAILS</h2>
       <div class="row">
         <div class="col-sm-2">
@@ -72,17 +79,5 @@
         <img [src]="id.receiptImage[0]" class="img-responsive" style="width:100%" alt="Image">
       </div>
 
-
-      <div class="col-sm-12 text-center footer">
-        <div class="row">
-          <div class="col-sm-6">
-           
-          </div>
-          <div class="col-sm-6">
-            <button type="button" class="btn btn-danger"(click)="modal.close('Cross click')">Cancel Order</button>
-          </div>          
-        </div>
-
-      </div>
       </div>
     </ng-template>
