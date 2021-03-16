@@ -19,4 +19,15 @@ export class PasswordReset
         email: email
       });
     }
+
+    resetAdminPassword(password: string, idToken: string)
+    {
+      let returnSecureToken = false;
+      return this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDBGdXX-Qx_hzU3Ah8ZXoNcJ51gChdCPoA', 
+      {
+        idToken: idToken,
+        password: password,
+        returnSecureToken: returnSecureToken
+      })
+    }
 }

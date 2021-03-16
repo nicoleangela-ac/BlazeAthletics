@@ -7,7 +7,7 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
   templateUrl: './navbar-user.component.html',
   styleUrls: ['./navbar-user.component.css']
 })
-export class NavbarUserComponent implements OnInit, OnDestroy {
+export class NavbarUserComponent implements OnInit {
 
   constructor(private authService: AuthenticationService) {}
 
@@ -16,14 +16,5 @@ export class NavbarUserComponent implements OnInit, OnDestroy {
   isAuthenticated = false;
 
   ngOnInit(){
-    this.userSubscription = this.authService.user.subscribe(user => {
-        this.isAuthenticated = !!user;
-      }
-    );
   }
-
-  ngOnDestroy()
-  {
-    this.userSubscription.unsubscribe();
-  } 
 }

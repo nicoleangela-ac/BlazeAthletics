@@ -62,6 +62,8 @@ export class AdminAuthService
         }).pipe(
             catchError(this.authService.handleError));
     }
+
+
     /**
  * 
  * @param email 
