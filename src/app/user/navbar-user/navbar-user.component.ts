@@ -16,5 +16,9 @@ export class NavbarUserComponent implements OnInit {
   isAuthenticated = false;
 
   ngOnInit(){
+    this.userSubscription = this.authService.user.subscribe(user => {
+      this.isAuthenticated = !!user;
+    }
+  );
   }
 }

@@ -22,11 +22,6 @@ export class ResetPasswordComponent implements OnInit {
     });
   }
 
-  onCancel()
-  {
-    this.resetForm.reset();
-  }
-
   onSubmit()
   {
 
