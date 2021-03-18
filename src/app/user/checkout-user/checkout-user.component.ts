@@ -29,6 +29,8 @@ export class CheckoutUserComponent implements OnInit {
   isCourierSelected = true;
   isFormValid = true;
   url : string[];
+  courierRate = [];
+
   totalPrice: number;
   status: string;
   courierSite: string;
@@ -46,10 +48,10 @@ export class CheckoutUserComponent implements OnInit {
     private ordersService: OrdersFirebaseService) {}
 
   ngOnInit() {
-
     this.courierSite = null;
     this.totalPrice = null;
     this.status = null;
+    this.courierRate = [];
     this.url = new Array<string>();
     this.isLoading = true;
     this.cartService.getCartData(this.authService.userToken).subscribe(response => {
@@ -172,15 +174,18 @@ export class CheckoutUserComponent implements OnInit {
   }
     //checkbox i
     getCourier(e: any, name) {
+     // this.courierRate.pop(0, this.courierRate.length);
       this.isCourierSelected = false;
       if(e.target.checked){
         if(name == 'LBC') {
           this.getFormControl("courier").setValue('LBC');
-          this.courierSite = "https://www.lbcexpress.com/rates?fbclid=IwAR1dMKd2vf34lJV7dzjxl8o15EL6yujN0V5sEStnmt4qjZIRXndPEPjxf7A"
+          var lbc = ['Metro Manila - P 150', 'Luzon - P 165', 'Visayaz & Mindanao - P 210']
+          this.courierRate= lbc
         }
         else{
           this.getFormControl("courier").setValue('J&T');
-          this.courierSite = "https://www.jtexpress.ph/index/query/query.html?fbclid=IwAR0ooAx4gQa6VheBd1gMKNqXp607npThiBs5D1imUJ_eEF1YxD58QySgMTQ"  
+          var jnt = ['Metro Manila - P 115','Luzon - P 165','Visayaz & Mindanao - P 195'  ]
+          this.courierRate = jnt;
         }
       }
     }

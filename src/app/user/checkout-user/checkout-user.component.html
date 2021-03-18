@@ -62,8 +62,12 @@
         />
         <label class="form-check-label" for="flexRadioDefault1"> LBC </label>
         </div>
-        <div class="col-sm-6" *ngIf="!isCourierSelected">
-          <a href={{courierSite}} target="_blank" rel="noopener noreferrer">View Shipping Rates:</a>
+          <div class="col-sm-6" *ngIf="!isCourierSelected" >
+            <p><b>Shipping Rate: </b> </p>
+            <div *ngFor= "let courierRate of courierRate">
+              <p>{{courierRate}}</p>
+            </div>
+            
           </div>
         <div class="col-sm-12">
         <h5>Upload Receipt:</h5> 
