@@ -65,16 +65,16 @@
 				<input type="text" class="form-control" id="email" placeholder="Email Address" formControlName="email">
 			</div>
 		</div> -->
-		<!-- <div class="form-group row">
-			<label for="crtpasswd" class="control-label col-sm-6">Create a Password:</label>
-			<label for="confpasswd" class="control-label col-sm-6">Confirm Password:</label>
+		<div class="form-group row">
+			<label for="crtpasswd" class="control-label col-sm-6">Old Password:</label>
+			<label for="confpasswd" class="control-label col-sm-6">New Password:</label>
 			<div class="col-sm-6">
-				<input type="password" class="form-control" id="crtpasswd" placeholder="Password">
+				<input type="password" class="form-control" id="crtpasswd" placeholder="Old Password" formControlName="oldPassword">
 			</div>
 			   <div class="col-sm-6">
-				<input type="password" class="form-control" id="confpasswd" placeholder="Password">
+				<input type="password" class="form-control" id="confpasswd" placeholder="New Password" formControlName="newPassword">
 			</div> 
-		</div> -->
+		</div>
 		<div class="form-group row text-center">
 			<div class="col-sm-6">
                 <button type="submit" class="btn btn-black btn-block" [disabled]="!userDataForm.valid">Save</button>

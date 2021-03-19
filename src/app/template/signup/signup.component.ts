@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserData } from 'src/app/models/user-data-model';
 import { AuthenticationService } from 'src/app/service/authentication.service';
+import { PasswordReset } from 'src/app/service/password-reset.service';
 import { UserDataService } from 'src/app/service/user-data.service';
 import { UserWriteData } from 'src/app/service/user-write-data.service';
 
@@ -17,7 +18,10 @@ export class SignupComponent implements OnInit {
   message: string = null;
   isLoading = false;
 
-  constructor(private userDataService: UserDataService, private userWriteService: UserWriteData, private userAuthService: AuthenticationService) 
+  constructor(private userDataService: UserDataService, 
+    private userWriteService: UserWriteData, 
+    private userAuthService: AuthenticationService,
+    private resetPassword: PasswordReset) 
   {
 
   }
@@ -36,7 +40,9 @@ export class SignupComponent implements OnInit {
         "barangay": new FormControl(this.userData.barangay, [Validators.required]),
         "city": new FormControl(this.userData.city, [Validators.required]),
         "region": new FormControl(this.userData.region, [Validators.required]),
-        "postalCode": new FormControl(this.userData.postalCode, [Validators.required])
+        "postalCode": new FormControl(this.userData.postalCode, [Validators.required]),
+        "oldPassword": new FormControl(null),
+        "newPassword":new FormControl(null)
       });
 
       this.isLoading = false;
@@ -59,5 +65,21 @@ export class SignupComponent implements OnInit {
     this.userWriteService.putUserData(this.userAuthService.userToken).subscribe(response => {
       this.message = "Successfully Saved."
     });
+
+
+    if(this.userDataForm.value.oldPassword != null && this.userDataForm.value.newPassword != null)
+    {
+      this.userAuthService.authenticate(this.userData.email, this.userDataForm.value.oldPassword).subscribe(response => 
+        {
+          this.resetPassword.resetAdminPassword(this.userDataForm.value.newPassword, response.idToken).subscribe(response => {
+              this.message = "Password Changed!";
+          }, error =>{
+            console.log(error.error.error.message);
+          });
+        }, error => 
+        {
+
+       });
+    }
   }
 }

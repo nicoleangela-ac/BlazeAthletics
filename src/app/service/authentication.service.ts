@@ -25,6 +25,7 @@ export class AuthenticationService
     user = new BehaviorSubject<UserModel>(null);
 
     public userToken:string = null;
+    public idToken:string = null;
     private tokenExpirationTimer: any;
 
     constructor(private http: HttpClient, private router: Router, private userDataService: UserDataService){}
@@ -51,6 +52,15 @@ export class AuthenticationService
             tap(resData => {
             this.handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn);    
         }));
+    }
+
+    authenticate(email: string, password: string)
+    {
+       return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDBGdXX-Qx_hzU3Ah8ZXoNcJ51gChdCPoA',{
+            email: email,
+            password: password,
+            returnSecureToken: true
+        });
     }
 
     /**
@@ -94,8 +104,6 @@ export class AuthenticationService
           //converts the string data into JSON
       } = JSON.parse(localStorage.getItem('userData'));
 
-      const adminConfirm = JSON.parse(localStorage.getItem('adminData'));
-
       //if there is no user data, return nothing.
         if(!userData)
         {
@@ -116,6 +124,7 @@ export class AuthenticationService
             const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
             this.autoLogout(expirationDuration);
             this.userToken = userData.id;
+            this.idToken = loadedUser.token;
         }
     }
 
