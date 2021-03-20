@@ -14,14 +14,32 @@
 
 			<div class="col-sm-12">
 				<div class="row">
-					<div class="col-sm-12"> 
-						<button class=" btn btn-white float-right" > 
-							<a href="https://jtexpress.ph/index/query/gzquery.html" class="txtblack" 
-							target="_blank" rel="noopener noreferrer"> 
-								TRACK YOUR ORDER 
-							</a>
-						</button>	
+					<div class="col-sm-12">
+						<button class=" btn btn-white float-right"  type="button"(click)="isCollapseOrder = !isCollapseOrder"
+							[attr.aria-expanded]="isCollapseOrder" aria-controls="collapseExample" > TRACK YOUR ORDER 
+						
+							<div  id="isCollapseOrder" [ngbCollapse]="isCollapseOrder">																											 																		
+									<ul class="list-group">
+										<li class="list-group-item">
+											<a href="https://jtexpress.ph/index/query/gzquery.html" class="txtblack" 
+												target="_blank" rel="noopener noreferrer"> J&T
+											
+											</a>
+										</li>
+										<li class="list-group-item">
+											<a href="https://www.lbcexpress.com/track/" class="txtblack" 
+												target="_blank" rel="noopener noreferrer"> LBC 
+											
+											</a>										
+										</li>
+									  </ul>									
+							</div>						
+						</button>
+
+						
+
 					</div>
+		
 				</div>
 			</div>
 

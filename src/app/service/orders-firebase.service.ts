@@ -9,6 +9,7 @@ import { DataSnapshot } from '@angular/fire/database/interfaces';
 export class OrdersFirebaseService {
   private dbPathOrders = '/ordersData';
   private dbPathCart = '/cartData'
+  cartItem: AngularFireObject<any[]> = null;
   ordersRef: AngularFireList<any[]> = null;
   cartRef: AngularFireList<any[]> = null;
   constructor(private db: AngularFireDatabase) {
@@ -22,6 +23,11 @@ export class OrdersFirebaseService {
   }
   getOrdersData(): AngularFireList<any[]> {
     return this.ordersRef;
+  }
+
+  getCart(id: string) : AngularFireObject<any> {
+   return this.db.object(this.dbPathCart + '/'+ id);
+  
   }
 
   deletecart(key: string): Promise<any> {

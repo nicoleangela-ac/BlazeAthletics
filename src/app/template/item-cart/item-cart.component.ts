@@ -1,3 +1,4 @@
+import { OrdersFirebaseService } from './../../service/orders-firebase.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductDataModel } from 'src/app/models/product-data-model';
@@ -19,12 +20,14 @@ export class ItemCartComponent implements OnInit {
   constructor(private productService: ProducDataService, 
     private router: Router,
     private cartService: CartWriteData,
-    private authService: AuthenticationService) {}
+    private authService: AuthenticationService,
+    private cartItems : OrdersFirebaseService) {}
 
   ngOnInit()
   {
     this.isLoading = false;
-    this.cartService.getCartData(this.authService.userToken).subscribe(response => {
+  
+  this.cartService.getCartData(this.authService.userToken).subscribe(response => {
 
         if(response != null)
         {

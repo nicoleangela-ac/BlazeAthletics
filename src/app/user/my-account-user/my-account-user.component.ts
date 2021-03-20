@@ -22,6 +22,7 @@ export class MyAccountUserComponent implements OnInit{
   otherOrders = []; 
 
   public isCollapsed = false;
+  public isCollapseOrder = true;
 
   constructor(private authService: AuthenticationService, 
               private router: Router,
