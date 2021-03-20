@@ -1,9 +1,6 @@
-import { stringify } from "@angular/compiler/src/util";
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 import { ProductDataModel } from "../models/product-data-model";
-import { AuthenticationService } from "./authentication.service";
-import { CartWriteData } from "./cart-write-data.service";
 
 @Injectable({
     providedIn:'root'

@@ -210,8 +210,10 @@ export class CheckoutUserComponent implements OnInit {
 
   remove()
   {
-   this.ordersService.deletecart(this.authService.userToken)
+   this.ordersService.deletecart(this.authService.userToken);
+   this.productService.setProductData([]);
   }
+
   save() {  
     this.ordersService.createOrder(this.checkoutForm.value) ; 
     this.router.navigate(['/my-account']);
