@@ -33,6 +33,7 @@ form {
 .img-fluid {
    max-width: 85%;
    height: auto;
+   margin-left: 5em;
 }
 
 input, a {
