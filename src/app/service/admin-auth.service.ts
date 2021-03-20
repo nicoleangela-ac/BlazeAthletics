@@ -31,7 +31,7 @@ export class AdminAuthService
 
     signUp(email: string, password: string)
     {
-      return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDBGdXX-Qx_hzU3Ah8ZXoNcJ51gChdCPoA', {
+      return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBTRcYBzEsw1Hl1bDrtc5mB-cC17PazJlw', {
             email: email,
             password: password,
             returnSecureToken: true
@@ -44,7 +44,7 @@ export class AdminAuthService
 
     adminSignUp(email: string, password: string)
     {
-      return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDBGdXX-Qx_hzU3Ah8ZXoNcJ51gChdCPoA',{
+      return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBTRcYBzEsw1Hl1bDrtc5mB-cC17PazJlw',{
         email: email,
         password: password,
         returnSecureToken: true
@@ -55,7 +55,7 @@ export class AdminAuthService
 
     authenticate(email: string, password: string)
     {
-       return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDBGdXX-Qx_hzU3Ah8ZXoNcJ51gChdCPoA',{
+       return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBTRcYBzEsw1Hl1bDrtc5mB-cC17PazJlw',{
             email: email,
             password: password,
             returnSecureToken: true
@@ -77,7 +77,7 @@ export class AdminAuthService
 
     login(email: string, password: string)
     {
-       return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDBGdXX-Qx_hzU3Ah8ZXoNcJ51gChdCPoA',{
+       return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBTRcYBzEsw1Hl1bDrtc5mB-cC17PazJlw',{
             email: email,
             password: password,
             returnSecureToken: true
@@ -163,7 +163,7 @@ export class AdminAuthService
 
     adminSignOut(idToken: string)
     {
-      return this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:delete?key=AIzaSyDBGdXX-Qx_hzU3Ah8ZXoNcJ51gChdCPoA',
+      return this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:delete?key=AIzaSyBTRcYBzEsw1Hl1bDrtc5mB-cC17PazJlw',
         {
         idToken: idToken 
         }

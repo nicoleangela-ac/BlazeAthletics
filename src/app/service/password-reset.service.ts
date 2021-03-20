@@ -13,7 +13,7 @@ export class PasswordReset
     {
       let OOB = 'PASSWORD_RESET';
     
-      return this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyDBGdXX-Qx_hzU3Ah8ZXoNcJ51gChdCPoA',
+      return this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyBTRcYBzEsw1Hl1bDrtc5mB-cC17PazJlw',
       {
         requestType: OOB,
         email: email
@@ -23,7 +23,7 @@ export class PasswordReset
     resetAdminPassword(password: string, idToken: string)
     {
       let returnSecureToken = false;
-      return this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDBGdXX-Qx_hzU3Ah8ZXoNcJ51gChdCPoA', 
+      return this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyBTRcYBzEsw1Hl1bDrtc5mB-cC17PazJlw', 
       {
         idToken: idToken,
         password: password,
@@ -34,7 +34,7 @@ export class PasswordReset
     resetUserPassword(password: string, idToken: string)
     {
       let returnSecureToken = false;
-      return this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDBGdXX-Qx_hzU3Ah8ZXoNcJ51gChdCPoA', 
+      return this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyBTRcYBzEsw1Hl1bDrtc5mB-cC17PazJlw', 
       {
         idToken: idToken,
         password: password,

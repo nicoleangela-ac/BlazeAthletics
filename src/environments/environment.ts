@@ -5,14 +5,14 @@
 export const environment = {
   production: false, 
   firebase :{
-    apiKey: "AIzaSyDBGdXX-Qx_hzU3Ah8ZXoNcJ51gChdCPoA",
-    authDomain: "blazestorage-92eaf.firebaseapp.com",
-    databaseURL: "https://blazestorage-92eaf-default-rtdb.firebaseio.com",
-    projectId: "blazestorage-92eaf",
-    storageBucket: "blazestorage-92eaf.appspot.com",
-    messagingSenderId: "448472002506",
-    appId: "1:448472002506:web:1ffacafbbba9cb604ba933",
-    measurementId: "G-D9T0S9BENK"
+    apiKey: "AIzaSyBTRcYBzEsw1Hl1bDrtc5mB-cC17PazJlw",
+    authDomain: "blazeathletics-e3a6e.firebaseapp.com",
+    databaseURL: "https://blazeathletics-e3a6e-default-rtdb.firebaseio.com",
+    projectId: "blazeathletics-e3a6e",
+    storageBucket: "blazeathletics-e3a6e.appspot.com",
+    messagingSenderId: "26474255563",
+    appId: "1:26474255563:web:77f95f1baf463c8758f74e",
+    measurementId: "G-H1V5EJG8Z1"
   }
 };
 

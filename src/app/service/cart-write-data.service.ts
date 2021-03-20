@@ -14,11 +14,11 @@ export class CartWriteData
     putCartData(UID: string)
     {
       const productData = this.productService.getProductsData();  
-      return this.http.put('https://blazestorage-92eaf-default-rtdb.firebaseio.com/cartData/' + UID +'.json', productData);  
+      return this.http.put('https://blazeathletics-e3a6e-default-rtdb.firebaseio.com/cartData/' + UID +'.json', productData);  
     }
 
     getCartData(UID: string)
     {
-     return this.http.get<ProductDataModel[]>('https://blazestorage-92eaf-default-rtdb.firebaseio.com/cartData/' + UID +'.json');
+     return this.http.get<ProductDataModel[]>('https://blazeathletics-e3a6e-default-rtdb.firebaseio.com/cartData/' + UID +'.json');
     }
 }
