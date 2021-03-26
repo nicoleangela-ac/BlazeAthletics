@@ -33,6 +33,8 @@ export class ProductsUserComponent implements OnInit {
               name: c.payload.val().name, 
               productImages: c.payload.val().productImages,
               productCategory: c.payload.val().productCategory,
+              lowPrice : c.payload.val().lowPrice,
+              highPrice : c.payload.val().highPrice
             }
           );  
         }

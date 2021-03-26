@@ -54,8 +54,9 @@ tempkeys : any [];
     )
   ).subscribe(datas => {
     
-    this.orders = datas; 
+    this.orders = datas;   
     if(datas.length != 0) {
+      this.tempProducts.slice()
       var tempId = this.orders[0].orderProduct[0].productId
       this.getItem(tempId)
       for (var i in this.orders ) {
@@ -66,7 +67,7 @@ tempkeys : any [];
             }  
           
         }      
-    }
+    } 
     this.isLoading = false
     if(this.orders.length == 0 ) {
       this.isOrderEmpty = true
@@ -103,7 +104,7 @@ update(key:string, value, error?){
       //  console.log(this.getItem(this.orders[i].orderProduct[j].productId)) 
           for(var k in this.tempProducts) {
             console.log(this.tempProducts )
-
+            
             if(this.tempProducts[k].name == this.orders[i].orderProduct[j].productName) {
               console.log(this.tempProducts[k] )
               tempName = this.orders[i].orderProduct[j].productName

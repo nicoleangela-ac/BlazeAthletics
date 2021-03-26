@@ -40,6 +40,12 @@
               <div class="card-body">
                 <img routerLink="/selected-item/{{product.key}}" class="card-img" [src]="product.productImages[0]" alt="Card image">
                 <p> {{product.name}}</p>
+                <div class="price text-center">
+                  <span>P {{product.lowPrice}} </span>
+                  <span *ngIf="product.lowPrice != product.highPrice ">- P {{product.highPrice}} </span>                  
+                </div>
+
+              
                 <button 
                   routerLink="/selected-item/{{product.key}}"
                   class="btn btn-block btn-light"> ADD TO CART </button>

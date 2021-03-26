@@ -1,6 +1,6 @@
 .card {
     border: 1px solid rgb(255, 255, 255);
-    height:22em ;
+    height:25em ;
     margin: 0;
 
 }
@@ -16,4 +16,13 @@ button{
 }
 .wrapper {
     margin-bottom: 1em;
+}
+.price {
+    position: absolute;
+    top: 75%;
+    left: 5%;
+    width: 90%;
+    text-align: center;
+    margin-bottom: 2em; 
+    display: inline-block;
 }
