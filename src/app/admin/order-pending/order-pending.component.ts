@@ -6,6 +6,7 @@ import { AngularFireDatabase, AngularFireList} from '@angular/fire/database';
 
 import { map,take } from 'rxjs/operators';
 import {FirebaseProductsService} from './../../service/firebase-products.service'
+import { EmailSendingService } from 'src/app/service/email-sending.service';
 
 
 
@@ -34,7 +35,8 @@ tempkeys : any [];
 
  constructor(private productService: ProductsService,
             private ordersService : OrdersFirebaseService,
-            private modalService: NgbModal,private db: AngularFireDatabase, private firebaseproductservice: FirebaseProductsService) {
+            private modalService: NgbModal,private db: AngularFireDatabase, private firebaseproductservice: FirebaseProductsService,
+            private emailService: EmailSendingService) {
               this.isLoading = true;
               this.isOrderEmpty = false;
             }
@@ -172,6 +174,12 @@ checkProductAvailability ( data, name, variation, size, key, noItems) {
                     
                     else {
                       data.productVariation[i].variationDetail[j].stock -= noItems;
+
+                      if(data.productVariation[i].variationDetail[j].stock <= 10)
+                      {
+                        this.emailService.sendNotif(name, variation, size, data.productVariation[i].variationDetail[j].stock).subscribe();
+                      }
+
                       data.soldProducts += noItems;
                       data.totalStock -= noItems; 
                       this.updateProductKey.push( key)
