@@ -177,7 +177,7 @@ checkProductAvailability ( data, name, variation, size, key, noItems) {
 
                       if(data.productVariation[i].variationDetail[j].stock <= 10)
                       {
-                        this.emailService.sendNotif(name, variation, data.productVariation[i].variationDetail[j].stock).subscribe();
+                        this.emailService.sendNotif(name, variation, size, data.productVariation[i].variationDetail[j].stock).subscribe();
                       }
 
                       data.soldProducts += noItems;
