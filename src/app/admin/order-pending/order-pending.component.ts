@@ -84,7 +84,7 @@ openVerticallyCentered(content, UID:string) {
     if (UID == this.orders[i].key){
       this.UIDdata.push(this.orders[i] )
     // console.log(this.orders)
-    //  console.log(this.orders[i].orderProduct[i].productName)
+    // console.log(this.orders[i].orderProduct[i].productName)
     }
   } 
   
