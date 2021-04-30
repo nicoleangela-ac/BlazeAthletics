@@ -23,6 +23,7 @@
                     <th>Courier</th>
                     <th>Status</th>
                     <th>Tracking No.</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -32,6 +33,7 @@
                     <td>{{ p.courier }}</td>
                     <td>{{ p.orderStatus }}</td>
                     <td>{{ p.trackingNum}}</td>
+                    <td><button class="btn btn-black" (click)= "orderReceive(p.key)">Order Delivered</button> </td>
                   </tr>
                 </tbody>
               </table>

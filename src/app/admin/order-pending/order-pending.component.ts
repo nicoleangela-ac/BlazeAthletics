@@ -35,7 +35,8 @@ tempkeys : any [];
 
  constructor(private productService: ProductsService,
             private ordersService : OrdersFirebaseService,
-            private modalService: NgbModal,private db: AngularFireDatabase, private firebaseproductservice: FirebaseProductsService,
+            private modalService: NgbModal,private db: AngularFireDatabase,
+            private firebaseproductservice: FirebaseProductsService,
             private emailService: EmailSendingService) {
               this.isLoading = true;
               this.isOrderEmpty = false;
@@ -93,7 +94,7 @@ openVerticallyCentered(content, UID:string) {
 }
  
 update(key:string, value, error?){
-  if (value == "For Delivery" ) {
+  if (value == "Cancelled" ) {
    this.errorProduct.splice(0, this.errorProduct.length);
    this.updateProductKey.splice(0, this.updateProductKey.length);
    this.updateProductValues.splice(0, this.updateProductValues.length);  
@@ -129,7 +130,7 @@ update(key:string, value, error?){
       }
     }
 
-    if(this.errorProduct.length <=  0) {
+   // if(this.errorProduct.length <=  0) {
       for (var i in this.updateProductKey ) {
         console.log(this.updateProductKey[i])
         console.log(this.updateProductValues[i])
@@ -137,12 +138,12 @@ update(key:string, value, error?){
       }
          this.ordersService.getOrderKey(key).update(key,{orderStatus: value})
          this.modalService.dismissAll();      
-    }
-    else{
+   // }
+   /* else{
       console.log(this.errorProduct)
       this.modalService.dismissAll();
-      this.errorMessage(error);     
-    }    
+     // this.errorMessage(error);     
+    } */   
   }
   else {
     this.ordersService.getOrderKey(key).update(key,{orderStatus: value})
@@ -167,24 +168,24 @@ checkProductAvailability ( data, name, variation, size, key, noItems) {
             for(var j in data.productVariation[i].variationDetail) {
               if(data.productVariation[i].variationDetail[j].size == size ) {
                 sizeProduct = data.productVariation[i].variationDetail[j].size
-                    if (data.productVariation[i].variationDetail[j].stock < noItems ) {
+                  /*  if (data.productVariation[i].variationDetail[j].stock < noItems ) {
                       var pStock = name +" , Insufficient Stock"
                       this.errorProduct.push(pStock)
-                    }
+                    } */
                     
-                    else {
-                      data.productVariation[i].variationDetail[j].stock -= noItems;
+                    //else {
+                      data.productVariation[i].variationDetail[j].stock += noItems;
 
                       if(data.productVariation[i].variationDetail[j].stock <= 10)
                       {
                         this.emailService.sendNotif(name, variation, size, data.productVariation[i].variationDetail[j].stock).subscribe();
                       }
 
-                      data.soldProducts += noItems;
-                      data.totalStock -= noItems; 
+                      data.soldProducts -= noItems;
+                      data.totalStock += noItems; 
                       this.updateProductKey.push( key)
                       this.updateProductValues.push(data)
-                    } 
+                    //} 
                   } 
                 } 
               }

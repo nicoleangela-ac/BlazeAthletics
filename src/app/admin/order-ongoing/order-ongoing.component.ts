@@ -36,6 +36,10 @@ export class OrderOngoingComponent implements OnInit {
       }
     });
   }
+
+  orderReceive(orderID) {
+    this.ordersService.getOrderKey(orderID).update(orderID,{ orderStatus: "Completed"});
+     }
   }
 
 

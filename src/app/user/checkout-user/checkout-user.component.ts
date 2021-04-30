@@ -1,3 +1,5 @@
+import { FirebaseProductsService } from './../../service/firebase-products.service';
+import { EmailSendingService } from './../../service/email-sending.service';
 import { Subscription } from 'rxjs';
 import { OrdersFirebaseService } from './../../service/orders-firebase.service';
 import { UserWriteData } from './../../service/user-write-data.service';
@@ -30,7 +32,10 @@ export class CheckoutUserComponent implements OnInit {
   isFormValid = true;
   url : string[];
   courierRate = [];
-
+  errorProduct  : any[];
+  tempProducts : any [];
+  updateProductKey: any;
+  updateProductValues: any;
   totalPrice: number;
   status: string;
   courierSite: string;
@@ -45,9 +50,15 @@ export class CheckoutUserComponent implements OnInit {
     private userDataService: UserDataService,
     private userWriteService: UserWriteData,
     private userAuthService: AuthenticationService,
-    private ordersService: OrdersFirebaseService) {}
+    private ordersService: OrdersFirebaseService,
+    private firebaseproductservice: FirebaseProductsService,
+    private emailService: EmailSendingService) {}
 
   ngOnInit() {
+    this.tempProducts = [];
+    this.errorProduct = [];
+    this.updateProductKey = [];
+    this.updateProductValues = [];
     this.courierSite = null;
     this.totalPrice = null;
     this.status = null;
@@ -60,13 +71,19 @@ export class CheckoutUserComponent implements OnInit {
           this.cartIsEmpty = false;
           this.items_cart = response;
           this.productService.setProductData(response);
-
+          this.tempProducts.slice()
+          var tempId = this.items_cart[0].productId
+          this.getItem(tempId)
           for(var i in this.items_cart) {
             var price = this.items_cart[i].price * this.items_cart[i].noItem
             this.totalPrice +=  price;
+            if(tempId != this.items_cart[i].productId) {
+              this.getItem(this.items_cart[i].productId)
+            }     
           }
         }
         this.isLoading = false;
+        console.log(this.tempProducts)
       }
     );
     this.userWriteService.getUsers(this.userAuthService.userToken).subscribe(responseData => {
@@ -239,9 +256,109 @@ export class CheckoutUserComponent implements OnInit {
     this.addReceipt();
     this.addProduct();
     this.setAddress();
-    this.save();
-    this.remove();
-    console.log(this.checkoutForm.value )
+
+   if(this.getFormControl("orderStatus").value == 'Pending' ) {
+    this.updatingStock();   
+   }
+   this.save();
+   this.remove();   
+
   }
+
+  checkProductAvailability ( data, name, variation, size, key, noItems) {
+
+    var variationProduct : any;
+    var sizeProduct : any;
+  
+  
+      if (data != null) {
+          for(var i in data.productVariation) {
+           /* console.log(data)
+            console.log(data.productVariation[i].variationName )
+            console.log(variation) */
+            if(data.productVariation[i].variationName == variation) {
+             // console.log(data.productVariation[i].variationName )
+                variationProduct = data.productVariation[i].variationName;
+              for(var j in data.productVariation[i].variationDetail) {
+                if(data.productVariation[i].variationDetail[j].size == size ) {
+                  sizeProduct = data.productVariation[i].variationDetail[j].size
+                      if (data.productVariation[i].variationDetail[j].stock < noItems ) {
+                        var pStock = name +" , Insufficient Stock"
+                        this.errorProduct.push(pStock)
+                      }
+                      
+                      else {
+                        data.productVariation[i].variationDetail[j].stock -= noItems;
+  
+                        if(data.productVariation[i].variationDetail[j].stock <= 10)
+                        {
+                          this.emailService.sendNotif(name, variation, size, data.productVariation[i].variationDetail[j].stock).subscribe();
+                        }
+  
+                        data.soldProducts += noItems;
+                        data.totalStock -= noItems; 
+                        this.updateProductKey.push( key)
+                        this.updateProductValues.push(data)
+                      } 
+                    } 
+                  } 
+                }
+                
+              }
+              if (variationProduct == null  ) {
+                var pVariation = name +" , " + variation + " Not Available"
+                this.errorProduct.push(pVariation)        
+              }
+              else if (sizeProduct == null) {
+                var pSize = name +" , " + size + " Not Available"
+                this.errorProduct.push(pSize)
+              }                  
+      }
+      else {
+            var pName = "Product " + name + " Not Available" 
+            this.errorProduct.push(pName);       
+      }
+  
+    }
+
+    getItem(key) {
+      this.firebaseproductservice.getSingleProduct(key).valueChanges().subscribe(data => {
+        this.tempProducts.push(data)
+         } ); 
+    }
+
+
+
+    updatingStock() {
+      var tempName ;
+      for (var j in this.items_cart) {
+        //  console.log(this.getItem(this.orders[i].orderProduct[j].productId)) 
+            for(var k in this.tempProducts) {
+             // console.log(this.tempProducts )
+              
+              if(this.tempProducts[k].name == this.items_cart[j].productName) {
+               // console.log(this.tempProducts[k] )
+                tempName = this.items_cart[j].productName
+               // console.log(this.items_cart[j].productName)
+                this.checkProductAvailability( 
+                            this.tempProducts[k],
+                            this.items_cart[j].productName ,
+                            this.items_cart[j].variationName, 
+                            this.items_cart[j].size,
+                            this.items_cart[j].productId,
+                            this.items_cart[j].noItem )            
+              }
+            
+            }
+            if (tempName == null) {
+              var pName = "Product has been changed" 
+              this.errorProduct.push(pName);
+            } 
+            } 
+      for (var i in this.updateProductKey ) {
+        console.log(this.updateProductValues[i])
+        this.firebaseproductservice.updateProduct(this.updateProductKey[i], this.updateProductValues[i])
+        }
+    } 
 
 }
