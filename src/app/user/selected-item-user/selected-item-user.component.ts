@@ -138,8 +138,8 @@ export class SelectedItemUserComponent implements OnInit {
             }
           }
         }
-        this.isChecking = false;
         this.cartAdder();
+        this.isChecking = false;
       }
     );
   }
