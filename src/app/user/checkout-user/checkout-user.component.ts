@@ -256,10 +256,7 @@ export class CheckoutUserComponent implements OnInit {
     this.addReceipt();
     this.addProduct();
     this.setAddress();
-
-   if(this.getFormControl("orderStatus").value == 'Pending' ) {
-    this.updatingStock();   
-   }
+   this.updatingStock();   
    this.save();
    this.remove();   
 

@@ -22,6 +22,7 @@
                     <th>Order Time</th>
                     <th>Courier</th>
                     <th>Status</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -30,7 +31,7 @@
                     <td>{{ p.orderDate }}</td>
                     <td>{{ p.courier }}</td>
                     <td>Waiting for buyer to upload payment receipt</td>
- 
+                    <td><button class="btn btn-black" (click)= "orderCancel(p.key)">Cancel Order</button> </td>
                   </tr>
                 </tbody>
               </table>
