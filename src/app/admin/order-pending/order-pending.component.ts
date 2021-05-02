@@ -123,7 +123,7 @@ update(key:string, value, error?){
           
           }
           if (tempName == null) {
-            var pName = "Product " + name + " has been changed" 
+            var pName = "Product has been changed" 
             this.errorProduct.push(pName);
           } 
           }  

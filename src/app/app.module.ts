@@ -65,6 +65,7 @@ import { EditProductDynamicComponent } from './template/edit-product-dynamic/edi
 import { LoadingSpinner } from './template/spinners/loading-spinner.component';
 import { FooterComponent } from './template/footer/footer.component';
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
+import { OrderReturnedComponent } from './admin/order-returned/order-returned.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +106,8 @@ import { ResetPasswordComponent } from './user/reset-password/reset-password.com
     EditProductDynamicComponent,
     LoadingSpinner,
     FooterComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    OrderReturnedComponent
   ],
   imports: [
     BrowserModule,
@@ -149,6 +151,7 @@ import { ResetPasswordComponent } from './user/reset-password/reset-password.com
       {path: 'orders-ongoing', component: OrderOngoingComponent, canActivate:[AdminGuard]},
       {path:'orders-cancel', component:OrderCancelComponent, canActivate:[AdminGuard]},
       {path:'orders-history', component: OrderHistoryComponent, canActivate:[AdminGuard]},
+      {path:'orders-returned', component: OrderReturnedComponent, canActivate:[AdminGuard]}
     ]),
       
   ],
