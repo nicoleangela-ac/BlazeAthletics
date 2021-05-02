@@ -130,7 +130,7 @@ export class SelectedItemUserComponent implements OnInit {
                   return this.cartUpdater(i, response[i].noItem);
                 }
                 else{
-                  this.error = "Maximum amount of item has been added to cart!";
+                  this.error = "Amount of item to be added will exceed maximum supply!";
                   this.isChecking = false;
                   return;
                 }
