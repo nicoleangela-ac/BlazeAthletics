@@ -27,9 +27,11 @@ export class SelectedItemUserComponent implements OnInit {
  isValid : boolean;
  isOutOfStock: boolean;
  isLoad= false;
+ isChecking = false;
  noItem : number;
  isLoading = false;
  message: string = null;
+ error: string = null;
 
  productItem = {
     productImages: '',
@@ -111,6 +113,38 @@ export class SelectedItemUserComponent implements OnInit {
 
   addToCart() 
   { 
+  this.error = null;
+  this.isChecking = true;
+   this.cartService.getCartData(this.authService.userToken).subscribe(
+      response => {
+        for(let i = 0; i < response.length; i++)
+        {
+          if(response[i].productId === this.id)
+          {
+            if(response[i].variationName === this.variation)
+            {
+              if(response[i].size === this.itemSize)
+              {
+                if(this.stock >= this.productItem.noItem + response[i].noItem)
+                {
+                  return this.cartUpdater(i, response[i].noItem);
+                }
+                else{
+                  this.error = "Maximum amount of item has been added to cart!";
+                  this.isChecking = false;
+                  return;
+                }
+              }
+            }
+          }
+        }
+        this.isChecking = false;
+        this.cartAdder();
+      }
+    );
+  }
+
+  cartAdder(){
     this.message = null;
     this.isLoading = true;
     this.productItem.productImages = this.product.productImages[0];
@@ -122,7 +156,7 @@ export class SelectedItemUserComponent implements OnInit {
       this.productItem.productName,
       this.productItem.productId,
       this.productItem.variationName,
-      this. productItem.size,
+      this.productItem.size,
       this.productItem.price,
       this.productItem.noItem
     ));
@@ -131,10 +165,37 @@ export class SelectedItemUserComponent implements OnInit {
     this.cartService.putCartData(this.authService.userToken).subscribe(response=>
       {
         this.message = "Added Successfully!"
-        this.isLoading = false;
         this.router.navigate(['/shopping-cart']);
-      });
+      }); 
   }
+
+
+  cartUpdater(indexNumber: number, existingCartProduct: number){
+    this.message = null;
+    this.isLoading = true;
+    this.productItem.productImages = this.product.productImages[0];
+    this.productItem.productName = this.product.name;
+    this.productItem.productId = this.id;
+    this.productItem.noItem += existingCartProduct;
+    
+    this.productService.updateProduct(indexNumber, new ProductDataModel(
+      this.productItem.productImages,
+      this.productItem.productName,
+      this.productItem.productId,
+      this.productItem.variationName,
+      this.productItem.size,
+      this.productItem.price,
+      this.productItem.noItem
+    ));
+    
+    console.log(this.productService.getProductsData());
+    this.cartService.putCartData(this.authService.userToken).subscribe(response=>
+      {
+        this.message = "Added Successfully!"
+        this.router.navigate(['/shopping-cart']);
+      }); 
+  }
+
 } 
   
   
