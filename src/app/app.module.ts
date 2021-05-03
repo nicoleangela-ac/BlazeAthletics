@@ -66,6 +66,7 @@ import { LoadingSpinner } from './template/spinners/loading-spinner.component';
 import { FooterComponent } from './template/footer/footer.component';
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
 import { OrderReturnedComponent } from './admin/order-returned/order-returned.component';
+import { OrderShipComponent } from './admin/order-ship/order-ship.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,8 @@ import { OrderReturnedComponent } from './admin/order-returned/order-returned.co
     LoadingSpinner,
     FooterComponent,
     ResetPasswordComponent,
-    OrderReturnedComponent
+    OrderReturnedComponent,
+    OrderShipComponent
   ],
   imports: [
     BrowserModule,
@@ -151,6 +153,7 @@ import { OrderReturnedComponent } from './admin/order-returned/order-returned.co
       {path: 'orders-ongoing', component: OrderOngoingComponent, canActivate:[AdminGuard]},
       {path:'orders-cancel', component:OrderCancelComponent, canActivate:[AdminGuard]},
       {path:'orders-history', component: OrderHistoryComponent, canActivate:[AdminGuard]},
+      {path:'orders-ship', component: OrderShipComponent, canActivate:[AdminGuard]},
       {path:'orders-returned', component: OrderReturnedComponent, canActivate:[AdminGuard]}
     ]),
       

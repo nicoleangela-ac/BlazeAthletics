@@ -29,7 +29,7 @@
                     <td>{{ p.customerName }}</td>
                     <td>{{ p.orderDate }}</td>  
                     <td>{{ p.courier }}</td>
-                    <td>Paid</td>
+                    <td>{{ p.orderStatus }}</td>
                     <td><button class="btn btn-black" (click)="openVerticallyCentered(content, p.key)" >Update</button></td>
                 </tbody>
               </table>
@@ -82,7 +82,7 @@
       <div class="col-sm-12 text-center footer">
         <div class="row">
           <div class="col-sm-6">
-            <button class="btn btn-success"(click)="update(id.key,'To Ship')">To Ship</button>
+            <button class="btn btn-success"(click)="update(id.key,'For Delivery')">Confirm Order</button>
           </div>
           <div class="col-sm-6">
             <button type="button" class="btn btn-danger"(click)="update(id.key,'Cancelled', error)">Cancel Order</button>
@@ -94,14 +94,14 @@
     </ng-template>
 
     <ng-template #error let-modal>
-      <p class="warning">Action Cannot Continue</p>
-        <p class="warning"> Please Update the Inventory or Cancel the Order</p>
-      <div class="modal-body"*ngFor="let message of errorProduct" >
-        <p>{{message}}</p>        
-      </div>
-      <div>
-      </div>
-         <div class="modal-footer">
-        <button type="button" class="btn btn-danger float-right"(click)="modal.close('Close click')">Close</button>
-      </div>     
-    </ng-template>
+        <p class="warning">Action Cannot Continue</p>
+          <p class="warning"> Please Update the Inventory or Cancel the Order</p>
+        <div class="modal-body"*ngFor="let message of errorProduct" >
+          <p>{{message}}</p>        
+        </div>
+        <div>
+        </div>
+           <div class="modal-footer">
+          <button type="button" class="btn btn-danger float-right"(click)="modal.close('Close click')">Close</button>
+        </div>     
+      </ng-template>
