@@ -117,6 +117,11 @@ export class SelectedItemUserComponent implements OnInit {
   this.isChecking = true;
    this.cartService.getCartData(this.authService.userToken).subscribe(
       response => {
+
+        //if there is no cart data yet, add the product immediately
+        if(!response){return this.cartAdder();}
+
+        //if there is cart data, check the exisitng cart data before adding
         for(let i = 0; i < response.length; i++)
         {
           if(response[i].productId === this.id)
