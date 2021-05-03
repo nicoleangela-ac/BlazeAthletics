@@ -19,7 +19,9 @@ export class MyAccountUserComponent implements OnInit{
   url : string[];
   isSizeLarge = false;
   toReceiveOrders = [];
-  otherOrders = []; 
+  otherOrders: any[]; 
+  tempOrders: any;
+  isOrderEmpty = false;
 
   public isCollapsed = false;
   public isCollapseOrder = true;
@@ -42,19 +44,20 @@ export class MyAccountUserComponent implements OnInit{
           )
         )
       ).subscribe(datas => {
-        this.orders = datas; 
-        console.log(this.orders)
+        this.orders = datas;
+        this.tempOrders=datas; 
+       // console.log(this.orders)
         for (var i in this.orders) {
           if(this.orders[i].orderStatus == 'To Pay' )  {
             this.toPayOrders.push(this.orders[i]);
-            console.log(this.toPayOrders);
+           // console.log(this.toPayOrders);
           }
           if(this.orders[i].orderStatus == 'On Delivery') {
             this.toReceiveOrders.push(this.orders[i]);
           }
           else  {
             this.otherOrders.push(this.orders[i]);
-            console.log(this.otherOrders);
+           // console.log(this.otherOrders);
           }
       } }); 
   }
@@ -93,6 +96,29 @@ export class MyAccountUserComponent implements OnInit{
   {
     this.authService.logout();
   }
+  
+  GetAllOrders(){
+  this.isOrderEmpty = false;
+  this.otherOrders.splice(0, this.otherOrders.length) 
+  for(var i in this.tempOrders ) {
+  this.otherOrders.push(this.tempOrders[i]) 
+  }
+  if(this.otherOrders.length <= 0) {
+    this.isOrderEmpty = true;
+  }
+}
+GetOrderStatus(status){
+  this.isOrderEmpty = false;
+  this.otherOrders.splice(0, this.otherOrders.length) 
+  for(var i in this.tempOrders ) {
+    if (this.tempOrders[i].orderStatus== status) {
+    this.otherOrders.push(this.tempOrders[i]) 
+  }
+  if(this.otherOrders.length <= 0) {
+    this.isOrderEmpty = true;
+  }
+}
+}
 
 
   }
