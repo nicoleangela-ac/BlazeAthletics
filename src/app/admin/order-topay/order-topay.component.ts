@@ -178,5 +178,8 @@ tempkeys : any [];
       this.tempProducts.push(data)
     } ); 
   }
+  errorMessage(content) {
+    this.modalService.open(content, { centered: true });
+  }
 
 }

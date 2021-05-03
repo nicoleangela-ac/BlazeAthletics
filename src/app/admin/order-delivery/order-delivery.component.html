@@ -32,6 +32,7 @@
                     <td>{{ p.courier }}</td>
                     <td>{{ p.orderStatus }}</td>
                     <td><button class="btn btn-black" (click)="openVerticallyCentered(content, p.key)" >Upload Tracking No.</button></td>
+                    <td><button class="btn btn-black" (click)="modalopen(viewmodal, p.key)" >View Order</button></td>
                   </tr>
                   
                 </tbody>
@@ -51,4 +52,61 @@
       </div>
       </div>
     </ng-template>
+
+    <ng-template #viewmodal let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title">Order Details</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.close('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body"*ngFor="let id of UIDdata" >
+        <div class="col-sm-12 details">
+        <p></p>
+        <p><b> {{id.customerName}}</b> </p>
+        <p class="noMargin">{{id.customerEmail}}</p>
+        <p class="noMargin">Payment : P{{id.totalPayment}}</p>
+
+        <p class="order"><b>Order Summary </b> </p>
+        </div>
+       
+       <div class="col-sm-12 details" *ngFor="let order of id.orderProduct">
+        <p class="orderSummary">Product Name: {{order.productName}} </p>
+        <p class="orderSummary">Variation: {{order.productVariation}} </p>
+        <p class="orderSummary">Size: {{order.productSize}}</p>
+        <p class="orderSummary">Number Of Items: {{order.noItems}}</p>
+        <p class="orderSummary">Price : {{order.price}}</p>
+        <p></p>
+      </div>
+
+      <div class="col-sm-12 details  " *ngIf="id.productMessage != null" >
+        <p><b>Note :  </b> {{id.productMessage}} </p>
+
+      </div>
+
+      <div class="col-sm-12 details">
+        <p><b>Address </b> </p>
+        <div *ngFor="let address of id.shippingAddress">
+          <p>{{address.address1}} , {{address.barangay}} , {{address.city}} , {{address.province}} , {{address.postalCode}}</p>
+        </div>
+      </div>
+      <div class="col-sm-12 details">
+        <img [src]="id.receiptImage[0]" class="img-responsive" style="width:100%" alt="Image">
+      </div>
+
+
+      <div class="col-sm-12 text-center footer">
+        <div class="row">
+          <div class="col-sm-6"></div>
+          
+          <div class="col-sm-6">
+            <button type="button" class="btn btn-danger"(click)="modal.close('Cross click')">Close</button>
+          </div>          
+        </div>
+
+      </div>
+      </div>
+    </ng-template>
+
+    
 

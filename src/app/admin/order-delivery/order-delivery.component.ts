@@ -56,4 +56,19 @@ export class OrderDeliveryComponent implements OnInit {
     }}
   }
 
+  errorMessage(content) {
+    this.modalService.open(content, { centered: true });
+  }
+
+  modalopen(viewmodal, UID:string) {
+    this.UIDdata.pop();
+    this.modalService.open(viewmodal, { centered: true });
+    for(var i in this.orders ) {
+      if (UID == this.orders[i].key){
+        this.UIDdata.push(this.orders[i] )
+        console.log(this.UIDdata)
+      
+    }}
+  }
+
 }
