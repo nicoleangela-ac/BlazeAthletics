@@ -22,6 +22,8 @@ export class MyAccountUserComponent implements OnInit{
   otherOrders: any[]; 
   tempOrders: any;
   isOrderEmpty = false;
+  isOrderEmptyPay= false;
+  isOrderEmptyRecieve=false;
 
   public isCollapsed = false;
   public isCollapseOrder = true;
@@ -50,14 +52,14 @@ export class MyAccountUserComponent implements OnInit{
         for (var i in this.orders) {
           if(this.orders[i].orderStatus == 'To Pay' )  {
             this.toPayOrders.push(this.orders[i]);
-           // console.log(this.toPayOrders);
+            console.log(this.toPayOrders);
           }
           if(this.orders[i].orderStatus == 'On Delivery') {
             this.toReceiveOrders.push(this.orders[i]);
           }
           else  {
             this.otherOrders.push(this.orders[i]);
-           // console.log(this.otherOrders);
+            console.log(this.otherOrders);
           }
       } }); 
   }
@@ -97,24 +99,48 @@ export class MyAccountUserComponent implements OnInit{
     this.authService.logout();
   }
   
-  GetAllOrders(){
-  this.isOrderEmpty = false;
-  this.otherOrders.splice(0, this.otherOrders.length) 
-  for(var i in this.tempOrders ) {
-  this.otherOrders.push(this.tempOrders[i]) 
-  }
-  if(this.otherOrders.length <= 0) {
-    this.isOrderEmpty = true;
-  }
-}
 GetOrderStatus(status){
   this.isOrderEmpty = false;
   this.otherOrders.splice(0, this.otherOrders.length) 
   for(var i in this.tempOrders ) {
     if (this.tempOrders[i].orderStatus== status) {
     this.otherOrders.push(this.tempOrders[i]) 
+    console.log(this.otherOrders[i])
+    this.toPayOrders.length=0
+    this.toReceiveOrders.length=0
   }
-  if(this.otherOrders.length <= 0) {
+  if(this.otherOrders.length <= 0 && this.toPayOrders.length <= 0 && this.toReceiveOrders.length <=0) {
+    this.isOrderEmpty = true;
+  }
+}
+}
+GetOrderStatusPay(stat){
+  this.isOrderEmpty = false;
+  this.toPayOrders.splice(0, this.toPayOrders.length) 
+  for(var i in this.tempOrders ) {
+    if (this.tempOrders[i].orderStatus== stat) {
+    this.toPayOrders.push(this.tempOrders[i]) 
+    console.log(this.toPayOrders)
+    this.otherOrders.length=0
+    this.toReceiveOrders.length=0
+  }
+  if(this.toPayOrders.length <= 0 && this.otherOrders.length <=0 && this.toReceiveOrders.length <= 0) {
+    this.isOrderEmpty = true;
+  }
+}
+}
+
+GetOrderStatusRecieve(stat){
+  this.isOrderEmpty = false;
+  this.toReceiveOrders.splice(0, this.toReceiveOrders.length) 
+  for(var i in this.tempOrders ) {
+    if (this.tempOrders[i].orderStatus== stat) {
+    this.toReceiveOrders.push(this.tempOrders[i]) 
+    console.log(this.toPayOrders)
+    this.otherOrders.length=0
+    this.toPayOrders.length=0
+  }
+  if(this.toReceiveOrders.length <= 0 && this.otherOrders.length <=0 && this.toPayOrders.length <= 0) {
     this.isOrderEmpty = true;
   }
 }

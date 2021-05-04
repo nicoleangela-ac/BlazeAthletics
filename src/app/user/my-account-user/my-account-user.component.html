@@ -42,6 +42,31 @@
 		
 				</div>
 			</div>
+			<div class="container-fluid text-center"> 
+			<nav class="navbar navbar-expand-sm navbar-light">
+				<ul class="navbar-nav  mx-auto">
+					<li class="nav-item">
+						<a (click)="GetOrderStatusPay('To Pay')" class="nav-link">ToPay</a>
+					</li>
+					<li class="nav-item">
+						<a (click)="GetOrderStatus('Pending')" class="nav-link">Pending</a>
+					</li>
+					<li class="nav-item">
+						<a (click)="GetOrderStatus('To Ship')" class="nav-link">For Delivery</a>
+					</li>
+					<li class="nav-item">
+						<a (click)="GetOrderStatusRecieve('On Delivery')" class="nav-link">On Delivery</a>
+					</li>
+					<li class="nav-item">
+						<a (click)="GetOrderStatus('Completed')" class="nav-link">Completed</a>
+					</li>
+					<li class="nav-item">
+						<a (click)="GetOrderStatus('Cancelled')" class="nav-link">Cancelled</a>
+					</li>
+
+				  </ul>	
+			</nav>
+			</div>
 
 			<div class="col-sm-12 vl" *ngIf="toPayOrders.length != 0">
 				<h5 class="statusLabel"> TO PAY</h5>
@@ -91,16 +116,8 @@
 
 			<div class="col-sm-12 vl" *ngIf="otherOrders.length != 0">
 				<h5 class="statusLabel">ORDERS</h5>
-				<nav class="navbar navbar-expand-sm navbar-light">
-					<ul class="navbar-nav  mx-auto">
-						<li class="nav-item">
-							<a (click)="GetOrderStatus('Pending')" class="nav-link">Pending</a>
-						</li>
-						<li class="nav-item">
-							<a (click)="GetOrderStatus('To Ship')" class="nav-link">To Ship</a>
-						</li>
-					  </ul>	
-				</nav>
+				
+				
 				<div class="row">
 					<div class="col-sm-3" *ngFor='let others of otherOrders'>
 					<div class="card">
