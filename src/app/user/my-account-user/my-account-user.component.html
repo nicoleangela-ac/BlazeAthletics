@@ -42,6 +42,9 @@
 		
 				</div>
 			</div>
+
+			
+
 			<div class="container-fluid text-center"> 
 			<nav class="navbar navbar-expand-sm navbar-light">
 				<ul class="navbar-nav  mx-auto">
@@ -52,7 +55,7 @@
 						<a (click)="GetOrderStatus('Pending')" class="nav-link">Pending</a>
 					</li>
 					<li class="nav-item">
-						<a (click)="GetOrderStatus('To Ship')" class="nav-link">For Delivery</a>
+						<a (click)="GetOrderStatus('For Delivery')" class="nav-link">For Delivery</a>
 					</li>
 					<li class="nav-item">
 						<a (click)="GetOrderStatusRecieve('On Delivery')" class="nav-link">On Delivery</a>
@@ -67,6 +70,12 @@
 				  </ul>	
 			</nav>
 			</div>
+			<div class="col-sm-12 vl" *ngIf="isOrderEmpty">
+				<h5 class="statusLabel"> ORDERS</h5><br><br>
+				<div class="row"></div>
+				<p class="loadingMessage"> No Orders</p>  
+			  </div>
+			  
 
 			<div class="col-sm-12 vl" *ngIf="toPayOrders.length != 0">
 				<h5 class="statusLabel"> TO PAY</h5>
@@ -128,6 +137,7 @@
 						<p>{{other.noItems + " x "+ other.price + " PHP"}}</p> 
 					</div>
 						<p class="order-status">{{"STATUS: " + others.orderStatus}} </p>
+						<!--<input type= "button" [ngIf]="others.orderStatus =='Completed'"> -->
 					</div>
 					</div> 
 				</div> 

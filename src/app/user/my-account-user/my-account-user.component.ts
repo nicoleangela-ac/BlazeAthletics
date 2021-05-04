@@ -56,6 +56,7 @@ export class MyAccountUserComponent implements OnInit{
           }
           if(this.orders[i].orderStatus == 'On Delivery') {
             this.toReceiveOrders.push(this.orders[i]);
+            console.log(this.toReceiveOrders);
           }
           else  {
             this.otherOrders.push(this.orders[i]);
@@ -101,49 +102,65 @@ export class MyAccountUserComponent implements OnInit{
   
 GetOrderStatus(status){
   this.isOrderEmpty = false;
-  this.otherOrders.splice(0, this.otherOrders.length) 
+  this.otherOrders.splice(0, this.otherOrders.length)
+  this.toPayOrders.splice(0, this.toPayOrders.length) 
+  this.toReceiveOrders.splice(0, this.toReceiveOrders.length)
   for(var i in this.tempOrders ) {
     if (this.tempOrders[i].orderStatus== status) {
     this.otherOrders.push(this.tempOrders[i]) 
-    console.log(this.otherOrders[i])
+    console.log(this.otherOrders)
+    console.log(this.toPayOrders)
+    console.log(this.toReceiveOrders)
+    
     this.toPayOrders.length=0
     this.toReceiveOrders.length=0
   }
-  if(this.otherOrders.length <= 0 && this.toPayOrders.length <= 0 && this.toReceiveOrders.length <=0) {
-    this.isOrderEmpty = true;
-  }
 }
+if(this.otherOrders.length <= 0 && this.toPayOrders.length == 0 && this.toReceiveOrders.length == 0) {
+  this.isOrderEmpty = true;
+}
+
 }
 GetOrderStatusPay(stat){
   this.isOrderEmpty = false;
+  this.otherOrders.splice(0, this.otherOrders.length)
   this.toPayOrders.splice(0, this.toPayOrders.length) 
+  this.toReceiveOrders.splice(0, this.toReceiveOrders.length)
   for(var i in this.tempOrders ) {
     if (this.tempOrders[i].orderStatus== stat) {
     this.toPayOrders.push(this.tempOrders[i]) 
     console.log(this.toPayOrders)
+    console.log(this.otherOrders)
+    console.log(this.toReceiveOrders)
     this.otherOrders.length=0
     this.toReceiveOrders.length=0
   }
-  if(this.toPayOrders.length <= 0 && this.otherOrders.length <=0 && this.toReceiveOrders.length <= 0) {
-    this.isOrderEmpty = true;
-  }
 }
+if(this.toPayOrders.length <= 0 && this.otherOrders.length == 0 && this.toReceiveOrders.length == 0) {
+  this.isOrderEmpty = true;
+}
+
 }
 
 GetOrderStatusRecieve(stat){
   this.isOrderEmpty = false;
-  this.toReceiveOrders.splice(0, this.toReceiveOrders.length) 
+  this.otherOrders.splice(0, this.otherOrders.length)
+  this.toPayOrders.splice(0, this.toPayOrders.length) 
+  this.toReceiveOrders.splice(0, this.toReceiveOrders.length)
   for(var i in this.tempOrders ) {
     if (this.tempOrders[i].orderStatus== stat) {
     this.toReceiveOrders.push(this.tempOrders[i]) 
-    console.log(this.toPayOrders)
+    console.log(this.toReceiveOrders)
+   console.log(this.otherOrders)
+   console.log(this.toPayOrders)
     this.otherOrders.length=0
     this.toPayOrders.length=0
   }
-  if(this.toReceiveOrders.length <= 0 && this.otherOrders.length <=0 && this.toPayOrders.length <= 0) {
-    this.isOrderEmpty = true;
-  }
 }
+if(this.toReceiveOrders.length <= 0 && this.otherOrders.length == 0 && this.toPayOrders.length == 0) {
+  this.isOrderEmpty = true;
+}
+
 }
 
 
