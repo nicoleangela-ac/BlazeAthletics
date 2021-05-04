@@ -5,6 +5,7 @@ import { OrdersFirebaseService } from './../../service/orders-firebase.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/service/authentication.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-my-account-user',
@@ -30,7 +31,8 @@ export class MyAccountUserComponent implements OnInit{
 
   constructor(private authService: AuthenticationService, 
               private router: Router,
-              private service : OrdersFirebaseService)
+              private service : OrdersFirebaseService,
+              private modalService: NgbModal)
                {  }
 
   ngOnInit() {
@@ -163,9 +165,12 @@ if(this.toReceiveOrders.length <= 0 && this.otherOrders.length == 0 && this.toPa
 
 }
 
+openVerticallyCentered(content, UID:string) {
+  this.modalService.open(content);
+
 
   }
   
 
 
-
+}

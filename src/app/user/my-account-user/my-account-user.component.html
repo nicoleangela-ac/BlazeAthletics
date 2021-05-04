@@ -164,6 +164,19 @@
 </div>
 
 
+<ng-template #content let-modal>
+	<div class="modal-body" >
+	  <label class="col-form-label">Input Feedback:</label><br>
+	  <textarea id="message" rows="4" cols="50"name="Feedback"><br><br></textarea>
+	  
+	  <div class="modal-footer">
+	  <button class="btn btn-success">Confirm</button>
+	  <button type="button" class="btn btn-danger float-right"(click)="modal.close('Close click')">Close</button>
+	</div>
+	</div>
+  </ng-template>
+
+
 
 
 
