@@ -13,7 +13,7 @@
             <app-order-sidenav> </app-order-sidenav>
         </div>
     
-        <div class="col-sm-7 text-left"> 
+        <div class="col-sm-10 text-left"> 
             <h5>COMPLETED ORDERS</h5>
               <table class="table table-hover">
                 <thead>
@@ -74,6 +74,23 @@
         <div *ngFor="let address of id.shippingAddress">
           <p>{{address.address1}} , {{address.barangay}} , {{address.city}} , {{address.province}} , {{address.postalCode}}</p>
         </div>
+      </div>
+
+      <div class="col-sm-12 details" *ngIf="id.feedback != undefined && id.feedback[0] != undefined ">
+        <p><b>Feedback </b> </p>
+        <div class="col-sm-12 details" *ngFor="let order of id.orderProduct; let i = index">
+          <p class="orderSummary">Product Name: {{order.productName}} </p>
+          <p class="orderSummary">Variation: {{order.productVariation}} </p>
+          <p class="orderSummary">Size: {{order.productSize}}</p>
+          <div>
+            <p  class="orderSummary">Condition: {{id.feedback[0][i]}}  </p>
+            <p class="orderSummary">Comments: {{id.feedback[1][i]}}</p>            
+          </div>
+
+          <p></p>
+        </div>
+        <p></p>
+
       </div>
       <div class="col-sm-12 details">
         <img [src]="id.receiptImage[0]" class="img-responsive" style="width:100%" alt="Image">

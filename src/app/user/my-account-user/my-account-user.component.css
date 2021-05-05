@@ -23,9 +23,15 @@
   .redError {
     color: red;
 }
-.receiptImg{
+.receiptImg {
   margin-left: 1em;
 }
 hr {
   margin-top: 1em;
+}
+.radio-inline{
+  margin-right: 1em;
+}
+.orderSummary{
+  margin-bottom: 0.5em;
 }

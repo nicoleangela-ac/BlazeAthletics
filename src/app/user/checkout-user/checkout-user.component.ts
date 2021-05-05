@@ -126,7 +126,8 @@ export class CheckoutUserComponent implements OnInit {
         "orderStatus" : new FormControl(''),
         "courier" : new FormControl(''),
         "trackingNum": new FormControl(''),
-        "totalPayment": new FormControl('')
+        "totalPayment": new FormControl(''),
+        "feedback":new FormControl('')
           })
       }
 
@@ -256,9 +257,9 @@ export class CheckoutUserComponent implements OnInit {
     this.addReceipt();
     this.addProduct();
     this.setAddress();
-   this.updatingStock();   
-   this.save();
-   this.remove();   
+    this.updatingStock();   
+    this.save();
+    this.remove();   
 
   }
 

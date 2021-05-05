@@ -35,50 +35,44 @@
 									  </ul>									
 							</div>						
 						</button>
-
-						
-
-					</div>
-		
+					</div>		
 				</div>
 			</div>
 
-			
-
+			<h5 class="statusLabel"> ORDERS</h5>
 			<div class="container-fluid text-center"> 
-			<nav class="navbar navbar-expand-sm navbar-light">
-				<ul class="navbar-nav  mx-auto">
-					<li class="nav-item">
-						<a (click)="GetOrderStatusPay('To Pay')" class="nav-link">ToPay</a>
-					</li>
-					<li class="nav-item">
-						<a (click)="GetOrderStatus('Pending')" class="nav-link">Pending</a>
-					</li>
-					<li class="nav-item">
-						<a (click)="GetOrderStatus('For Delivery')" class="nav-link">For Delivery</a>
-					</li>
-					<li class="nav-item">
-						<a (click)="GetOrderStatusRecieve('On Delivery')" class="nav-link">On Delivery</a>
-					</li>
-					<li class="nav-item">
-						<a (click)="GetOrderStatus('Completed')" class="nav-link">Completed</a>
-					</li>
-					<li class="nav-item">
-						<a (click)="GetOrderStatus('Cancelled')" class="nav-link">Cancelled</a>
-					</li>
+				<nav class="navbar navbar-expand-sm navbar-light">
+					<ul class="navbar-nav  mx-auto">
+						<li class="nav-item">
+							<a (click)="GetOrderStatusPay('To Pay')" class="nav-link">To Pay</a>
+						</li>
+						<li class="nav-item">
+							<a (click)="GetOrderStatus('Pending')" class="nav-link">Pending</a>
+						</li>
+						<li class="nav-item">
+							<a (click)="GetOrderStatus('For Delivery')" class="nav-link">For Delivery</a>
+						</li>
+						<li class="nav-item">
+							<a (click)="GetOrderStatus('On Delivery')" class="nav-link">On Delivery</a>
+						</li>
+						<li class="nav-item">
+							<a (click)="GetOrderStatusRecieve('Completed')" class="nav-link">Completed</a>
+						</li>
+						<li class="nav-item">
+							<a (click)="GetOrderStatus('Cancelled')" class="nav-link">Cancelled</a>
+						</li>
 
-				  </ul>	
-			</nav>
+					</ul>	
+				</nav>
 			</div>
+
 			<div class="col-sm-12 vl" *ngIf="isOrderEmpty">
-				<h5 class="statusLabel"> ORDERS</h5><br><br>
 				<div class="row"></div>
 				<p class="loadingMessage"> No Orders</p>  
-			  </div>
+			</div>
 			  
 
 			<div class="col-sm-12 vl" *ngIf="toPayOrders.length != 0">
-				<h5 class="statusLabel"> TO PAY</h5>
 				<div class="row">
 					<div class="col-sm-3" *ngFor='let toPays of toPayOrders'>
 					<div class="card">
@@ -88,6 +82,8 @@
 						<p>{{"VARIATION: " + toPay.productVariation}}</p>
 						<p>{{toPay.noItems + " x "+ toPay.price + " PHP"}}</p>
 					</div>
+					<p class="order-status">{{"STATUS: " + toPays.orderStatus}} </p>
+
 					<div class="custom-file upload">
 						<input type="file" class="custom-file-input" id="customInput" required (change)="selectFile($event)">
 						<label class="custom-file-label" for="customInput">Upload Receipt</label>
@@ -104,19 +100,21 @@
 				</div> 
 			</div>
 
-			<div class="col-sm-12" *ngIf="toReceiveOrders.length != 0">
-				<h5 class="statusLabel"> TO RECEIVE</h5>	 
+			<div class="col-sm-12" *ngIf="completedOrders.length != 0">
 					<div class="row">
-						<div class="col-sm-3"  *ngFor='let toReceives of toReceiveOrders'>
+						<div class="col-sm-3"  *ngFor='let completeOrders of completedOrders'>
 						<div class="card">
-							<div class="card-body" *ngFor='let toReceive of toReceives.orderProduct'>
-								<h5> {{toReceive.productName}}</h5>
-								<p>{{"SIZE: " + toReceive.productSize}}</p>
-								<p>{{"VARIATION: " + toReceive.productVariation}}</p>
-								<p>{{toReceive.noItems + " x "+ toReceive.price + " PHP"}}</p>							
+							<div class="card-body" *ngFor='let completeOrder of completeOrders.orderProduct'>
+								<h5> {{completeOrder.productName}}</h5>
+								<p>{{"SIZE: " + completeOrder.productSize}}</p>
+								<p>{{"VARIATION: " + completeOrder.productVariation}}</p>
+								<p>{{completeOrder.noItems + " x "+ completeOrder.price + " PHP"}}</p>							
 						</div>
-							<p>{{"Tracking No: " + toReceives.trackingNum}}</p>
-							<button type="submit" class="btn  btn-black " (click)= "orderReceive(toReceives.key)">RECEIVED</button>
+							<p class="order-status">{{"STATUS: " + completeOrders.orderStatus}} </p>
+							<p class="order-status">{{"Tracking No: " + completeOrders.trackingNum}}</p>
+							<p class="order-status">{{"Courier: " + completeOrders.courier}}</p>
+
+							<button  [hidden]="completeOrders.feedback != undefined && completeOrders.feedback[0] != undefined " type="submit" class="btn  btn-black "  (click)= "openVerticallyCentered(content, completeOrders.key)">GIVE FEEDBACK</button>
 						</div>
 					</div> 
 					</div>   
@@ -124,9 +122,6 @@
 
 
 			<div class="col-sm-12 vl" *ngIf="otherOrders.length != 0">
-				<h5 class="statusLabel">ORDERS</h5>
-				
-				
 				<div class="row">
 					<div class="col-sm-3" *ngFor='let others of otherOrders'>
 					<div class="card">
@@ -166,15 +161,34 @@
 
 <ng-template #content let-modal>
 	<div class="modal-body" >
-	  <label class="col-form-label">Input Feedback:</label><br>
-	  <textarea id="message" rows="4" cols="50"name="Feedback"><br><br></textarea>
+		<label class="col-form-label">Order Feedback:</label>
+
+
+		  <form #myForm="ngForm"> 
+			<br/> 
+			<br/> 
+			<div class="modal-body"*ngFor="let id of UIDdata" >
+				<div class="col-sm-12 details" *ngFor="let order of id.orderProduct; let i = index">
+					<p>Product Name: <b>{{order.productName}} </b>  </p>
+					<p>Variation: <b> {{order.productVariation}} </b> </p>
+					<p class="orderSummary">Size: <b>{{order.productSize}} </b> </p>
+					<p>Product Condition: </p>
+							<label class="radio-inline"><input type="radio" name={{i}} [(ngModel)]="condition[i]" value="Excellent">Excellent</label>
+							<label class="radio-inline"><input type="radio" name={{i}} [(ngModel)]="condition[i]" value="Good">Good</label>
+							<label class="radio-inline"><input type="radio" name={{i}} [(ngModel)]="condition[i]" value="Damaged">Damaged</label>
+							<textarea placeholder="Other Comments" required rows="2" cols="50" name="comment" name="comment" [(ngModel)]="comment[i]"></textarea>	
+				</div>
+			</div>
+
+
+		 </form>
 	  
-	  <div class="modal-footer">
-	  <button class="btn btn-success">Confirm</button>
-	  <button type="button" class="btn btn-danger float-right"(click)="modal.close('Close click')">Close</button>
+		<div class="modal-footer">
+	  		<button class="btn btn-success" [disabled]="myForm.invalid" (click)="submitFeedback()">Confirm</button>
+	  		<button type="button"  class="btn btn-danger float-right"(click)="modal.close('Close click')">Close</button>
+		</div>
 	</div>
-	</div>
-  </ng-template>
+</ng-template>
 
 
 

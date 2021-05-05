@@ -24,7 +24,6 @@
                     <th>Status</th>
                     <th>Tracking No.</th>
                     <th></th>
-                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -35,8 +34,6 @@
                     <td>{{ p.orderStatus }}</td>
                     <td>{{ p.trackingNum}}</td>
                     <td><button class="btn btn-success" (click)= "orderReceive(p.key, 'Completed')">Delivered</button> </td>
-                    <td><button class="btn btn-danger" (click)= "orderReceive(p.key, 'Returned')">Returned</button> </td>
-
                   </tr>
                 </tbody>
               </table>

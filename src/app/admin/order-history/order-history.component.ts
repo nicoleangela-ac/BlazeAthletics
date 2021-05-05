@@ -15,6 +15,8 @@ import {FirebaseProductsService} from './../../service/firebase-products.service
 export class OrderHistoryComponent implements OnInit {
   UIDdata : any
 orders : any
+productComments : any[]
+productCondition: any[] 
 isLoading = false;
 isOrderEmpty = false;
 
@@ -27,6 +29,8 @@ isOrderEmpty = false;
      }
 
   ngOnInit() {
+    this.productComments = [];
+    this.productCondition= [];
     this.UIDdata = [];
   this.ordersService.getStatusOrder('Completed').snapshotChanges().pipe(
     map(changes =>
@@ -48,14 +52,18 @@ isOrderEmpty = false;
 
  openVerticallyCentered(content, UID:string) {
   this.UIDdata.pop();
+  this.productCondition.slice();
+  this.productComments.slice();
   this.modalService.open(content, { centered: true });
   for(var i in this.orders ) {
     if (UID == this.orders[i].key){
       this.UIDdata.push(this.orders[i])
-      
+      console.log(this.orders[i].feedback)
     }
   }
- 
+
+  
+
   
 }
 
