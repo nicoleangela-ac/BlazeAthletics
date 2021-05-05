@@ -79,12 +79,12 @@
       <div class="col-sm-12 details" *ngIf="id.feedback != undefined && id.feedback[0] != undefined ">
         <p><b>Feedback </b> </p>
         <div class="col-sm-12 details" *ngFor="let order of id.orderProduct; let i = index">
-          <p class="orderSummary">Product Name: {{order.productName}} </p>
+          <p class="orderSummary">Product Name: {{order.productName }} </p>
           <p class="orderSummary">Variation: {{order.productVariation}} </p>
           <p class="orderSummary">Size: {{order.productSize}}</p>
           <div>
-            <p  class="orderSummary">Condition: {{id.feedback[0][i]}}  </p>
-            <p class="orderSummary">Comments: {{id.feedback[1][i]}}</p>            
+            <p  class="orderSummary">On Received Condition: {{id.feedback[1][i]}}  </p>
+            <p class="orderSummary">Comments: {{id.feedback[0][i]}}</p>            
           </div>
 
           <p></p>
