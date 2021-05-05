@@ -9,7 +9,6 @@
 
   .order-status {
     padding-left: 1em;
-    padding-bottom: 1em;
   }
   .upload {
     margin: .6em;
@@ -34,4 +33,17 @@ hr {
 }
 .orderSummary{
   margin-bottom: 0.5em;
+}
+.loadingMessage{
+  margin-bottom: 2em;
+}
+
+a:hover {
+  color: black;
+  font-weight: 600;
+}
+
+a:active {
+  color: black;
+  font-weight: 600;
 }
