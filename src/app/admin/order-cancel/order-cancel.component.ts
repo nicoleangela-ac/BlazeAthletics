@@ -35,5 +35,16 @@ export class OrderCancelComponent implements OnInit {
       }
     });
   }
+
+  openVerticallyCentered(content, UID:string) {
+    this.UIDdata.pop();
+    this.modalService.open(content, { centered: true });
+    for(var i in this.orders ) {
+      if (UID == this.orders[i].key){
+        this.UIDdata.push(this.orders[i] )
+        console.log(this.UIDdata)
+      
+    }}
+  }
   }
 

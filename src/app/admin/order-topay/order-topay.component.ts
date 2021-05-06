@@ -79,6 +79,7 @@ tempkeys : any [];
         console.log(this.UIDdata)
       
     }}
+    console.log(this.UIDdata.receiptImage == undefined)
   }
 
   orderCancel(key:string) {

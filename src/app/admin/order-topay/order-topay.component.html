@@ -78,7 +78,7 @@
               </div>
             </div>
             <div class="col-sm-12 details">
-              <img [src]="id.receiptImage[0]" class="img-responsive" style="width:100%" alt="Image">
+              <img  *ngIf="id.receiptImage[0] != undefined"  [src]="id.receiptImage[0]" class="img-responsive" style="width:100%" alt="Image">
             </div>
       
       
