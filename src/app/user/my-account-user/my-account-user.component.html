@@ -85,18 +85,7 @@
 					</div>
 					<p class="order-status">{{"Courier: " + toPays.courier}}</p>
 					<p class="order-status">{{"STATUS: " + toPays.orderStatus}} </p>
-
-					<div class="custom-file upload">
-						<input type="file" class="custom-file-input" id="customInput" required (change)="selectFile($event)">
-						<label class="custom-file-label" for="customInput">Upload Receipt</label>
-					</div>
-					<div class="receiptImg">
-						<img [src]="url" *ngFor="let url of url" [src]="url"  class="img-responsive image-display" style="width:50%" alt="Image"> 
-					</div>
-					<div *ngIf="isSizeLarge">
-						<p class="errorMessage redError"> File Too Large: should be less than 1MB</p>  
-					</div>
-					<button type="submit" [hidden]="url.length == 0 " (click) = " orderPending(toPays.key, url)"class="btn  btn-black  upload">UPLOAD RECEIPT</button>
+					<button type="submit" class="btn  btn-black "  (click)= "uploadReceipt(imgUpload, toPays.key)">UPLOAD RECEIPT</button>
 				</div>
 				</div> 
 				</div> 
@@ -193,7 +182,26 @@
 	</div>
 </ng-template>
 
+<ng-template #imgUpload let-modal>
+	<div class="modal-body">
+		<div class="modal-body">
+			<input type="file" class="custom-file-input" id="customInput" required (change)="selectFile($event)">
+			<label class="custom-file-label" for="customInput">Upload Receipt</label>
+		<img [src]="url" *ngFor="let url of url" [src]="url"  class="img-responsive image-display" style="width:100%" alt="Image"> 
+		
+		<div *ngIf="isSizeLarge">
+			<p class="errorMessage redError"> File Too Large: should be less than 1MB</p>  
+		</div>			
+		</div>
 
+	<div class="modal-footer">
+		<button type="submit" [hidden]="url.length == 0 " (click) = " orderPending(url)"class="btn  btn-black  upload">UPLOAD RECEIPT</button>
+		<button type="button"  class="btn btn-danger float-right"(click)="modal.close('Close click')">Close</button>
+	</div>
+	</div>
+
+
+</ng-template>
 
 
 

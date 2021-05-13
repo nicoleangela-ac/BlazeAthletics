@@ -20,6 +20,7 @@ export class MyAccountUserComponent implements OnInit{
   title = 'appBootstrap';
   orders: any;
   userID : any;
+  receiptOrderId:  any;
   toPayOrders = []
   url : string[];
   isSizeLarge = false;
@@ -44,6 +45,7 @@ export class MyAccountUserComponent implements OnInit{
                {  }
 
   ngOnInit() {
+    this.receiptOrderId = '';
     this.UIDdata = [];
     this.comment = [];
     this.condition= [];
@@ -122,9 +124,10 @@ export class MyAccountUserComponent implements OnInit{
         }        
        }
       }
-  orderPending(UID, image) {
-    this.service.getOrderKey(UID).update(UID,{ orderStatus: "Pending", receiptImage : image });
-    window.location.reload();        
+  orderPending(image) {
+    this.service.getOrderKey(this.receiptOrderId).update(this.receiptOrderId,{ orderStatus: "Pending", receiptImage : image });
+    this.modalService.dismissAll();      
+    window.location.reload(); 
   }
 
   orderReceive(UID) {
@@ -236,6 +239,11 @@ this.feedbacks.splice(0, this.feedbacks.length)
    this.modalService.dismissAll();      
  }
   
-
+ uploadReceipt(content, UID:string) {
+  this.url = []
+   this.receiptOrderId = UID
+   this.modalService.open(content);
+ 
+ }
 
 }
