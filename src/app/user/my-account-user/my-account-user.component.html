@@ -83,6 +83,7 @@
 						<p>{{"VARIATION: " + toPay.productVariation}}</p>
 						<p>{{toPay.noItems + " x "+ toPay.price + " PHP"}}</p>
 					</div>
+					<p class="order-status">{{"Courier: " + toPays.courier}}</p>
 					<p class="order-status">{{"STATUS: " + toPays.orderStatus}} </p>
 
 					<div class="custom-file upload">
@@ -111,10 +112,9 @@
 								<p>{{"VARIATION: " + completeOrder.productVariation}}</p>
 								<p>{{completeOrder.noItems + " x "+ completeOrder.price + " PHP"}}</p>							
 						</div>
-							<p class="order-status">{{"STATUS: " + completeOrders.orderStatus}} </p>
-							<p class="order-status">{{"Tracking No: " + completeOrders.trackingNum}}</p>
 							<p class="order-status">{{"Courier: " + completeOrders.courier}}</p>
-
+							<p class="order-status">{{"Tracking No: " + completeOrders.trackingNum}}</p>
+							<p class="order-status">{{"STATUS: " + completeOrders.orderStatus}} </p>
 							<button  [hidden]="completeOrders.feedback != undefined && completeOrders.feedback[0] != undefined " type="submit" class="btn  btn-black "  (click)= "openVerticallyCentered(content, completeOrders.key)">GIVE FEEDBACK</button>
 						</div>
 					</div> 
@@ -132,6 +132,8 @@
 						<p>{{"VARIATION: " + other.productVariation}}</p>
 						<p>{{other.noItems + " x "+ other.price + " PHP"}}</p> 
 					</div>
+						<p class="order-status">{{"Courier: " + others.courier}}</p>
+						<p *ngIf = "others.trackingNum != '' " class="order-status">{{"Tracking No: " + others.trackingNum}}</p>
 						<p class="order-status">{{"STATUS: " + others.orderStatus}} </p>
 						<!--<input type= "button" [ngIf]="others.orderStatus =='Completed'"> -->
 					</div>
@@ -190,8 +192,6 @@
 		</div>
 	</div>
 </ng-template>
-
-
 
 
 
