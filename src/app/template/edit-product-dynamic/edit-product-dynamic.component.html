@@ -19,7 +19,7 @@
                         <td colspan="2"> Size : 
                             <input type="text" readonly formControlName="size"  class="form-control" >
                         </td>
-                        <td> Stock: 
+                      <td> Stock: 
                             <span class="errorMessage"  *ngIf="getinputField('stock')?.hasError('required') "> *</span>                                         
                             <input type="number" min ="0"formControlName="stock" class="form-control">
                         </td>

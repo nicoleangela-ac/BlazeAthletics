@@ -141,7 +141,7 @@
         </div>
         <div class="form-check col-sm-12 ">
           <button  type="submit" class=" btn btn-black"
-                (click)=" onProceed()" [disabled]="isFormValid || isCourierSelected" 
+                (click)=" onProceed(error)" [disabled]="isFormValid || isCourierSelected" 
                 >
                 Proceed With The Order</button>
           <button  type="submit" class=" btn btn-white float-right">Cancel</button>
@@ -152,6 +152,24 @@
   </form>  
   </div>
 
+  <ng-template #error let-modal>
+    <div class="modal-body">
+     <p class="warning">Order Cannot Continue</p>
+      <p class="warning"> Shopping Cart will be Cleared</p>     
+    </div>
+
+    <div class="modal-body"*ngFor="let message of errorProduct" >
+      <p>{{message}}</p>        
+    </div>
+    <div>
+    </div>
+       <div class="modal-footer">
+      <button type="button" class="btn btn-danger float-right" (click)="close()">Close</button>
+    </div>  
+    
+
+
+  </ng-template>
 
   <app-footer></app-footer>
 

@@ -1,3 +1,4 @@
+import { FirebaseProductsService } from './../../service/firebase-products.service';
 import { OrdersFirebaseService } from './../../service/orders-firebase.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -32,11 +33,11 @@ export class ItemCartComponent implements OnInit {
           this.cartIsEmpty = false;
           this.items_cart = response;
           this.productService.setProductData(response);
-          console.log(this.productService.getProductsData());
         }
         this.isLoading = false;
       }
     );
+   
   }
 
   onRemove(index: number)
@@ -66,4 +67,6 @@ export class ItemCartComponent implements OnInit {
     console.log(this.items_cart);
     this.router.navigate(['/check-out']);
   }
+    
+
 }

@@ -1,3 +1,4 @@
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FirebaseProductsService } from './../../service/firebase-products.service';
 import { EmailSendingService } from './../../service/email-sending.service';
 import { Subscription } from 'rxjs';
@@ -44,6 +45,7 @@ export class CheckoutUserComponent implements OnInit {
 
   constructor(private productService: ProducDataService, 
     private router: Router,
+    private modalService: NgbModal,
     private cartService: CartWriteData,
     private authService: AuthenticationService,
     private fb:FormBuilder, 
@@ -78,7 +80,7 @@ export class CheckoutUserComponent implements OnInit {
             var price = this.items_cart[i].price * this.items_cart[i].noItem
             this.totalPrice +=  price;
             if(tempId != this.items_cart[i].productId) {
-              this.getItem(this.items_cart[i].productId)
+             this.getItem(this.items_cart[i].productId) 
             }     
           }
         }
@@ -249,18 +251,37 @@ export class CheckoutUserComponent implements OnInit {
     }
   } 
 
-  onProceed()
+  onProceed(content)
   { 
-    this.getFormControl("customerName").setValue(this.userData.firstName + ' ' + this.userData.lastName)
-    this.getFormControl("customerEmail").setValue(this.userData.email)
-    this.getFormControl("totalPayment").setValue(this.totalPrice);
-    this.addReceipt();
-    this.addProduct();
-    this.setAddress();
-    this.updatingStock();   
-    this.save();
-    this.remove();   
+    if(this.errorProduct != null) {
+      this.updatingStock();   
+      if (this.errorProduct != null) 
+        {
+          console.log(this.errorProduct)
+        this.errorMessage(content)
+        }
+        else{
+        this.getFormControl("customerName").setValue(this.userData.firstName + ' ' + this.userData.lastName)
+        this.getFormControl("customerEmail").setValue(this.userData.email)
+        this.getFormControl("totalPayment").setValue(this.totalPrice);
+        this.addReceipt();
+        this.addProduct();
+        this.setAddress();
+        this.updateInventory();
+        this.save();
+        this.remove();      
+      }
+    }
+  }
 
+  errorMessage(content) {
+    this.modalService.open(content, { centered: true });
+    this.remove(); 
+  }
+  close() {
+    this.modalService.dismissAll();
+    this.remove(); 
+    this.router.navigate(['/products-user']);
   }
 
   checkProductAvailability ( data, name, variation, size, key, noItems) {
@@ -321,7 +342,13 @@ export class CheckoutUserComponent implements OnInit {
 
     getItem(key) {
       this.firebaseproductservice.getSingleProduct(key).valueChanges().subscribe(data => {
-        this.tempProducts.push(data)
+        if( data != null) {
+          this.tempProducts.push(data)
+        }
+        else {
+          this.errorProduct.push('Product Removed')
+        }
+        console.log(data)
          } ); 
     }
 
@@ -329,11 +356,10 @@ export class CheckoutUserComponent implements OnInit {
 
     updatingStock() {
       var tempName ;
-      for (var j in this.items_cart) {
-        //  console.log(this.getItem(this.orders[i].orderProduct[j].productId)) 
+      for (var j in this.items_cart) {        
             for(var k in this.tempProducts) {
-             // console.log(this.tempProducts )
-              
+             console.log(this.tempProducts )
+                tempName = ''
               if(this.tempProducts[k].name == this.items_cart[j].productName) {
                // console.log(this.tempProducts[k] )
                 tempName = this.items_cart[j].productName
@@ -345,18 +371,21 @@ export class CheckoutUserComponent implements OnInit {
                             this.items_cart[j].size,
                             this.items_cart[j].productId,
                             this.items_cart[j].noItem )            
-              }
-            
             }
-            if (tempName == null) {
+            
+            }            
+            if (tempName == '') {
               var pName = "Product has been changed" 
               this.errorProduct.push(pName);
             } 
-            } 
+      } 
+    } 
+
+    updateInventory() {
       for (var i in this.updateProductKey ) {
         console.log(this.updateProductValues[i])
         this.firebaseproductservice.updateProduct(this.updateProductKey[i], this.updateProductValues[i])
-        }
-    } 
+        } 
+    }
 
 }
